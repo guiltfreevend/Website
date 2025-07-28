@@ -17,7 +17,7 @@
   <!-- AOS анимации -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <!-- Собствени стилове -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -49,7 +49,7 @@
   <section id="partners" data-aos="fade-up">
     <h2>Нашите партньори</h2>
     <div class="slider">
-      <!-- копирайте логотата два пъти за безкрайна лента -->
+      <!-- логата се повтарят два пъти за гладко безкрайно скролване -->
       <img src="partner1.png" alt="Партньор 1">
       <img src="partner2.png" alt="Партньор 2">
       <img src="partner3.png" alt="Партньор 3">
@@ -57,7 +57,6 @@
       <img src="partner5.png" alt="Партньор 5">
       <img src="partner6.png" alt="Партньор 6">
       <img src="partner7.png" alt="Партньор 7">
-      <!-- повторение -->
       <img src="partner1.png" alt="">
       <img src="partner2.png" alt="">
       <img src="partner3.png" alt="">
@@ -84,9 +83,9 @@
   <section id="contact" data-aos="fade-up">
     <h2>Искам машина!</h2>
     <form action="https://formspree.io/f/xzzvgzjj" method="POST">
-      <input type="text" name="Име" placeholder="Вашето име" required>
-      <input type="text" name="Фирма" placeholder="Фирма" required>
-      <input type="email" name="Имейл" placeholder="Имейл" required>
+      <input type="text" name="Име"        placeholder="Вашето име"     required>
+      <input type="text" name="Фирма"      placeholder="Фирма"            required>
+      <input type="email" name="Имейл"     placeholder="Имейл"           required>
       <textarea name="Съобщение" rows="4" placeholder="Вашето съобщение"></textarea>
       <button type="submit">Изпрати</button>
     </form>
@@ -100,11 +99,10 @@
     <a href="mailto:guiltfreevend@gmail.com">Email</a>
   </footer>
 
-  <!-- AOS скрипт -->
+  <!-- AOS скрипт + scroll & burger логика -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
-    // header background & hero blur на scroll
     const hdr = document.getElementById("hdr");
     const hero = document.getElementById("hero");
     window.addEventListener("scroll", () => {
