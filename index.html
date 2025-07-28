@@ -6,23 +6,32 @@
   <title>GuiltFreeVend</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H6X0Z7FYFD');
+  </script>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #fdf6d9;
+      overflow-x: hidden;
     }
 
     header {
       position: fixed;
       width: 100%;
       top: 0;
-      z-index: 10;
+      left: 0;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: transparent;
+      background-color: transparent;
       transition: background-color 0.3s ease;
     }
 
@@ -37,53 +46,58 @@
 
     nav a {
       text-decoration: none;
-      color: #1a1a1a;
+      color: #000;
       font-weight: bold;
     }
 
-    .cta {
-      background-color: #88a23c;
-      padding: 8px 15px;
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .cta-button {
+      background-color: #7ea04d;
       color: white;
-      border-radius: 5px;
-      font-weight: bold;
       border: none;
+      padding: 10px 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
       white-space: nowrap;
     }
 
     .hero {
       height: 100vh;
-      background: url('wallpaper.png') center/cover no-repeat;
+      background-image: url("wallpaper.png");
+      background-size: cover;
+      background-position: center;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
-    .section {
-      text-align: center;
-      padding: 4rem 1rem;
-    }
-
-    .partners-container {
-      background: #fff7dc;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .slider {
+    .partners-slider {
       display: flex;
-      animation: scroll 40s linear infinite;
       gap: 3rem;
+      animation: scroll 30s linear infinite;
+      width: fit-content;
     }
 
-    .slider img {
-      height: 80px;
-      object-fit: contain;
+    .partners-outer {
+      overflow: hidden;
+      width: 100%;
+      padding: 2rem 0;
+      background-color: #fff5e0;
+    }
+
+    .partners-slider img {
+      height: 70px;
       transition: transform 0.3s ease;
     }
 
-    .slider img:hover {
-      transform: scale(1.07);
+    .partners-slider img:hover {
+      transform: scale(1.05);
     }
 
     @keyframes scroll {
@@ -91,155 +105,137 @@
       100% { transform: translateX(-50%); }
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      max-width: 500px;
-      margin: auto;
-      gap: 1rem;
+    .section {
+      padding: 4rem 2rem;
+      text-align: center;
     }
 
-    input, textarea {
-      padding: 10px;
+    form input, form textarea {
+      display: block;
+      margin: 0.5rem auto;
+      padding: 0.6rem;
+      width: 90%;
+      max-width: 400px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
 
     footer {
-      background-color: #fdf6d9;
-      padding: 2rem;
       text-align: center;
-      font-size: 0.9rem;
-    }
-
-    /* Mobile Menu */
-    .mobile-menu-icon {
-      display: none;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #777;
     }
 
     @media (max-width: 768px) {
       nav {
         display: none;
-        flex-direction: column;
         position: absolute;
-        background: #fff7dc;
         top: 60px;
-        right: 10px;
+        right: 20px;
+        background-color: #fdf6d9;
         padding: 1rem;
-        border-radius: 5px;
+        border-radius: 8px;
+        flex-direction: column;
       }
 
-      nav.open {
+      nav.show {
         display: flex;
       }
 
-      .mobile-menu-icon {
+      .menu-toggle {
         display: block;
-        font-size: 24px;
-        cursor: pointer;
       }
 
-      .cta {
+      .cta-button {
         position: fixed;
-        bottom: 15px;
-        right: 15px;
-        z-index: 20;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1001;
+      }
+
+      .hero {
+        background-position: top;
+        background-size: contain;
+        background-repeat: no-repeat;
       }
     }
   </style>
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H6X0Z7FYFD');
-  </script>
 </head>
 <body>
 
-<header>
-  <div>GuiltFreeVend</div>
-  <div class="mobile-menu-icon" onclick="toggleMenu()">☰</div>
-  <nav id="main-nav">
-    <a href="#about">За нас</a>
-    <a href="#partners">Партньори</a>
-    <a href="#locations">Локации</a>
-    <a href="#faq">FAQ</a>
-  </nav>
-  <a href="#contact" class="cta">Искам машина!</a>
-</header>
+  <header>
+    <div><strong>GuiltFreeVend</strong></div>
+    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('show')">&#9776;</div>
+    <nav>
+      <a href="#about">За нас</a>
+      <a href="#partners">Партньори</a>
+      <a href="#locations">Локации</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Искам машина!</button>
+  </header>
 
-<section class="hero" id="top"></section>
+  <section class="hero" id="top"></section>
 
-<section id="about" class="section" data-aos="fade-up">
-  <h2>За нас</h2>
-  <p>Био продукти от български производители, през модерни вендинг машини. Без захар. Без палмово масло. Без разходи за локация.</p>
-</section>
+  <section id="about" class="section" data-aos="fade-up">
+    <h2>За нас</h2>
+    <p>Био продукти от български производители, през модерни вендинг машини. Без захар. Без палмово масло. Без разходи за локация.</p>
+  </section>
 
-<section id="partners" class="section partners-container" data-aos="fade-up">
-  <h2>Нашите партньори</h2>
-  <div class="slider">
-    <img src="partner1.png" />
-    <img src="partner2.png" />
-    <img src="partner3.png" />
-    <img src="partner4.png" />
-    <img src="partner5.png" />
-    <img src="partner6.png" />
-    <img src="partner7.png" />
-    <!-- Дублиране за infinite scroll -->
-    <img src="partner1.png" />
-    <img src="partner2.png" />
-    <img src="partner3.png" />
-    <img src="partner4.png" />
-    <img src="partner5.png" />
-    <img src="partner6.png" />
-    <img src="partner7.png" />
-  </div>
-</section>
+  <section id="partners" class="partners-outer" data-aos="fade-up">
+    <h2>Нашите партньори</h2>
+    <div class="partners-slider">
+      <img src="partner1.png" alt="Partner 1">
+      <img src="partner2.png" alt="Partner 2">
+      <img src="partner3.png" alt="Partner 3">
+      <img src="partner4.png" alt="Partner 4">
+      <img src="partner5.png" alt="Partner 5">
+      <img src="partner6.png" alt="Partner 6">
+      <!-- repeat to ensure infinite scroll -->
+      <img src="partner1.png" alt="Partner 1">
+      <img src="partner2.png" alt="Partner 2">
+      <img src="partner3.png" alt="Partner 3">
+      <img src="partner4.png" alt="Partner 4">
+      <img src="partner5.png" alt="Partner 5">
+      <img src="partner6.png" alt="Partner 6">
+    </div>
+  </section>
 
-<section id="locations" class="section" data-aos="fade-up">
-  <h2>Локации</h2>
-  <p>Нашите машини могат да бъдат поставени във вашия офис, училище, фитнес, коворкинг или друг обществен обект.</p>
-</section>
+  <section id="locations" class="section" data-aos="fade-up">
+    <h2>Локации</h2>
+    <p>Нашите машини могат да бъдат поставени във вашия офис, училище, фитнес, коворкинг или друг обществен обект.</p>
+  </section>
 
-<section id="contact" class="section" data-aos="fade-up">
-  <h2>Искам машина!</h2>
-  <form action="https://formspree.io/f/xzzvgzjj" method="POST">
-    <input type="text" name="Име" placeholder="Вашето име" required>
-    <input type="text" name="Компания" placeholder="Фирма" required>
-    <input type="email" name="Email" placeholder="Имейл" required>
-    <input type="tel" name="Телефон" placeholder="Телефон (по желание)">
-    <textarea name="Съобщение" placeholder="Вашето съобщение..." rows="4" required></textarea>
-    <button type="submit" class="cta">Изпрати</button>
-  </form>
-</section>
+  <section id="contact" class="section" data-aos="fade-up">
+    <h2>Искам машина!</h2>
+    <form action="https://formspree.io/f/xzzvgzjj" method="POST">
+      <input type="text" name="name" placeholder="Вашето име" required />
+      <input type="text" name="company" placeholder="Фирма" required />
+      <input type="email" name="email" placeholder="Имейл" required />
+      <input type="tel" name="phone" placeholder="Телефон (по желание)" />
+      <textarea name="message" placeholder="Вашето съобщение" rows="4" required></textarea>
+      <button class="cta-button" type="submit">Изпрати</button>
+    </form>
+  </section>
 
-<section id="faq" class="section" data-aos="fade-up">
-  <h2>Често задавани въпроси</h2>
-  <p>Очаквайте скоро отговори на най-често задаваните въпроси тук.</p>
-</section>
+  <section id="faq" class="section" data-aos="fade-up">
+    <h2>Често задавани въпроси</h2>
+    <p>Тук скоро ще добавим отговори на важни въпроси, свързани с машините и продуктите ни.</p>
+  </section>
 
-<footer data-aos="fade-in">
-  © 2025 GuiltFreeVend. Всички права запазени.
-</footer>
+  <footer>
+    &copy; 2025 GuiltFreeVend Ltd. Всички права запазени.
+  </footer>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
 
-  // Toggle header background on scroll
-  window.addEventListener('scroll', () => {
-    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 10);
-  });
-
-  // Mobile menu toggle
-  function toggleMenu() {
-    const nav = document.getElementById('main-nav');
-    nav.classList.toggle('open');
-  }
-</script>
-
+    window.addEventListener('scroll', function () {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
 </body>
 </html>
+
