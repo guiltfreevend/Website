@@ -65,7 +65,15 @@
       border-radius: 6px;
       cursor: pointer;
       white-space: nowrap;
+      text-decoration: none;         /* премахва подчертаване */
+      position: fixed;
+      bottom: 20px;
+      right: max(16px, env(safe-area-inset-right)); /* за безопасно отстояние */
+      z-index: 1001;
+      max-width: calc(100vw - 32px); /* да не излиза извън екрана */
+      box-sizing: border-box;
     }
+
 
     .hero {
       height: 100vh;
