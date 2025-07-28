@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GuiltFreeVend</title>
   <link rel="icon" href="favicon.ico" sizes="any">
 
   <!-- Google Analytics -->
@@ -15,14 +16,19 @@
   </script>
 
   <!-- AOS анимации -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
   <!-- Собствен стил -->
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
+    <div class="logo">GuiltFreeVend</div>
+
+    <button class="menu-toggle" aria-label="Отвори меню">
+      &#9776;
+    </button>
 
     <nav class="desktop-menu">
       <a href="#about">За нас</a>
@@ -31,21 +37,20 @@
       <a href="#faq">FAQ</a>
     </nav>
 
-    <button class="cta-btn" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
-      Искам машина!
-    </button>
-
     <nav class="mobile-menu">
-      <a href="#about">За нас</a>
-      <a href="#partners">Партньори</a>
-      <a href="#locations">Локации</a>
-      <a href="#faq">FAQ</a>
+      <a href="#about" onclick="toggleMenu()">За нас</a>
+      <a href="#partners" onclick="toggleMenu()">Партньори</a>
+      <a href="#locations" onclick="toggleMenu()">Локации</a>
+      <a href="#faq" onclick="toggleMenu()">FAQ</a>
     </nav>
   </header>
 
   <main>
-    <!-- HERO със background-image -->
-    <section id="hero">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <img src="logo.png" alt="Guilt Free Vend logo" class="hero-logo">
+      <a href="#contact" class="hero-btn">Искам машина!</a>
     </section>
 
     <!-- ЗА НАС -->
@@ -54,26 +59,26 @@
       <p>Био продукти от български производители, през модерни вендинг машини. Без захар. Без палмово масло. Без разходи за локация.</p>
     </section>
 
-    <!-- ПАРТНЬОРИ с marquee -->
+    <!-- ПАРТНЬОРИ -->
     <section id="partners" class="section" data-aos="fade-up">
       <h2>Нашите партньори</h2>
       <div class="marquee">
         <div class="marquee__inner">
-          <img src="partner1.png" alt="Партньор 1"/>
-          <img src="partner2.png" alt="Партньор 2"/>
-          <img src="partner3.png" alt="Партньор 3"/>
-          <img src="partner4.png" alt="Партньор 4"/>
-          <img src="partner5.png" alt="Партньор 5"/>
-          <img src="partner6.png" alt="Партньор 6"/>
-          <img src="partner7.png" alt="Партньор 7"/>
-          <!-- Обръщаме пак -->
-          <img src="partner1.png" alt="Партньор 1"/>
-          <img src="partner2.png" alt="Партньор 2"/>
-          <img src="partner3.png" alt="Партньор 3"/>
-          <img src="partner4.png" alt="Партньор 4"/>
-          <img src="partner5.png" alt="Партньор 5"/>
-          <img src="partner6.png" alt="Партньор 6"/>
-          <img src="partner7.png" alt="Партньор 7"/>
+          <img src="partner1.png" alt="Партньор 1">
+          <img src="partner2.png" alt="Партньор 2">
+          <img src="partner3.png" alt="Партньор 3">
+          <img src="partner4.png" alt="Партньор 4">
+          <img src="partner5.png" alt="Партньор 5">
+          <img src="partner6.png" alt="Партньор 6">
+          <img src="partner7.png" alt="Партньор 7">
+          <!-- повтор накрая за плавно въртене -->
+          <img src="partner1.png" alt="Партньор 1">
+          <img src="partner2.png" alt="Партньор 2">
+          <img src="partner3.png" alt="Партньор 3">
+          <img src="partner4.png" alt="Партньор 4">
+          <img src="partner5.png" alt="Партньор 5">
+          <img src="partner6.png" alt="Партньор 6">
+          <img src="partner7.png" alt="Партньор 7">
         </div>
       </div>
     </section>
@@ -94,31 +99,25 @@
     <section id="contact" class="section" data-aos="fade-up">
       <h2>Искам машина!</h2>
       <form action="https://formspree.io/f/xzzvgzjj" method="POST">
-        <input type="text"   name="name"     placeholder="Вашето име *" required>
-        <input type="text"   name="company"  placeholder="Фирма (по желание)">
-        <input type="email"   name="email"     placeholder="Имейл *" required>
-        <input type="tel"    name="phone"    placeholder="Телефон (по желание)">
+        <input type="text"   name="name"    placeholder="Вашето име *" required>
+        <input type="text"   name="company" placeholder="Фирма (по желание)">
+        <input type="email"  name="email"   placeholder="Имейл *" required>
+        <input type="tel"    name="phone"   placeholder="Телефон (по желание)">
         <textarea name="message" placeholder="Вашето съобщение *" required></textarea>
 
-  <!-- ... предишните form-group полета ... -->
-
-      <div class="form-group consent-group">
-        <input
-          type="checkbox"
-          id="consent"
-          name="consent"
-          required
-        />
-        <label for="consent">
-          Изпращайки тази форма, вие се съгласявате с нашата
-          <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>.
-          <span class="required">*</span>
-        </label>
-      </div>
+        <div class="consent-group">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">
+            Изпращайки тази форма, вие се съгласявате с нашата
+            <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>
+            <span class="required">*</span>
+          </label>
+        </div>
 
         <button type="submit" class="submit-btn">Изпрати</button>
       </form>
     </section>
+
   </main>
 
   <footer>
@@ -131,17 +130,17 @@
     // AOS init
     AOS.init({ duration: 400 });
 
-    // Header background и hero blur
+    // Header background при scroll
     window.addEventListener('scroll', () => {
       document.body.classList.toggle('scrolled', window.scrollY > 50);
     });
 
     // Mobile menu toggle
+    const toggleMenu = () => {
+      document.querySelector('.mobile-menu').classList.toggle('open');
+    };
     document.querySelector('.menu-toggle')
-      .addEventListener('click', () => {
-        document.querySelector('.mobile-menu').classList.toggle('open');
-      });
+      .addEventListener('click', toggleMenu);
   </script>
 </body>
 </html>
-
