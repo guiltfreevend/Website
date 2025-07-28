@@ -23,7 +23,6 @@
 <body>
 
   <header>
-    <div class="logo">GuiltFreeVend</div>
 
     <nav class="desktop-menu">
       <a href="#about">За нас</a>
@@ -32,8 +31,9 @@
       <a href="#faq">FAQ</a>
     </nav>
 
-    <a href="#contact" class="cta">Искам машина!</a>
-    <button class="menu-toggle">☰</button>
+    <button class="cta-btn" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
+      Искам машина!
+    </button>
 
     <nav class="mobile-menu">
       <a href="#about">За нас</a>
