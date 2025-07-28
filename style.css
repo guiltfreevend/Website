@@ -1,4 +1,8 @@
 /* Reset & базови */
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -67,16 +71,19 @@ nav a:hover {
 
 /* CTA бутон */
 .cta, .hero-cta {
-  background: #6DAA24;
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background 0.3s;
+  display: inline-block;          /* за да работи padding-а както трябва */
+  padding: 0.75rem 1.5rem;         /* повече въздух около текста */
+  font-size: 1.1rem;               /* малко по-голям шрифт */
+  font-weight: 700;                /* истинско удебеляване */
+  background-color: #5A7D2A;       /* ако искаш по-наситен зелен */
+  color: #fff;                     /* бял текст за контраст */
+  border-radius: 0.375rem;         /* леко заобляне */
+  text-decoration: none;           /* махни подчертаването */
+  transition: transform 0.2s ease; /* мъничка анимация */
 }
 .cta:hover, .hero-cta:hover {
-  background: #8FBF4F;
+  transform: translateY(-2px);     /* леко „издигане“ на hover */
+  background-color: #4E6A22;       /* по-тъмен нюанс на hover */
 }
 
 /* HERO секция */
