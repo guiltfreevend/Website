@@ -95,11 +95,26 @@
     <section id="contact" class="section" data-aos="fade-up">
       <h2>Искам машина!</h2>
       <form action="https://formspree.io/f/xzzvgzjj" method="POST">
+        <label for="name">
+          Вашето име <span class="required">*</span>
+        </label>
         <input type="text"   name="name"     placeholder="Вашето име" required>
         <input type="text"   name="company"  placeholder="Фирма">
+        <label for="email">
+          Имейл <span class="required">*</span>
+        </label>
         <input type="email"  name="email"    placeholder="Имейл"    required>
         <input type="tel"    name="phone"    placeholder="Телефон (по желание)">
+        <label for="message">
+          Вашето съобщение <span class="required">*</span>
+        </label>
         <textarea name="message" placeholder="Вашето съобщение" required></textarea>
+
+        <p class="consent">
+        Изпращайки тази форма, вие се съгласявате с нашата
+        <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>.
+        </p>
+        
         <button type="submit">Изпрати</button>
       </form>
     </section>
