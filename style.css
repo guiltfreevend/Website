@@ -1,4 +1,14 @@
 /* Reset & базови */
+/* ===== TEST ===== */
+body::before {
+  content: "💥 CSS ОК! 💥";
+  display: block;
+  background: hotpink;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+}
+
 html {
   scroll-behavior: smooth;
 }
