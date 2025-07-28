@@ -4,34 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GuiltFreeVend</title>
-  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H6X0Z7FYFD');
-  </script>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #fdf6d9;
-      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     header {
       position: fixed;
-      width: 100%;
       top: 0;
-      left: 0;
-      z-index: 1000;
+      width: 100%;
+      background-color: transparent;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background-color: transparent;
+      z-index: 1000;
       transition: background-color 0.3s ease;
     }
 
@@ -41,7 +33,7 @@
 
     nav {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     nav a {
@@ -50,30 +42,20 @@
       font-weight: bold;
     }
 
-    .menu-toggle {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .cta-button {
-      background-color: #7ea04d;
+    .cta-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #7c9d49;
       color: white;
       border: none;
-      padding: 10px 16px;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
       font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      white-space: nowrap;
-      text-decoration: none;         /* премахва подчертаване */
-      position: fixed;
-      bottom: 20px;
-      right: max(16px, env(safe-area-inset-right)); /* за безопасно отстояние */
       z-index: 1001;
-      max-width: calc(100vw - 32px); /* да не излиза извън екрана */
-      box-sizing: border-box;
+      cursor: pointer;
+      text-decoration: none;
     }
-
 
     .hero {
       height: 100vh;
@@ -85,26 +67,37 @@
       align-items: center;
     }
 
+    .hero img {
+      max-width: 90%;
+      height: auto;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
     .partners-slider {
       display: flex;
-      gap: 3rem;
-      animation: scroll 30s linear infinite;
-      width: fit-content;
-    }
-
-    .partners-outer {
+      gap: 2rem;
       overflow: hidden;
       width: 100%;
-      padding: 2rem 0;
-      background-color: #fff5e0;
+      justify-content: center;
+      align-items: center;
     }
 
-    .partners-slider img {
-      height: 70px;
+    .partners-track {
+      display: flex;
+      animation: scroll 20s linear infinite;
+      gap: 4rem;
+    }
+
+    .partners-track img {
+      height: 60px;
       transition: transform 0.3s ease;
     }
 
-    .partners-slider img:hover {
+    .partners-track img:hover {
       transform: scale(1.05);
     }
 
@@ -113,137 +106,171 @@
       100% { transform: translateX(-50%); }
     }
 
-    .section {
-      padding: 4rem 2rem;
-      text-align: center;
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    form input, form textarea {
-      display: block;
-      margin: 0.5rem auto;
-      padding: 0.6rem;
-      width: 90%;
-      max-width: 400px;
-      border-radius: 5px;
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 4px;
       border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    input[type="submit"] {
+      background-color: #7c9d49;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     footer {
+      padding: 2rem;
       text-align: center;
-      padding: 1rem;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: #777;
     }
 
     @media (max-width: 768px) {
       nav {
         display: none;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background-color: #fdf6d9;
-        padding: 1rem;
-        border-radius: 8px;
-        flex-direction: column;
-      }
-
-      nav.show {
-        display: flex;
       }
 
       .menu-toggle {
         display: block;
+        cursor: pointer;
       }
 
-      .cta-button {
+      .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 2rem;
+        background-color: #fdf6d9;
+        padding: 1rem;
+        border-radius: 6px;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .mobile-menu a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      .mobile-menu.show {
+        display: flex;
+      }
+
+      .cta-btn {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1001;
-      }
-
-      .hero {
-        background-position: top;
-        background-size: contain;
-        background-repeat: no-repeat;
+        top: 1rem;
+        right: 1rem;
       }
     }
   </style>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H6X0Z7FYFD');
+  </script>
 </head>
 <body>
 
-  <header>
-    <div><strong>GuiltFreeVend</strong></div>
-    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('show')">&#9776;</div>
-    <nav>
-      <a href="#about">За нас</a>
-      <a href="#partners">Партньори</a>
-      <a href="#locations">Локации</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Искам машина!</button>
-  </header>
+<header id="main-header">
+  <div><strong>GuiltFreeVend</strong></div>
+  <nav class="desktop-nav">
+    <a href="#about">За нас</a>
+    <a href="#partners">Партньори</a>
+    <a href="#locations">Локации</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">За нас</a>
+    <a href="#partners">Партньори</a>
+    <a href="#locations">Локации</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</header>
 
-  <section class="hero" id="top"></section>
+<a class="cta-btn" href="#contact">Искам машина!</a>
 
-  <section id="about" class="section" data-aos="fade-up">
-    <h2>За нас</h2>
-    <p>Био продукти от български производители, през модерни вендинг машини. Без захар. Без палмово масло. Без разходи за локация.</p>
-  </section>
+<section class="hero" data-aos="fade-in">
+  <img src="logo.png" alt="GuiltFreeVend лого" />
+</section>
 
-  <section id="partners" class="partners-outer" data-aos="fade-up">
-    <h2>Нашите партньори</h2>
-    <div class="partners-slider">
+<section id="about" data-aos="fade-up">
+  <h2>За нас</h2>
+  <p>Био продукти от български производители, през модерни вендинг машини. Без захар. Без палмово масло. Без разходи за локация.</p>
+</section>
+
+<section id="partners" data-aos="fade-up">
+  <h2>Нашите партньори</h2>
+  <div class="partners-slider">
+    <div class="partners-track">
       <img src="partner1.png" alt="Partner 1">
       <img src="partner2.png" alt="Partner 2">
       <img src="partner3.png" alt="Partner 3">
       <img src="partner4.png" alt="Partner 4">
       <img src="partner5.png" alt="Partner 5">
       <img src="partner6.png" alt="Partner 6">
-      <!-- repeat to ensure infinite scroll -->
+      <img src="partner7.png" alt="Partner 7">
+      <!-- repeat logos for infinite effect -->
       <img src="partner1.png" alt="Partner 1">
       <img src="partner2.png" alt="Partner 2">
       <img src="partner3.png" alt="Partner 3">
-      <img src="partner4.png" alt="Partner 4">
-      <img src="partner5.png" alt="Partner 5">
-      <img src="partner6.png" alt="Partner 6">
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="locations" class="section" data-aos="fade-up">
-    <h2>Локации</h2>
-    <p>Нашите машини могат да бъдат поставени във вашия офис, училище, фитнес, коворкинг или друг обществен обект.</p>
-  </section>
+<section id="locations" data-aos="fade-up">
+  <h2>Локации</h2>
+  <p>Нашите машини могат да бъдат поставени във вашия офис, училище, фитнес, коворкинг или друг обществен обект.</p>
+</section>
 
-  <section id="contact" class="section" data-aos="fade-up">
-    <h2>Искам машина!</h2>
-    <form action="https://formspree.io/f/xzzvgzjj" method="POST">
-      <input type="text" name="name" placeholder="Вашето име" required />
-      <input type="text" name="company" placeholder="Фирма" required />
-      <input type="email" name="email" placeholder="Имейл" required />
-      <input type="tel" name="phone" placeholder="Телефон (по желание)" />
-      <textarea name="message" placeholder="Вашето съобщение" rows="4" required></textarea>
-      <button class="cta-button" type="submit">Изпрати</button>
-    </form>
-  </section>
+<section id="contact" data-aos="fade-up">
+  <h2>Искам машина!</h2>
+  <form action="https://formspree.io/f/xzzvgzjj" method="POST">
+    <input type="text" name="name" placeholder="Вашето име" required />
+    <input type="text" name="company" placeholder="Фирма" />
+    <input type="email" name="email" placeholder="Имейл за връзка" required />
+    <textarea name="message" placeholder="Допълнително съобщение"></textarea>
+    <input type="submit" value="Изпрати" />
+  </form>
+</section>
 
-  <section id="faq" class="section" data-aos="fade-up">
-    <h2>Често задавани въпроси</h2>
-    <p>Тук скоро ще добавим отговори на важни въпроси, свързани с машините и продуктите ни.</p>
-  </section>
+<section id="faq" data-aos="fade-up">
+  <h2>FAQ</h2>
+  <p>Очаквайте скоро често задавани въпроси.</p>
+</section>
 
-  <footer>
-    &copy; 2025 GuiltFreeVend Ltd. Всички права запазени.
-  </footer>
+<footer>
+  © 2025 GuiltFreeVend. Всички права запазени.
+</footer>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
 
-    window.addEventListener('scroll', function () {
-      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 10);
-    });
-  </script>
+  // change header bg on scroll
+  window.addEventListener('scroll', function() {
+    document.getElementById('main-header').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('show');
+  }
+</script>
+
 </body>
 </html>
-
