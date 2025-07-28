@@ -101,12 +101,23 @@
         <input type="tel"    name="phone"    placeholder="Телефон (по желание)">
         <textarea name="message" placeholder="Вашето съобщение *" required></textarea>
 
-        <p class="consent">
-        Изпращайки тази форма, вие се съгласявате с нашата
-        <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>.
-        </p>
-        
-        <button type="submit">Изпрати</button>
+  <!-- ... предишните form-group полета ... -->
+
+      <div class="form-group consent-group">
+        <input
+          type="checkbox"
+          id="consent"
+          name="consent"
+          required
+        />
+        <label for="consent">
+          Изпращайки тази форма, вие се съгласявате с нашата
+          <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>.
+          <span class="required">*</span>
+        </label>
+      </div>
+
+        <button type="submit" class="submit-btn">Изпрати</button>
       </form>
     </section>
   </main>
