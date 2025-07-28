@@ -31,6 +31,29 @@ body.scrolled header {
   background: #fdf6d9;
 }
 
+.consent-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.consent-group input[type="checkbox"] {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.consent-group label {
+  font-size: 0.9rem;
+  color: #2a5d1c;
+  line-height: 1.4;
+}
+
+.consent-group .required {
+  color: #b00;
+  margin-left: 0.2rem;
+}
+
 .logo {
   font-weight: bold;
   font-size: 1.2rem;
