@@ -198,6 +198,24 @@ footer {
   background: #f4f0de;
 }
 
+/* == Mobile tweaks == */
+@media (max-width: 768px) {
+
+  /* скриваме текстовото лого */
+  header .logo-text {
+    display: none;
+  }
+
+  /* правилен цвят за бургер менюто */
+  header .nav-toggle {
+    color: #2a5d1c;    /* тъмнозелено вместо синьо */
+  }
+    header .logo-img {
+    max-width: 120px; /* намаля, докато влиза добре */
+    width: 40vw;      /* примерно 40% от ширината на екрана */
+    height: auto;
+  }
+}
 /* Responsive */
 @media (max-width: 768px) {
   .desktop-menu { display: none; }
