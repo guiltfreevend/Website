@@ -123,6 +123,34 @@ header .logo {
   text-align: center;
 }
 
+#intro .intro-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+#intro .intro-text {
+  flex: 1 1 400px;
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+#intro .intro-image {
+  flex: 1 1 300px;
+}
+#intro .intro-image img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  #intro .intro-text {
+    text-align: center;
+  }
+}
+
 /* Партньори – marquee */
 .marquee {
   overflow: hidden;
