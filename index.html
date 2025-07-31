@@ -319,6 +319,13 @@
       ↑
     </button>
     
+        // Mobile menu toggle
+    const toggleMenu = () => {
+      document.querySelector('.mobile-menu').classList.toggle('open');
+    };
+    document.querySelector('.menu-toggle')
+      .addEventListener('click', toggleMenu);
+    
         <script>
       // Показване/скриване на бутона при скрол
       const scrollTopBtn = document.getElementById('scrollTopBtn');
