@@ -415,50 +415,45 @@ footer {
   color: #444;
 }
 
-footer {
+.custom-footer {
+  background-color: #f4f0de;
+  padding: 2rem 1rem;
   text-align: center;
-  padding: 2rem 0;
-  background: #f4f0de;
 }
 
-.footer-content {
+.footer-container {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.footer-content p {
+.footer-text {
   font-size: 0.95rem;
   color: #33491E;
-  margin-bottom: 0.75rem;
-}
-
-.footer-content h4 {
-  font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #33491E;
 }
 
-.social-icons {
+.footer-follow {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #33491E;
+  margin: 1rem 0 0.5rem;
+}
+
+.footer-icons {
   display: flex;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 1rem;
   margin-top: 0.5rem;
 }
 
-.social-icons img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  display: block;
-  background-color: white; /* Бял фон за всички, но ще помогне конкретно на LinkedIn */
-  padding: 3px;
-  border-radius: 5px;
-  transition: transform 0.2s ease, filter 0.2s ease;
-  filter: grayscale(100%) brightness(0) contrast(100%);
+.footer-icons a img {
+  width: 32px;
+  height: 32px;
+  filter: grayscale(100%) brightness(0) contrast(1.2);
+  transition: filter 0.3s ease;
 }
 
-.social-icons img:hover {
-  transform: scale(1.1);
+.footer-icons a img:hover {
   filter: none;
 }
 
