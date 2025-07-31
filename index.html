@@ -319,13 +319,6 @@
       ↑
     </button>
     
-        // Mobile menu toggle
-    const toggleMenu = () => {
-      document.querySelector('.mobile-menu').classList.toggle('open');
-    };
-    document.querySelector('.menu-toggle')
-      .addEventListener('click', toggleMenu);
-    
         <script>
       // Показване/скриване на бутона при скрол
       const scrollTopBtn = document.getElementById('scrollTopBtn');
@@ -345,6 +338,52 @@
           behavior: 'smooth'
         });
       });
+    </script>
+    
+    <!-- Hamburger Toggle Button -->
+    <button class="hamburger" id="hamburger-toggle" aria-label="Меню">
+        ☰
+    </button>
+
+    <!-- Overlay -->
+    <div class="overlay" id="menu-overlay"></div>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="side-menu">
+        <div class="menu-header">
+            <span class="menu-title">GuiltFreeVend</span>
+            <button class="close-btn" id="close-menu" aria-label="Затвори меню">×</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#intro">Начало</a></li>
+            <li><a href="#benefits">Защо ние</a></li>
+            <li><a href="#suitability">Подходяща локация</a></li>
+            <li><a href="#faq">Често задавани въпроси</a></li>
+            <li><a href="#founders">Екип</a></li>
+            <li><a href="#contact">Контакт</a></li>
+        </ul>
+    </nav>
+    
+        <script>
+        const hamburger = document.getElementById('hamburger-toggle');
+        const sideMenu = document.getElementById('side-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const overlay = document.getElementById('menu-overlay');
+
+        hamburger.addEventListener('click', () => {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+        });
     </script>
 </body>
 </html>
