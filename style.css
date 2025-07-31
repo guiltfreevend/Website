@@ -154,19 +154,19 @@ body.scrolled header {
     justify-content: center;
     min-height: 60vh;
     padding: 2rem 1rem;
-    margin-top: 4rem; /* space for fixed header */
 }
 .hero-logo {
-    max-width: 320px;
-    width: 100%;
+    max-width: 360px;
     height: auto;
+    width: 100%;
+    margin-bottom: 2rem;
 }
 .hero-btn {
     margin-top: 1.5rem;
-    padding: 1rem 2rem;
+    padding: 1.2rem 2.5rem;
     background-color: #5A7D2A;
     color: #fff;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 700;
     border-radius: 0.5rem;
     text-decoration: none;
