@@ -6,18 +6,8 @@
     <title>GuiltFreeVend</title>
     <link rel="icon" href="favicon.ico" sizes="any">
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-H6X0Z7FYFD');
-    </script>
-
     <!-- AOS анимации -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-
     <!-- Собствен стил -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,10 +15,13 @@
 
     <header>
         <div class="logo">GuiltFreeVend</div>
+
         <!-- Hamburger Toggle Button -->
         <button class="hamburger" id="hamburger-toggle" aria-label="Меню">
             ☰
         </button>
+
+        <!-- Desktop menu -->
         <nav class="desktop-menu">
             <a href="#intro">Начало</a>
             <a href="#benefits">Защо нас?</a>
@@ -41,7 +34,7 @@
         </nav>
     </header>
 
-    <!-- Overlay -->
+    <!-- Overlay за side-menu -->
     <div class="overlay" id="menu-overlay"></div>
 
     <!-- Side Menu -->
