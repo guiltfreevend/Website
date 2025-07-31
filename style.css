@@ -609,3 +609,23 @@ footer .copyright {
     color: #6DAA24;
     transform: translateX(3px);
 }
+/* CTA бутон в менюто */
+.cta-button-wrapper {
+    text-align: center;
+    margin-top: 2rem;
+}
+.cta-button {
+    display: inline-block;
+    background-color: #33491E;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+.cta-button:hover {
+    background-color: #6DAA24;
+    color: #fff;
+}
