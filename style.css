@@ -385,3 +385,32 @@ footer {
   margin-bottom: 1rem;
   border: 3px solid #5A7D2A;
 }
+
+.faq-container details {
+  max-width: 800px;
+  margin: 1rem auto;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background: #fff8e3;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.faq-container summary {
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #33491E;
+  list-style: none;
+}
+
+.faq-container details[open] {
+  background: #fdf6d9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.faq-container p {
+  margin-top: 0.5rem;
+  line-height: 1.6;
+  color: #444;
+}
