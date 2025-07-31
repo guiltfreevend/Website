@@ -414,3 +414,35 @@ footer {
   line-height: 1.6;
   color: #444;
 }
+
+footer {
+  background-color: #f4f0de;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #33491E;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.social-icons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.social-icons img {
+  width: 28px;
+  height: 28px;
+  filter: grayscale(100%) brightness(0.3);
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.social-icons a:hover img {
+  filter: none;
+  transform: scale(1.15);
+}
