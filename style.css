@@ -521,27 +521,123 @@ footer .copyright {
   }
 }
 
-/* CTA бутон в менюто */
-.cta-btn {
-  background-color: #5A7D2A;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  margin-left: 1rem;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s;
-}
-.cta-btn:hover {
-  background-color: #4E6A22;
-  transform: scale(1.05);
+/* Hamburger Button */
+.hamburger {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2001;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #33491E;
+  cursor: pointer;
+  display: none;
 }
 
-/* Hover ефекти за desktop меню */
-.desktop-menu a {
-  position: relative;
-  transition: color 0.3s, transform 0.3s;
+/* Side Menu */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  height: 100vh;
+  width: 280px;
+  background-color: #fdf6d9;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  z-index: 2002;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  transition: left 0.3s ease;
 }
-.desktop-menu a:hover {
+
+.side-menu.open {
+  left: 0;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2000;
+  display: none;
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* Menu header */
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.menu-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #33491E;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #33491E;
+  cursor: pointer;
+}
+
+/* Menu list */
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-list li {
+  margin: 1rem 0;
+}
+
+.menu-list a {
+  text-decoration: none;
+  color: #33491E;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.menu-list a:hover {
   color: #6DAA24;
-  transform: translateY(-2px);
+}
+
+/* Responsive rules */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  header .desktop-menu {
+    display: none;
+  }
+
+  .menu-list a {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .side-menu, .overlay, .hamburger {
+    display: none !important;
+  }
+
+  header .logo {
+    position: absolute;
+    left: 2rem;
+    top: 1.5rem;
+  }
 }
