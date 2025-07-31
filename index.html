@@ -305,5 +305,31 @@
     document.querySelector('.menu-toggle')
       .addEventListener('click', toggleMenu);
   </script>
+  
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" aria-label="Scroll to top">
+      ↑
+    </button>
+    
+        <script>
+      // Показване/скриване на бутона при скрол
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          scrollTopBtn.style.display = 'block';
+        } else {
+          scrollTopBtn.style.display = 'none';
+        }
+      });
+
+      // Скрол до най-горе
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    </script>
 </body>
 </html>
