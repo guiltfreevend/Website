@@ -1,59 +1,70 @@
-.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GuiltFreeVend</title>
-  <link rel="icon" href="favicon.ico" sizes="any">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GuiltFreeVend</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H6X0Z7FYFD');
-  </script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-H6X0Z7FYFD');
+    </script>
 
-  <!-- AOS анимации -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <!-- AOS анимации -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
-  <!-- Собствен стил -->
-  <link rel="stylesheet" href="style.css">
+    <!-- Собствен стил -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <div class="logo">GuiltFreeVend</div>
+    <header>
+        <div class="logo">GuiltFreeVend</div>
+        <!-- Hamburger Toggle Button -->
+        <button class="hamburger" id="hamburger-toggle" aria-label="Меню">
+            ☰
+        </button>
+        <nav class="desktop-menu">
+            <a href="#intro">Начало</a>
+            <a href="#benefits">Защо нас?</a>
+            <a href="#not-included">Какво няма при нас</a>
+            <a href="#suitability">Подходяща локация?</a>
+            <a href="#partners">Партньори</a>
+            <a href="#founders">Кои сме ние</a>
+            <a href="#faq">Често задавани въпроси</a>
+            <a href="#contact" class="cta-btn">Заяви машина</a>
+        </nav>
+    </header>
 
-    <button class="menu-toggle" aria-label="Отвори меню">
-      &#9776;
-    </button>
+    <!-- Overlay -->
+    <div class="overlay" id="menu-overlay"></div>
 
-    <nav class="desktop-menu">
-      <a href="#intro">Повече от вендинг</a>
-      <a href="#benefits">Партньорство</a>
-      <a href="#products">Продуктите ни</a>
-      <a href="#suitability">Подходяща локация?</a>
-      <a href="#partners">Партньори</a>
-      <a href="#founders">Кои сме ние</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact" class="cta-btn">Заяви машина</a>
+    <!-- Side Menu -->
+    <nav class="side-menu" id="side-menu">
+        <div class="menu-header">
+            <span class="menu-title">GuiltFreeVend</span>
+            <button class="close-btn" id="close-menu" aria-label="Затвори меню">×</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#intro">Начало</a></li>
+            <li><a href="#benefits">Защо нас?</a></li>
+            <li><a href="#not-included">Какво няма при нас</a></li>
+            <li><a href="#suitability">Подходяща локация?</a></li>
+            <li><a href="#partners">Партньори</a></li>
+            <li><a href="#founders">Кои сме ние</a></li>
+            <li><a href="#faq">Често задавани въпроси</a></li>
+        </ul>
+        <div class="cta-button-wrapper">
+            <a href="#contact" class="cta-button">Заяви машина</a>
+        </div>
     </nav>
 
-    <nav class="mobile-menu">
-      <a href="#intro" onclick="toggleMenu()">Повече от вендинг</a>
-      <a href="#benefits" onclick="toggleMenu()">Партньорство</a>
-      <a href="#products" onclick="toggleMenu()">Продуктите ни</a>
-      <a href="#suitability" onclick="toggleMenu()">Подходяща локация?</a>
-      <a href="#partners" onclick="toggleMenu()">Партньори</a>
-      <a href="#founders" onclick="toggleMenu()">Кои сме ние</a>
-      <a href="#faq" onclick="toggleMenu()">FAQ</a>
-      <a href="#contact" class="cta-btn" onclick="toggleMenu()">Заяви машина</a>
-    </nav>
-  </header>
-
-  <main>
+    <main>
 
     <!-- HERO -->
     <section class="hero" id="hero">
@@ -273,94 +284,40 @@
     </section>
 
   </main>
-
+    <!-- Footer -->
     <footer class="custom-footer">
-      <div class="footer-container">
-        <p class="footer-follow">Последвайте ни:</p>
-        <div class="footer-icons">
-          <a href="https://www.instagram.com/guiltfreevend/" target="_blank" aria-label="Instagram">
-            <img src="icon_instagram.png" alt="Instagram">
-          </a>
-          <a href="https://www.facebook.com/profile.php?id=61573025249810" target="_blank" aria-label="Facebook">
-            <img src="icon_facebook.png" alt="Facebook">
-          </a>
-          <a href="https://www.linkedin.com/company/guiltfreevend" target="_blank" aria-label="LinkedIn">
-            <img src="linkedin.png" alt="LinkedIn">
-          </a>
-          <a href="mailto:guiltfreevend@gmail.com" target="_blank" aria-label="Email">
-            <img src="mail.png" alt="Email">
-          </a>
+        <div class="footer-container">
+            <p class="footer-follow">Последвайте ни:</p>
+            <div class="footer-icons">
+                <a href="https://www.instagram.com/guiltfreevend/" target="_blank" aria-label="Instagram">
+                    <img src="icon_instagram.png" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61573025249810" target="_blank" aria-label="Facebook">
+                    <img src="icon_facebook.png" alt="Facebook">
+                </a>
+                <a href="https://www.linkedin.com/company/guiltfreevend" target="_blank" aria-label="LinkedIn">
+                    <img src="linkedin.png" alt="LinkedIn">
+                </a>
+                <a href="mailto:guiltfreevend@gmail.com" target="_blank" aria-label="Email">
+                    <img src="mail.png" alt="Email">
+                </a>
+            </div>
         </div>
-      </div>
-      <p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
+        <p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
     </footer>
 
-  <!-- Скриптове -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    // AOS init
-    AOS.init({ duration: 400 });
-
-    // Header background при scroll
-    window.addEventListener('scroll', () => {
-      document.body.classList.toggle('scrolled', window.scrollY > 50);
-    });
-  
-    <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" aria-label="Scroll to top">
-      ↑
-    </button>
-    
-        <script>
-      // Показване/скриване на бутона при скрол
-      const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          scrollTopBtn.style.display = 'block';
-        } else {
-          scrollTopBtn.style.display = 'none';
-        }
-      });
-
-      // Скрол до най-горе
-      scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-    </script>
-    
-    <!-- Hamburger Toggle Button -->
-    <button class="hamburger" id="hamburger-toggle" aria-label="Меню">
-        ☰
-    </button>
-
-    <!-- Overlay -->
-    <div class="overlay" id="menu-overlay"></div>
-
-    <!-- Side Menu -->
-    <nav class="side-menu" id="side-menu">
-        <div class="menu-header">
-            <span class="menu-title">GuiltFreeVend</span>
-            <button class="close-btn" id="close-menu" aria-label="Затвори меню">×</button>
-        </div>
-        <ul class="menu-list">
-            <li><a href="#intro">Начало</a></li>
-            <li><a href="#benefits">Защо нас?</a></li>
-            <li><a href="#not-included">Какво няма при нас</a></li>
-            <li><a href="#suitability">Подходяща локация</a></li>
-            <li><a href="#partners">Партньори</a></li>
-            <li><a href="#founders">Кои сме ние</a></li>
-            <li><a href="#faq">Често задавани въпроси</a></li>
-        </ul>
-        <div class="cta-button-wrapper">
-            <a href="#contact" class="cta-button">Заяви машина</a>
-        </div>
-    </nav>
-    
+    <!-- Скриптове -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // AOS init
+        AOS.init({ duration: 400 });
+
+        // Header background при scroll
+        window.addEventListener('scroll', () => {
+            document.body.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Hamburger и Side-menu логика
         const hamburger = document.getElementById('hamburger-toggle');
         const sideMenu = document.getElementById('side-menu');
         const closeBtn = document.getElementById('close-menu');
@@ -379,6 +336,19 @@
         overlay.addEventListener('click', () => {
             sideMenu.classList.remove('open');
             overlay.classList.remove('active');
+        });
+
+        // Scroll to Top Button (ако ползваш)
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'block';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+        scrollTopBtn?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
