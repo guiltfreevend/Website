@@ -520,3 +520,28 @@ footer .copyright {
     right: 1.5rem;
   }
 }
+
+/* CTA бутон в менюто */
+.cta-btn {
+  background-color: #5A7D2A;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin-left: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.cta-btn:hover {
+  background-color: #4E6A22;
+  transform: scale(1.05);
+}
+
+/* Hover ефекти за desktop меню */
+.desktop-menu a {
+  position: relative;
+  transition: color 0.3s, transform 0.3s;
+}
+.desktop-menu a:hover {
+  color: #6DAA24;
+  transform: translateY(-2px);
+}
