@@ -357,3 +357,31 @@ footer {
   font-size: 1.05rem;
   line-height: 1.6;
 }
+
+/* Секция - Кои сме ние */
+.founder-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 2rem auto 0;
+  text-align: center;
+}
+
+.founder-card {
+  flex: 1 1 300px;
+  padding: 1rem;
+  background-color: #f7f3e6;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.founder-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 3px solid #5A7D2A;
+}
