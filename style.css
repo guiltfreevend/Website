@@ -471,9 +471,10 @@ footer .copyright {
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.footer-icons img[alt="LinkedIn"] {
+.social-icons img[alt="LinkedIn"] {
   background-color: white;
-  padding: 3px;
+  padding: 2px;
+  border-radius: 6px;
 }
 
 .footer-icons a img:hover {
