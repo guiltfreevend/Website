@@ -444,10 +444,12 @@ form textarea {
 }
 
 .footer-icons a img {
-    width: 32px;
-    height: 32px;
-    transition: transform 0.2s ease, filter 0.2s ease;
-    filter: grayscale(100%) brightness(0) contrast(100%);
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) contrast(100%);
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
 .footer-icons a img:hover {
@@ -458,6 +460,11 @@ form textarea {
 .footer-text {
     font-size: 0.95rem;
     color: #33491E;
+}
+
+/* Специално за LinkedIn */
+.footer-icons img[alt="LinkedIn"] {
+  background-color: transparent;
 }
 
 /* Responsive footer */
