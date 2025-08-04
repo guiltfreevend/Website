@@ -329,6 +329,14 @@
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+            // Затваряне на менюто при клик върху линк
+        const menuLinks = document.querySelectorAll('#side-menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sideMenu.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>
