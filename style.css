@@ -133,7 +133,7 @@ body.scrolled header {
 }
 .cta-button {
     display: inline-block;
-    background-color: #3b4f1f;
+    background-color: #5A7D2A;
     color: #fff;
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
@@ -164,7 +164,7 @@ body.scrolled header {
 .hero-btn {
     margin-top: 1.5rem;
     padding: 1.2rem 2.5rem;
-    background-color: #3b4f1f;
+    background-color: #5A7D2A;
     color: #fff;
     font-size: 1.25rem;
     font-weight: 700;
@@ -348,7 +348,7 @@ form textarea {
     padding: 0.75rem;
     border: none;
     border-radius: 0.25rem;
-    background: #3b4f1f;
+    background: #5A7D2A;
     color: #fff;
     font-size: 1.1rem;
     font-weight: 600;
@@ -485,7 +485,7 @@ form textarea {
     position: fixed;
     bottom: 2rem; right: 2rem;
     display: none;
-    background-color: #3b4f1f;
+    background-color: #5A7D2A;
     color: #fff;
     border: none;
     border-radius: 50%;
