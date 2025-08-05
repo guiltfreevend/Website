@@ -320,22 +320,25 @@ form textarea {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
   text-align: left;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .consent-group input[type="checkbox"] {
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
   width: 1.2em;
   height: 1.2em;
   flex-shrink: 0;
 }
 
 .consent-group label {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  display: inline-block;
   color: #33491E;
-  line-height: 1.4;
+  line-height: 1.5;
+  margin: 0;
   max-width: calc(100% - 1.5em); /* за да не минава зад checkbox */
 }
 
