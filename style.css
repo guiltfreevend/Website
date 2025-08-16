@@ -71,7 +71,7 @@ body.scrolled header {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .6rem .9rem;
+  padding: .9rem 1.8rem;
   background: var(--g);
   color: #fff !important;
   border-radius: .55rem;
