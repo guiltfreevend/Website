@@ -644,3 +644,99 @@ form textarea {
         display: none !important;
     }
 }
+
+/* Положение спрямо header */
+:root{
+    --menu-top: calc(env(safe-area-inset-top, 0px) + 6px);
+}
+
+/* -------- Обвивка: от бутон (46x46) до панел -------- */
+.menu-shell{
+    position: fixed;
+    top: var(--menu-top);
+    right: var(--gap);
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #fffbe9, #f6efcf);
+    box-shadow:
+        0 6px 16px rgba(51,73,30,.12),
+        inset 0 -2px 5px rgba(0,0,0,.04);
+    overflow: hidden;                 /* важно: съдържанието се „появява“ отвътре */
+    z-index: 5500;
+    transition:
+        width        460ms var(--ease-out),
+        height       460ms var(--ease-out),
+        border-radius 420ms var(--ease-out),
+        box-shadow    300ms var(--ease-out);
+}
+
+/* Разгънато състояние */
+.menu-shell[aria-expanded="true"]{
+    width: 300px;
+    height: calc(100dvh - 16px);
+    border-radius: 16px;
+    box-shadow:
+        -10px 12px 28px rgba(0,0,0,.18),
+        -2px 0 8px rgba(0,0,0,.10);
+}
+
+/* -------- Бутонът вътре в обвивката -------- */
+.menu-shell .hamburger{
+    position: absolute;
+    top: 10px;                       /* вътрешен падинг от ръба на панела */
+    right: 10px;
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    border: 1px solid rgba(51,73,30,.14);
+    background: linear-gradient(180deg, #fffbe9, #f6efcf);
+    box-shadow:
+        0 6px 16px rgba(51,73,30,.12),
+        inset 0 -2px 5px rgba(0,0,0,.04);
+    cursor: pointer;
+    z-index: 2;                      /* над съдържанието на панела */
+    transition:
+        background-color 220ms var(--ease-in),
+        border-color     220ms var(--ease-in),
+        box-shadow       220ms var(--ease-in);
+}
+
+/* Линиите в бутона */
+.menu-shell .hamburger .bar{
+    position: absolute; left: 50%;
+    width: 26px; height: 3px; border-radius: 2px;
+    background-color: #356a2a;
+    transform-origin: center center;
+    transition: transform 420ms var(--ease-out), opacity 260ms var(--ease-out), background-color 240ms var(--ease-out);
+}
+.menu-shell .hamburger .bar:nth-child(1){ top: calc(50% - 8px); transform: translateX(-50%); }
+.menu-shell .hamburger .bar:nth-child(2){ top: 50%;             transform: translateX(-50%); }
+.menu-shell .hamburger .bar:nth-child(3){ top: calc(50% + 8px); transform: translateX(-50%); }
+
+/* Бургер → X, вързано КЪМ aria-expanded на бутона */
+.menu-shell .hamburger[aria-expanded="true"]{
+    background: transparent;        /* да изглежда като част от панела */
+    border-color: transparent;
+    box-shadow: none;
+}
+.menu-shell .hamburger[aria-expanded="true"] .bar{ background-color:#33491E; }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(1){ top:50%; transform: translateX(-50%) rotate(45deg); }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(2){ opacity:0; }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(3){ top:50%; transform: translateX(-50%) rotate(-45deg); }
+
+/* -------- Съдържание на панела вътре в обвивката -------- */
+.menu-shell .side-menu{
+    position: absolute; inset: 0;
+    padding: 22px 18px 24px;
+    background: #fdf6d9;            /* същият фон, за да „продължи“ кутийката */
+    border-radius: 16px;             /* закръглено вътре */
+    overflow: auto;
+
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 240ms 150ms var(--ease-out), transform 240ms 150ms var(--ease-out);
+    pointer-events: none;            /* затворено: да не прихваща кликове */
+}
+.menu-shell[aria-expanded="true"] .side-menu{
+    opacity: 1; transform: translateY(0);
+    pointer-events: auto;
+}
