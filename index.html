@@ -336,23 +336,33 @@
 
             const menuShell  = document.getElementById('menu-shell');
 
+            // toggle на менюто (вътре в DOMContentLoaded)
             function toggleMenu(e){
-                if (e) e.preventDefault();
-                const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
+              if (e) e.preventDefault();
 
-                if (!isOpen){
-                    menuShell.setAttribute('aria-expanded', 'true');
-                    hamburger.setAttribute('aria-expanded', 'true');
-                    sideMenu.setAttribute('aria-hidden', 'false');
-                    overlay.classList.add('active');
-                    document.body.classList.add('no-scroll');
-                } else {
-                    menuShell.setAttribute('aria-expanded', 'false');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                    sideMenu.setAttribute('aria-hidden', 'true');
-                    overlay.classList.remove('active');
-                    document.body.classList.remove('no-scroll');
-                }
+              const menuShell = document.getElementById('menu-shell');
+              const hamburger = document.getElementById('hamburger');
+              const sideMenu  = document.getElementById('side-menu');
+              const overlay   = document.getElementById('menu-overlay');
+              if (!menuShell || !hamburger || !sideMenu || !overlay) return;
+
+              const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
+
+              if (!isOpen){
+                menuShell.setAttribute('aria-expanded','true');
+                hamburger.setAttribute('aria-expanded','true');
+                hamburger.setAttribute('aria-label','Затвори меню');
+                sideMenu.setAttribute('aria-hidden','false');
+                overlay.classList.add('active');
+                document.body.classList.add('no-scroll');
+              } else {
+                menuShell.setAttribute('aria-expanded','false');
+                hamburger.setAttribute('aria-expanded','false');
+                hamburger.setAttribute('aria-label','Отвори меню');
+                sideMenu.setAttribute('aria-hidden','true');
+                overlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+              }
             }
 
             hamburger.addEventListener('click', toggleMenu, { passive:false });
