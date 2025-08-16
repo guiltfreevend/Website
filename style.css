@@ -2,6 +2,14 @@
 :root{
   --pad: 2rem;
   --header-h: 56px;
+
+  /* нови */
+  --brand: #5A7D2A;
+  --brand-700: #4E6A22;
+  --ink: #33491E;
+  --gap: 10px;                 /* разстояние между менюто и десния ръб */
+  --ease-out: cubic-bezier(.16,1,.29,.99);
+  --ease-in:  cubic-bezier(.4,0,.2,1);
 }
 
 * {
@@ -87,39 +95,79 @@ body.scrolled header {
 .cta--header:hover { background: #4E6A22; transform: translateY(-1px); }
 .cta--header svg { display: block; }
 
-/* ==== Hamburger ==== */
-/* BURGER – винаги над всичко и центриран по височина на header */
+/* ==== Hamburger (бутон-кутия) ==== */
 .hamburger{
   position: fixed;
-  right: var(--pad);
+  right: calc(var(--pad) - 2px);
   top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
-  transform: translateY(-50%);
-  z-index: 4000; /* най-отгоре */
+  transform: translateY(-50%) scale(1);
+  z-index: 4000;
+
   display: inline-flex; align-items:center; justify-content:center;
-  width:44px; height:44px; padding:0; border:0; background:transparent;
-  cursor:pointer; -webkit-tap-highlight-color:transparent;
+  width: 46px; height: 46px;
+  padding: 0;
+  border: 1px solid rgba(51,73,30,.14);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, #fffbe9, #f6efcf);
+  box-shadow:
+    0 6px 16px rgba(51,73,30,.12),
+    inset 0 -2px 5px rgba(0,0,0,.04);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 180ms var(--ease-in),
+    box-shadow 180ms var(--ease-in),
+    background-color 180ms var(--ease-in),
+    border-color 180ms var(--ease-in);
 }
+.hamburger:hover{ transform: translateY(-50%) scale(1.06); }
+.hamburger:active{ transform: translateY(-50%) scale(0.98); }
+.hamburger:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(90,125,42,.25),
+    0 6px 16px rgba(51,73,30,.12);
+}
+
 .hamburger .bar{
-  width:26px; height:3px; margin:4px 0; border-radius:2px;
-  background-color:#356a2a;
-  transition: transform 220ms ease, opacity 180ms ease, background-color 180ms ease;
+  width: 26px; height: 3px; margin: 4px 0; border-radius: 2px;
+  background-color: #356a2a;
+  transition:
+    transform 260ms var(--ease-out),
+    opacity 180ms var(--ease-out),
+    background-color 180ms var(--ease-out);
 }
+
+/* Бутон в отворено състояние: фон става зелен, линиите – бели и X */
+.hamburger.is-open{
+  background: var(--brand);
+  border-color: rgba(0,0,0,.12);
+  box-shadow:
+    0 10px 24px rgba(90,125,42,.30),
+    inset 0 -2px 4px rgba(0,0,0,.08);
+}
+.hamburger.is-open .bar{ background-color: #fff; }
 .hamburger.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
-.hamburger.is-open .bar:nth-child(2){ opacity:0; }
+.hamburger.is-open .bar:nth-child(2){ opacity: 0; }
 .hamburger.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-@media (min-width: 1025px){ .hamburger{ display:none; } }
+@media (min-width:1025px){
+  .hamburger{ display:none; }
+}
 
-/* ==== Overlay ==== */
+/* ==== Overlay (лек blur + клик за затваряне) ==== */
 .overlay{
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.4);
+  background: rgba(0,0,0,.38);
+  backdrop-filter: blur(2px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity .25s ease, visibility .25s ease;
-  z-index: 3200; /* под сайд менюто, над съдържанието/хедъра */
+  transition: opacity .25s var(--ease-in), visibility .25s var(--ease-in);
+  z-index: 3200;
 }
 .overlay.active{
   opacity: 1;
@@ -127,43 +175,81 @@ body.scrolled header {
   pointer-events: auto;
 }
 
+/* ==== Side menu – balloon effect ==== */
 .side-menu{
   position: fixed;
-  top: 0; right: 0;
+  top: 8px;
+  right: var(--gap);           /* малък гап към десния ръб */
   width: 300px;
-  height: 100dvh;
+  height: calc(100dvh - 16px); /* 8px отгоре и 8px отдолу */
   padding: 22px 18px 24px;
-  background: #fdf6d9;
-  box-shadow: -2px 0 12px rgba(0,0,0,.12);
-  transform: translateX(100%); /* скрито вдясно */
-  transition: transform .28s ease;
-  z-index: 3300; /* над overlay, под бургер-а */
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.side-menu.open{ transform: translateX(0); }
 
+  background: #fdf6d9;
+  border-radius: 16px 0 0 16px;
+  box-shadow:
+    -10px 12px 28px rgba(0,0,0,.18),
+    -2px 0 8px rgba(0,0,0,.10);
+
+  transform-origin: right center;
+  transform: translateX(calc(100% + var(--gap))) scale(.94);
+  opacity: .0;
+
+  transition:
+    transform 360ms var(--ease-out),
+    opacity   260ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+  z-index: 3300;
+
+  display: flex; flex-direction: column; gap: 18px;
+  will-change: transform, opacity;
+}
+
+/* отворено: лек „препълнен“ вид, после се установява */
+.side-menu.open{
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  animation: menu-pop-in 420ms var(--ease-out) 1 both;
+}
+@keyframes menu-pop-in{
+  0%   { transform: translateX(calc(100% + var(--gap))) scale(.92); opacity: .0; }
+  60%  { transform: translateX(0)                  scale(1.02); opacity: 1;  }
+  100% { transform: translateX(0)                  scale(1.00);              }
+}
+
+/* вътрешни елементи – остават като при теб */
 .side-menu .menu-head{
   display:flex; align-items:center; justify-content:space-between;
   padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.06);
 }
-.side-menu .menu-title{ font-weight:700; color:#33491E; font-size:1.15rem; }
+.side-menu .menu-title{ font-weight:700; color:var(--ink); font-size:1.15rem; }
 .side-menu .menu-list{ list-style:none; display:flex; flex-direction:column; gap:14px; margin:6px 0; padding:0; }
 .side-menu .menu-list a{
-  display:inline-block; text-decoration:none; color:#33491E;
+  display:inline-block; text-decoration:none; color:var(--ink);
   font-size:1rem; line-height:1.3; padding:6px 2px;
-  transition: color .18s ease, transform .18s ease;
+  transition: color .18s var(--ease-in), transform .18s var(--ease-in);
 }
 .side-menu .menu-list a:hover{ color:#6DAA24; transform: translateX(-2px); }
 .side-menu .cta-button{
   margin-top:auto; display:inline-block; text-align:center;
-  padding:12px 14px; background:#5A7D2A; color:#fff; border-radius:10px;
-  font-weight:700; text-decoration:none; transition: background .2s ease, transform .2s ease;
+  padding:12px 14px; background:var(--brand); color:#fff; border-radius:10px;
+  font-weight:700; text-decoration:none; transition: background .2s var(--ease-in), transform .2s var(--ease-in);
 }
-.side-menu .cta-button:hover{ background:#4E6A22; }
+.side-menu .cta-button:hover{ background:var(--brand-700); transform: translateY(-1px); }
 
-@media (min-width:1025px){ .side-menu, .overlay{ display:none!important; } }
+@media (min-width:1025px){
+  .side-menu, .overlay{ display:none!important; }
+}
+
+/* безскрол при отворено меню */
+body.no-scroll{ overflow:hidden; }
+
+/* Уважаваме потребители с предпочитание за по-малко движение */
+@media (prefers-reduced-motion: reduce){
+  .hamburger, .overlay, .side-menu{
+    transition: none !important;
+    animation: none !important;
+  }
+}
 
 /* HERO */
 .hero {
