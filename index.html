@@ -45,9 +45,9 @@
 
         <!-- Hamburger (mobile) -->
         <button id="hamburger" class="hamburger" aria-label="Отвори меню" aria-controls="side-menu" aria-expanded="false">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+           <span class="bar" aria-hidden="true"></span>
+           <span class="bar" aria-hidden="true"></span>
+           <span class="bar" aria-hidden="true"></span>
         </button>
     </header>
 
@@ -346,27 +346,39 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // отваряне/затваряне на мобилното меню
-            function openMenu() {
-                 overlay.removeAttribute('hidden'); // safeguard
-                sideMenu.classList.add('open');
-                overlay.classList.add('active');
-                hamburger.classList.add('is-open');
-                hamburger.setAttribute('aria-expanded', 'true');
-                document.body.classList.add('no-scroll');
-            }
-            function closeMenu() {
-                sideMenu.classList.remove('open');
-                overlay.classList.remove('active');
-                hamburger.classList.remove('is-open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('no-scroll');
-            }
-            hamburger.addEventListener('click', () => {
-                sideMenu.classList.contains('open') ? closeMenu() : openMenu();
-            });
-            overlay.addEventListener('click', closeMenu);
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        function openMenu() {
+            const header    = document.getElementById('site-header');
+            const hamburger = document.getElementById('hamburger');
+            const sideMenu  = document.getElementById('side-menu');
+            const overlay   = document.getElementById('menu-overlay');
+
+            overlay.classList.add('active');
+            sideMenu.classList.add('open');
+            hamburger.classList.add('is-open');
+
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.setAttribute('aria-label', 'Затвори меню');
+            sideMenu.setAttribute('aria-hidden', 'false');
+
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const sideMenu  = document.getElementById('side-menu');
+            const overlay   = document.getElementById('menu-overlay');
+
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            hamburger.classList.remove('is-open');
+
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Отвори меню');
+            sideMenu.setAttribute('aria-hidden', 'true');
+
+            document.body.classList.remove('no-scroll');
+        }
+
 
             // затваряне при клик на линк в сайд менюто
             document.querySelectorAll('#side-menu a').forEach(a => a.addEventListener('click', closeMenu));
