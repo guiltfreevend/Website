@@ -13,60 +13,91 @@ body {
     color: #33491E;
 }
 
-/* HEADER */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 0.75rem 1.5rem; /* по-малко padding */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: transparent;
-    transition: background-color 0.3s ease;
-    z-index: 1000;
-    height: 60px; /* фиксирана височина за еднакво подравняване */
+/* ---------- Header base ---------- */
+#site-header {
+  position: sticky; /* може и fixed; sticky е по-приятно */
+  top: 0;
+  inset-inline: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem 2rem;
+  /* деликатен фон + бордер за контраст */
+  background: linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80));
+  backdrop-filter: saturate(160%) blur(6px);
+  border-bottom: 1px solid rgba(51,73,30,.12);
 }
+
+/* Brand */
+#site-header .brand {
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #33491E;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 body.scrolled header {
     background-color: #fdf6d9;
-}
-.logo {
-    font-weight: bold;
-    font-size: 1.2rem;
 }
 
 /* DESKTOP MENU */
 .desktop-menu {
-    display: flex;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
 }
 .desktop-menu a {
-    margin: 0 1rem;
-    color: #33491E;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
+  color: #33491E;
+  text-decoration: none;
+  padding: .35rem .25rem;
+  font-weight: 500;
+  transition: color .2s ease, border-color .2s ease;
+  border-bottom: 2px solid transparent;
 }
-.desktop-menu a:hover {
-    color: #6DAA24;
+.desktop-menu a:hover { color: #5A7D2A; }
+
+/* Активна секция (ще се слага от JS) */
+.desktop-menu a.is-active {
+  color: #5A7D2A;
+  border-bottom-color: #5A7D2A;
 }
+
+/* CTA бутон в хедъра */
+.cta--header {
+  --g: #5A7D2A;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .6rem .9rem;
+  background: var(--g);
+  color: #fff !important;
+  border-radius: .55rem;
+  box-shadow: 0 3px 10px rgba(90,125,42,.25);
+  font-weight: 700;
+}
+.cta--header:hover { background: #4E6A22; transform: translateY(-1px); }
+.cta--header svg { display: block; }
 
 /* HAMBURGER (mobile only) */
 .hamburger {
-    display: none;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: #33491E;
-    cursor: pointer;
-    z-index: 1001;
-
-    /* премахваме позиционирането: */
-    position: static;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
+  display: none; /* ще е блок само на мобилно */
+  width: 38px; height: 34px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  position: relative;
 }
+.hamburger span {
+  position: absolute; left: 6px; right: 6px; height: 2px; background:#33491E;
+  transform-origin: center; transition: transform .2s ease, opacity .2s ease;
+}
+.hamburger span:nth-child(1){ top: 9px; }
+.hamburger span:nth-child(2){ top: 16px; }
+.hamburger span:nth-child(3){ top: 23px; }
+
+/* Секции да не се „скриват“ под хедъра при anchor скрол */
+[id] { scroll-margin-top: 84px; }
 
 /* OVERLAY */
 .overlay {
@@ -514,11 +545,11 @@ form textarea {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .desktop-menu { display: none; }
     .hamburger     { display: block; }
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .hamburger, .overlay, .side-menu {
         display: none !important;
     }
