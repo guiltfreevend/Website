@@ -83,10 +83,11 @@ body.scrolled header {
 
 /* ==== Hamburger ==== */
 .hamburger {
+    color: #356a2a;
     position: fixed;
     top: 14px;
     right: 16px;
-    z-index: 1002;
+    z-index: 1100;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -99,20 +100,17 @@ body.scrolled header {
     -webkit-tap-highlight-color: transparent;
 }
 .hamburger .bar {
+    display: block;
     width: 26px;
     height: 3px;
     margin: 4px 0;
-    background-color: #356a2a;       /* бранд зелено */
+    background-color: currentColor;       /* бранд зелено */
     border-radius: 2px;
     transition: transform 220ms ease, opacity 180ms ease, background-color 180ms ease;
 }
 .hamburger.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.is-open .bar:nth-child(2) { opacity: 0; }
 .hamburger.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-@media (min-width: 769px) {
-    .hamburger { display: none; }
-}
 
 /* ==== Overlay ==== */
 .overlay {
