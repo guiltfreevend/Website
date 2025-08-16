@@ -586,4 +586,22 @@ form textarea {
 @media (min-width:1025px){
   .menu-shell, .overlay{ display: none !important; }
 }
+/* Никакъв blur/почерняване върху менюто */
+.side-menu{
+  filter: none !important;
+  opacity: 1;                 /* видимостта вече я управляваме през shell-а */
+  transform: none !important; /* махаме стари translate/scale, ако има */
+  position: static;           /* а „истинското“ правило задава absolute в shell-а */
+}
+.menu-shell > .side-menu{
+  position: absolute; inset: 0;
+  padding: 22px 18px 24px;
+  background: #fdf6d9;
+  border-radius: 16px; overflow: auto;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
+  pointer-events: none;
+}
+.menu-shell[aria-expanded="true"] > .side-menu{
+  opacity: 1; transform: translateY(0); pointer-events: auto;
 }
