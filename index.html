@@ -43,7 +43,11 @@
         </a>
       </nav>
 
-        <button class="hamburger" id="hamburger-toggle" aria-label="Меню">☰</button>
+      <button id="hamburger" class="hamburger" aria-label="Меню" aria-controls="side-menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+      </button>
     </header>
 
     <!-- Overlay -->
@@ -429,47 +433,39 @@
     </script>
     <script>
         (() => {
-            const btn     = document.getElementById('menu-toggle');
-            const menu    = document.getElementById('side-menu');
-            const overlay = document.getElementById('menu-overlay');
+            const hamburger = document.getElementById('hamburger');
+            const sideMenu  = document.getElementById('side-menu');
+            const overlay   = document.getElementById('menu-overlay');
 
             function openMenu() {
-                menu?.classList.add('open');
-                overlay?.classList.add('active');
-                overlay?.removeAttribute('hidden');
-                btn?.classList.add('is-open');
-                btn?.setAttribute('aria-expanded', 'true');
-                menu?.setAttribute('aria-hidden', 'false');
+                sideMenu.classList.add('open');
+                overlay.classList.add('active');
+                hamburger.classList.add('is-open');
+                hamburger.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('no-scroll');
             }
+
             function closeMenu() {
-                menu?.classList.remove('open');
-                overlay?.classList.remove('active');
-                btn?.classList.remove('is-open');
-                btn?.setAttribute('aria-expanded', 'false');
-                menu?.setAttribute('aria-hidden', 'true');
+                sideMenu.classList.remove('open');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('is-open');
+                hamburger.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('no-scroll');
-                // скриваме overlay от tab реда след анимацията
-                setTimeout(() => overlay?.setAttribute('hidden', ''), 280);
             }
 
-            btn?.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isOpen = btn.classList.contains('is-open');
-                isOpen ? closeMenu() : openMenu();
+            hamburger.addEventListener('click', () => {
+                sideMenu.classList.contains('open') ? closeMenu() : openMenu();
             });
 
-            overlay?.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
 
-            // кликове върху линковете вътре да затварят менюто
-            document.querySelectorAll('#side-menu a').forEach(a => {
-                a.addEventListener('click', closeMenu);
-            });
-
-            // ESC затваря
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeMenu();
             });
+
+            document.querySelectorAll('#side-menu a').forEach(a =>
+                a.addEventListener('click', closeMenu)
+            );
         })();
     </script>
 </body>
