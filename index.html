@@ -348,6 +348,7 @@
 
             // отваряне/затваряне на мобилното меню
             function openMenu() {
+                 overlay.removeAttribute('hidden'); // safeguard
                 sideMenu.classList.add('open');
                 overlay.classList.add('active');
                 hamburger.classList.add('is-open');
