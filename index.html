@@ -43,33 +43,37 @@
         </a>
       </nav>
 
-        <!-- Hamburger (mobile) -->
-        <button id="hamburger" class="hamburger" aria-label="Отвори меню" aria-controls="side-menu" aria-expanded="false">
-           <span class="bar" aria-hidden="true"></span>
-           <span class="bar" aria-hidden="true"></span>
-           <span class="bar" aria-hidden="true"></span>
+    <!-- Menu shell: бутон + панел в едно -->
+    <div id="menu-shell" class="menu-shell" aria-expanded="false">
+        <button id="hamburger" class="hamburger"
+                aria-label="Отвори меню"
+                aria-controls="side-menu"
+                aria-expanded="false">
+            <span class="bar" aria-hidden="true"></span>
+            <span class="bar" aria-hidden="true"></span>
+            <span class="bar" aria-hidden="true"></span>
         </button>
+
+        <nav id="side-menu" class="side-menu" aria-hidden="true">
+            <div class="menu-head">
+                <span class="menu-title">GuiltFreeVend</span>
+            </div>
+            <ul class="menu-list">
+                <li><a href="#intro">Начало</a></li>
+                <li><a href="#benefits">Защо нас</a></li>
+                <li><a href="#not-included">Какво няма при нас</a></li>
+                <li><a href="#suitability">Локации</a></li>
+                <li><a href="#partners">Партньори</a></li>
+                <li><a href="#founders">Кои сме ние</a></li>
+                <li><a href="#faq">Q&A</a></li>
+            </ul>
+            <a class="cta-button" href="#contact">Заяви машина</a>
+        </nav>
+    </div>
     </header>
 
     <!-- Overlay -->
     <div id="menu-overlay" class="overlay"></div>
-
-    <!-- Side menu (излиза отдясно) -->
-    <nav id="side-menu" class="side-menu" aria-hidden="true">
-        <div class="menu-head">
-            <span class="menu-title">GuiltFreeVend</span>
-        </div>
-        <ul class="menu-list">
-            <li><a href="#intro">Начало</a></li>
-            <li><a href="#benefits">Защо нас</a></li>
-            <li><a href="#not-included">Какво няма при нас</a></li>
-            <li><a href="#suitability">Локации</a></li>
-            <li><a href="#partners">Партньори</a></li>
-            <li><a href="#founders">Кои сме ние</a></li>
-            <li><a href="#faq">Q&A</a></li>
-        </ul>
-        <a class="cta-button" href="#contact">Заяви машина</a>
-    </nav>
 
     <button id="scrollTopBtn" aria-label="Back to top">↑</button>
 
@@ -330,44 +334,39 @@
 
             if (!hamburger || !sideMenu || !overlay) return;
 
-            // стабилен toggle от бутона (iOS-friendly)
-            // стабилен toggle от бутона (iOS-friendly)
-            function toggleMenu(e) {
+            const menuShell  = document.getElementById('menu-shell');
+
+            function toggleMenu(e){
                 if (e) e.preventDefault();
+                const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
 
-                const isOpening = !hamburger.classList.contains('is-open');
-
-                if (isOpening) {
-                    overlay.classList.add('active');
-                    sideMenu.classList.add('open');
-                    hamburger.classList.add('is-open');
-
+                if (!isOpen){
+                    menuShell.setAttribute('aria-expanded', 'true');
                     hamburger.setAttribute('aria-expanded', 'true');
-                    hamburger.setAttribute('aria-label', 'Затвори меню');
                     sideMenu.setAttribute('aria-hidden', 'false');
-
+                    overlay.classList.add('active');
                     document.body.classList.add('no-scroll');
                 } else {
-                    sideMenu.classList.remove('open');
-                    overlay.classList.remove('active');
-                    hamburger.classList.remove('is-open');
-
+                    menuShell.setAttribute('aria-expanded', 'false');
                     hamburger.setAttribute('aria-expanded', 'false');
-                    hamburger.setAttribute('aria-label', 'Отвори меню');
                     sideMenu.setAttribute('aria-hidden', 'true');
-
+                    overlay.classList.remove('active');
                     document.body.classList.remove('no-scroll');
                 }
             }
 
-            // бутон
-            hamburger.addEventListener('click', toggleMenu, { passive: false });
-
-            // клик върху overlay → затваря
+            hamburger.addEventListener('click', toggleMenu, { passive:false });
             overlay.addEventListener('click', function(e){
                 e.preventDefault();
-                if (hamburger.classList.contains('is-open')) toggleMenu();
-            }, { passive: false });
+                if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
+            }, { passive:false });
+
+            // Затваряне при клик по линк
+            document.querySelectorAll('#side-menu a').forEach(a => {
+                a.addEventListener('click', () => {
+                    if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
+                });
+            });
 
             // фон на хедъра при скрол
             const onHeaderScroll = () => {
