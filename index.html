@@ -52,7 +52,7 @@
     </header>
 
     <!-- Overlay -->
-    <div id="menu-overlay" class="overlay" hidden></div>
+    <div id="menu-overlay" class="overlay"></div>
 
     <!-- Side menu (излиза отдясно) -->
     <nav id="side-menu" class="side-menu" aria-hidden="true">
@@ -322,25 +322,6 @@
 
         window.addEventListener('scroll', () => {
             document.body.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        const hamburger    = document.getElementById('hamburger-toggle');
-        const sideMenu     = document.getElementById('side-menu');
-        const closeBtn     = document.getElementById('close-menu');
-        const overlay      = document.getElementById('menu-overlay');
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-
-        hamburger.addEventListener('click', () => {
-            sideMenu.classList.add('open');
-            overlay.classList.add('active');
-        });
-        closeBtn.addEventListener('click', () => {
-            sideMenu.classList.remove('open');
-            overlay.classList.remove('active');
-        });
-        overlay.addEventListener('click', () => {
-            sideMenu.classList.remove('open');
-            overlay.classList.remove('active');
         });
 
         window.addEventListener('scroll', () => {
