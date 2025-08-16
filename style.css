@@ -3,7 +3,6 @@
   --pad: 2rem;
   --header-h: 56px;
 }
-html, body { overflow-x: hidden; }
 
 * {
     margin: 0;
@@ -20,23 +19,20 @@ body {
 }
 
 /* ---------- Header base ---------- */
+/* фиксиран header + отстояние за съдържанието */
 #site-header{
   position: fixed;
-  top: 0; 
-  left: 0; right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 3000;
-
   height: var(--header-h);
   padding: 0 var(--pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   background: linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80));
   backdrop-filter: saturate(160%) blur(6px);
   border-bottom: 1px solid rgba(51,73,30,.12);
 }
-/* да не „потъва“ съдържанието под fixed хедъра */
 body{ padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
 
 #site-header .brand{
@@ -92,59 +88,59 @@ body.scrolled header {
 .cta--header svg { display: block; }
 
 /* ==== Hamburger ==== */
+/* BURGER – винаги над всичко и центриран по височина на header */
 .hamburger{
   position: fixed;
   right: var(--pad);
   top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
   transform: translateY(-50%);
-  z-index: 3600;
-
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; padding: 0; border: 0; background: transparent;
-  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  z-index: 4000; /* най-отгоре */
+  display: inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; padding:0; border:0; background:transparent;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
 }
 .hamburger .bar{
-  width: 26px; height: 3px; margin: 4px 0; border-radius: 2px;
-  background-color: #356a2a;
+  width:26px; height:3px; margin:4px 0; border-radius:2px;
+  background-color:#356a2a;
   transition: transform 220ms ease, opacity 180ms ease, background-color 180ms ease;
 }
 .hamburger.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
-.hamburger.is-open .bar:nth-child(2){ opacity: 0; }
+.hamburger.is-open .bar:nth-child(2){ opacity:0; }
 .hamburger.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
 @media (min-width: 1025px){ .hamburger{ display:none; } }
 
 /* ==== Overlay ==== */
 .overlay{
-  position: fixed; inset: 0;
+  position: fixed;
+  inset: 0;
   background: rgba(0,0,0,.4);
-  opacity: 0; visibility: hidden; pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition: opacity .25s ease, visibility .25s ease;
-  z-index: 1300;
+  z-index: 3200; /* под сайд менюто, над съдържанието/хедъра */
 }
 .overlay.active{
-  opacity: 1; visibility: visible; pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
-/* ==== Side menu (отдясно) ==== */
-.overlay{
-  position:fixed; inset:0;
-  background:rgba(0,0,0,.4);
-  opacity:0; visibility:hidden; pointer-events:none;
-  transition:opacity .25s ease, visibility .25s ease;
-  z-index: 3400;
-}
-.overlay.active{ opacity:1; visibility:visible; pointer-events:auto; }
 
 .side-menu{
-  position:fixed; top:0; right:0;
-  width:300px; height:100dvh;
-  padding:22px 18px 24px;
-  background:#fdf6d9;
-  box-shadow:-2px 0 12px rgba(0,0,0,.12);
-  transform: translateX(100%);        /* скрито извън екрана */
+  position: fixed;
+  top: 0; right: 0;
+  width: 300px;
+  height: 100dvh;
+  padding: 22px 18px 24px;
+  background: #fdf6d9;
+  box-shadow: -2px 0 12px rgba(0,0,0,.12);
+  transform: translateX(100%); /* скрито вдясно */
   transition: transform .28s ease;
-  z-index: 3500;                      /* над overlay, под бургер/X */
-  display:flex; flex-direction:column; gap:18px;
+  z-index: 3300; /* над overlay, под бургер-а */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 .side-menu.open{ transform: translateX(0); }
 
