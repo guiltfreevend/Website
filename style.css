@@ -95,128 +95,139 @@ body.scrolled header {
 .cta--header:hover { background: #4E6A22; transform: translateY(-1px); }
 .cta--header svg { display: block; }
 
-/* ==== Hamburger (бутон-кутия) ==== */
+/* ==== Hamburger (бутон-кутия) – НОВ ==== */
+/* уверяваме се, че бутонът приема клик на iOS */
 .hamburger{
-  pointer-events: auto;
-  touch-action: manipulation;
-  position: fixed;
-  right: calc(var(--pad) - 2px);
-  top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
-  transform: translateY(-50%) scale(1);
-  z-index: 4000;
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+.hamburger{
+    position: fixed;
+    right: calc(var(--pad) - 2px);
+    top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
+    transform: translateY(-50%) scale(1);
+    z-index: 4000;
 
-  display: inline-flex; align-items:center; justify-content:center;
-  width: 46px; height: 46px;
-  padding: 0;
-  border: 1px solid rgba(51,73,30,.14);
-  border-radius: 12px;
-  background:
-    linear-gradient(180deg, #fffbe9, #f6efcf);
-  box-shadow:
-    0 6px 16px rgba(51,73,30,.12),
-    inset 0 -2px 5px rgba(0,0,0,.04);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 1px solid rgba(51,73,30,.14);
+    border-radius: 12px;
+    background: linear-gradient(180deg, #fffbe9, #f6efcf);
+    box-shadow:
+        0 6px 16px rgba(51,73,30,.12),
+        inset 0 -2px 5px rgba(0,0,0,.04);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
-  transition:
-    transform 180ms var(--ease-in),
-    box-shadow 180ms var(--ease-in),
-    background-color 180ms var(--ease-in),
-    border-color 180ms var(--ease-in);
+    transition:
+        transform 220ms var(--ease-in),
+        box-shadow 220ms var(--ease-in),
+        background-color 220ms var(--ease-in),
+        border-color 220ms var(--ease-in);
 }
 .hamburger:hover{ transform: translateY(-50%) scale(1.06); }
 .hamburger:active{ transform: translateY(-50%) scale(0.98); }
 .hamburger:focus-visible{
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(90,125,42,.25),
-    0 6px 16px rgba(51,73,30,.12);
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(90,125,42,.25),
+        0 6px 16px rgba(51,73,30,.12);
 }
 
+/* Линии – абсолютно центрирани в бутона */
+.hamburger{ position: fixed; }
 .hamburger .bar{
-  display: block;
-  width: 26px; height: 3px; margin: 4px 0; border-radius: 2px;
-  background-color: #356a2a;
-  transition:
-    transform 260ms var(--ease-out),
-    opacity 180ms var(--ease-out),
-    background-color 180ms var(--ease-out);
+    position: absolute;
+    left: 50%;
+    width: 26px;
+    height: 3px;
+    margin: 0;
+    border-radius: 2px;
+    background-color: #356a2a;
+    transform-origin: center center;
+    transition:
+        transform 420ms var(--ease-out),
+        opacity   260ms var(--ease-out),
+        background-color 240ms var(--ease-out);
 }
+/* горна / средна / долна линия */
+.hamburger .bar:nth-child(1){ top: calc(50% - 8px); transform: translateX(-50%); }
+.hamburger .bar:nth-child(2){ top: 50%;             transform: translateX(-50%); }
+.hamburger .bar:nth-child(3){ top: calc(50% + 8px); transform: translateX(-50%); }
 
-/* Бутон в отворено състояние: фон става зелен, линиите – бели и X */
+/* Отворено състояние – фон зелен, линиите бели и в X */
 .hamburger.is-open{
-  background: var(--brand);
-  border-color: rgba(0,0,0,.12);
-  box-shadow:
-    0 10px 24px rgba(90,125,42,.30),
-    inset 0 -2px 4px rgba(0,0,0,.08);
+    background: var(--brand);
+    border-color: rgba(0,0,0,.12);
+    box-shadow:
+        0 10px 24px rgba(90,125,42,.30),
+        inset 0 -2px 4px rgba(0,0,0,.08);
 }
 .hamburger.is-open .bar{ background-color: #fff; }
-.hamburger.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.hamburger.is-open .bar:nth-child(1){ top: 50%; transform: translateX(-50%) rotate(45deg); }
 .hamburger.is-open .bar:nth-child(2){ opacity: 0; }
-.hamburger.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.hamburger.is-open .bar:nth-child(3){ top: 50%; transform: translateX(-50%) rotate(-45deg); }
 
 @media (min-width:1025px){
-  .hamburger{ display:none; }
+    .hamburger{ display:none; }
 }
 
 /* ==== Overlay (лек blur + клик за затваряне) ==== */
 .overlay{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.38);
-  backdrop-filter: blur(2px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .25s var(--ease-in), visibility .25s var(--ease-in);
-  z-index: 3200;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.38);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .28s var(--ease-in), visibility .28s var(--ease-in);
+    z-index: 3200;
 }
 .overlay.active{
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
-
 /* ==== Side menu – balloon effect ==== */
 .side-menu{
-  position: fixed;
-  top: 8px;
-  right: var(--gap);           /* малък гап към десния ръб */
-  width: 300px;
-  height: calc(100dvh - 16px); /* 8px отгоре и 8px отдолу */
-  padding: 22px 18px 24px;
+    position: fixed;
+    top: 8px;
+    right: var(--gap);                  /* остава малкият гап */
+    width: 300px;
+    height: calc(100dvh - 16px);
+    padding: 22px 18px 24px;
 
-  background: #fdf6d9;
-  border-radius: 16px 0 0 16px;
-  box-shadow:
-    -10px 12px 28px rgba(0,0,0,.18),
-    -2px 0 8px rgba(0,0,0,.10);
+    background: #fdf6d9;
+    border-radius: 16px;                /* ← вече е заоблено и вдясно */
+    box-shadow:
+        -10px 12px 28px rgba(0,0,0,.18),
+        -2px 0 8px rgba(0,0,0,.10);
 
-  transform-origin: right center;
-  transform: translateX(calc(100% + var(--gap))) scale(.94);
-  opacity: .0;
+    transform-origin: right center;
+    transform: translateX(calc(100% + var(--gap))) scale(.94);
+    opacity: 0;
 
-  transition:
-    transform 360ms var(--ease-out),
-    opacity   260ms var(--ease-out),
-    box-shadow 300ms var(--ease-out);
-  z-index: 3300;
+    transition:
+        transform 420ms var(--ease-out),
+        opacity   300ms var(--ease-out),
+        box-shadow 300ms var(--ease-out);
+    z-index: 3300;
 
-  display: flex; flex-direction: column; gap: 18px;
-  will-change: transform, opacity;
+    display: flex; flex-direction: column; gap: 18px;
+    will-change: transform, opacity;
 }
-
-/* отворено: лек „препълнен“ вид, после се установява */
 .side-menu.open{
-  transform: translateX(0) scale(1);
-  opacity: 1;
-  animation: menu-pop-in 420ms var(--ease-out) 1 both;
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    animation: menu-pop-in 460ms var(--ease-out) 1 both;
 }
 @keyframes menu-pop-in{
-  0%   { transform: translateX(calc(100% + var(--gap))) scale(.92); opacity: .0; }
-  60%  { transform: translateX(0)                  scale(1.02); opacity: 1;  }
-  100% { transform: translateX(0)                  scale(1.00);              }
+    0%   { transform: translateX(calc(100% + var(--gap))) scale(.92); opacity: 0; }
+    60%  { transform: translateX(0)                        scale(1.02); opacity: 1; }
+    100% { transform: translateX(0)                        scale(1.00); }
 }
 
 /* вътрешни елементи – остават като при теб */
