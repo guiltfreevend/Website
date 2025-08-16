@@ -1,4 +1,4 @@
-/* Reset & basics */
+=/* Reset & basics */
 * {
     margin: 0;
     padding: 0;
@@ -24,6 +24,11 @@ body {
   justify-content: space-between;
   gap: 1rem;
   padding: .85rem 2rem;
+  
+  --header-h: 56px;
+  height: var(--header-h);
+  padding: 0 2rem;
+  
   /* деликатен фон + бордер за контраст */
   background: linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80));
   backdrop-filter: saturate(160%) blur(6px);
@@ -33,6 +38,7 @@ body {
 /* Brand */
 #site-header .brand {
   font-weight: 800;
+  align-items: center;
   font-size: 1.25rem;
   color: #33491E;
   text-decoration: none;
@@ -85,9 +91,9 @@ body.scrolled header {
 .hamburger {
     color: #356a2a;
     position: fixed;
-    top: 14px;
+    top: 8px;
     right: 16px;
-    z-index: 1100;
+    z-index: 1105;
     display: inline-flex;
     align-items: center;
     justify-content: center;
