@@ -328,6 +328,8 @@
             const overlay      = document.getElementById('menu-overlay');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
 
+            if (!hamburger || !sideMenu || !overlay) return;
+
             // стабилен toggle от бутона (iOS-friendly)
             // стабилен toggle от бутона (iOS-friendly)
             function toggleMenu(e) {
