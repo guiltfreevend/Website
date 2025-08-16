@@ -46,25 +46,31 @@
         <button class="hamburger" id="hamburger-toggle" aria-label="Меню">☰</button>
     </header>
 
-    <div class="overlay" id="menu-overlay"></div>
+    <!-- Overlay -->
+    <div id="menu-overlay" class="overlay" hidden></div>
 
-    <nav class="side-menu" id="side-menu">
-        <div class="menu-header">
+    <!-- Hamburger (същият бутон, който се превръща в X) -->
+    <button id="menu-toggle" class="hamburger" aria-label="Меню" aria-expanded="false" aria-controls="side-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <!-- Side menu (излиза отдясно) -->
+    <nav id="side-menu" class="side-menu" aria-hidden="true">
+        <div class="menu-head">
             <span class="menu-title">GuiltFreeVend</span>
-            <button class="close-btn" id="close-menu" aria-label="Затвори меню">×</button>
         </div>
         <ul class="menu-list">
             <li><a href="#intro">Начало</a></li>
-            <li><a href="#benefits">Защо нас?</a></li>
-            <li><a href="#not-included">Какво няма при нас</a></li>
-            <li><a href="#suitability">Подходяща локация?</a></li>
+            <li><a href="#benefits">Защо нас</a></li>
+            <li><a href="#no-bad-ingredients">Какво няма при нас</a></li>
+            <li><a href="#suitability">Локации</a></li>
             <li><a href="#partners">Партньори</a></li>
             <li><a href="#founders">Кои сме ние</a></li>
-            <li><a href="#faq">Често задавани въпроси</a></li>
+            <li><a href="#faq">Q&A</a></li>
         </ul>
-        <div class="cta-button-wrapper">
-            <a href="#contact" class="cta-button">Заяви машина</a>
-        </div>
+        <a class="cta-button" href="#contact">Заяви машина</a>
     </nav>
 
     <button id="scrollTopBtn" aria-label="Back to top">↑</button>
@@ -418,6 +424,52 @@
                     overlay?.classList.remove('active');
                 }
             }, { capture: true });
+        })();
+        
+    </script>
+    <script>
+        (() => {
+            const btn     = document.getElementById('menu-toggle');
+            const menu    = document.getElementById('side-menu');
+            const overlay = document.getElementById('menu-overlay');
+
+            function openMenu() {
+                menu?.classList.add('open');
+                overlay?.classList.add('active');
+                overlay?.removeAttribute('hidden');
+                btn?.classList.add('is-open');
+                btn?.setAttribute('aria-expanded', 'true');
+                menu?.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('no-scroll');
+            }
+            function closeMenu() {
+                menu?.classList.remove('open');
+                overlay?.classList.remove('active');
+                btn?.classList.remove('is-open');
+                btn?.setAttribute('aria-expanded', 'false');
+                menu?.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('no-scroll');
+                // скриваме overlay от tab реда след анимацията
+                setTimeout(() => overlay?.setAttribute('hidden', ''), 280);
+            }
+
+            btn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = btn.classList.contains('is-open');
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            overlay?.addEventListener('click', closeMenu);
+
+            // кликове върху линковете вътре да затварят менюто
+            document.querySelectorAll('#side-menu a').forEach(a => {
+                a.addEventListener('click', closeMenu);
+            });
+
+            // ESC затваря
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
         })();
     </script>
 </body>
