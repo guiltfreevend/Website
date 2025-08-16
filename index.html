@@ -42,6 +42,7 @@
           <span>Заяви машина</span>
         </a>
       </nav>
+    </header>
 
     <!-- Menu shell: бутон + панел в едно -->
     <div id="menu-shell" class="menu-shell" aria-expanded="false">
@@ -70,7 +71,6 @@
             <a class="cta-button" href="#contact">Заяви машина</a>
         </nav>
     </div>
-    </header>
 
     <!-- Overlay -->
     <div id="menu-overlay" class="overlay"></div>
@@ -373,10 +373,11 @@
 
             // Затваряне при клик по линк
             document.querySelectorAll('#side-menu a').forEach(a => {
-                a.addEventListener('click', () => {
-                    if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
-                });
-            });
+               a.addEventListener('click', () => {
+                 const shell = document.getElementById('menu-shell');
+                 if (shell.getAttribute('aria-expanded') === 'true') toggleMenu();
+               });
+             });
 
             // фон на хедъра при скрол
             const onHeaderScroll = () => {
@@ -395,43 +396,6 @@
             scrollTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-
-        function openMenu() {
-            const header    = document.getElementById('site-header');
-            const hamburger = document.getElementById('hamburger');
-            const sideMenu  = document.getElementById('side-menu');
-            const overlay   = document.getElementById('menu-overlay');
-
-            overlay.classList.add('active');
-            sideMenu.classList.add('open');
-            hamburger.classList.add('is-open');
-
-            hamburger.setAttribute('aria-expanded', 'true');
-            hamburger.setAttribute('aria-label', 'Затвори меню');
-            sideMenu.setAttribute('aria-hidden', 'false');
-
-            document.body.classList.add('no-scroll');
-        }
-
-        function closeMenu() {
-            const hamburger = document.getElementById('hamburger');
-            const sideMenu  = document.getElementById('side-menu');
-            const overlay   = document.getElementById('menu-overlay');
-
-            sideMenu.classList.remove('open');
-            overlay.classList.remove('active');
-            hamburger.classList.remove('is-open');
-
-            hamburger.setAttribute('aria-expanded', 'false');
-            hamburger.setAttribute('aria-label', 'Отвори меню');
-            sideMenu.setAttribute('aria-hidden', 'true');
-
-            document.body.classList.remove('no-scroll');
-        }
-
-
-            // затваряне при клик на линк в сайд менюто
-            document.querySelectorAll('#side-menu a').forEach(a => a.addEventListener('click', closeMenu));
 
             // плавен скрол с компенсация за височината на хедъра
             function smoothTo(target) {
