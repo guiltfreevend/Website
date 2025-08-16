@@ -22,8 +22,9 @@ body {
 /* ---------- Header base ---------- */
 #site-header{
   position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1500;
+  top: 0; 
+  left: 0; right: 0;
+  z-index: 3000;
 
   height: var(--header-h);
   padding: 0 var(--pad);
@@ -96,7 +97,7 @@ body.scrolled header {
   right: var(--pad);
   top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
   transform: translateY(-50%);
-  z-index: 2000;
+  z-index: 3600;
 
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; padding: 0; border: 0; background: transparent;
@@ -125,19 +126,25 @@ body.scrolled header {
   opacity: 1; visibility: visible; pointer-events: auto;
 }
 /* ==== Side menu (отдясно) ==== */
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.4);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .25s ease, visibility .25s ease;
+  z-index: 3400;
+}
+.overlay.active{ opacity:1; visibility:visible; pointer-events:auto; }
+
 .side-menu{
-  position: fixed;
-  top: 0; right: 0;
-  width: 300px; height: 100dvh;
-  padding: 22px 18px 24px;
-  background: #fdf6d9;
-  box-shadow: -2px 0 12px rgba(0,0,0,.12);
-  z-index: 1400;
-
-  display: flex; flex-direction: column; gap: 18px;
-
-  transform: translateX(100%);        /* скрито, без да бута страницата */
+  position:fixed; top:0; right:0;
+  width:300px; height:100dvh;
+  padding:22px 18px 24px;
+  background:#fdf6d9;
+  box-shadow:-2px 0 12px rgba(0,0,0,.12);
+  transform: translateX(100%);        /* скрито извън екрана */
   transition: transform .28s ease;
+  z-index: 3500;                      /* над overlay, под бургер/X */
+  display:flex; flex-direction:column; gap:18px;
 }
 .side-menu.open{ transform: translateX(0); }
 
