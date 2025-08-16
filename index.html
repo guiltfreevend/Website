@@ -328,7 +328,7 @@
             const overlay      = document.getElementById('menu-overlay');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-            // стабилен обработчик за клик по бургер бутона (iOS-friendly)
+            // стабилен toggle от бутона (iOS-friendly)
             function toggleMenu(e) {
                 if (e) e.preventDefault();
 
@@ -357,10 +357,10 @@
                 }
             }
 
-            // клик по бутона
+            // бутон
             hamburger.addEventListener('click', toggleMenu, { passive: false });
 
-            // клик извън менюто (по overlay) – затваря
+            // клик върху overlay → затваря
             overlay.addEventListener('click', function(e){
                 e.preventDefault();
                 if (hamburger.classList.contains('is-open')) toggleMenu();
