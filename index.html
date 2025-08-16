@@ -328,6 +328,38 @@
             const overlay      = document.getElementById('menu-overlay');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
 
+            // стабилен обработчик за клик по бургер бутона
+            function toggleMenu(e) {
+                if (e) e.preventDefault();
+
+                const isOpening = !hamburger.classList.contains('is-open');
+
+                if (isOpening) {
+                    overlay.classList.add('active');
+                    sideMenu.classList.add('open');
+                    hamburger.classList.add('is-open');
+
+                    hamburger.setAttribute('aria-expanded', 'true');
+                    hamburger.setAttribute('aria-label', 'Затвори меню');
+                    sideMenu.setAttribute('aria-hidden', 'false');
+
+                    document.body.classList.add('no-scroll');
+                } else {
+                    sideMenu.classList.remove('open');
+                    overlay.classList.remove('active');
+                    hamburger.classList.remove('is-open');
+
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    hamburger.setAttribute('aria-label', 'Отвори меню');
+                    sideMenu.setAttribute('aria-hidden', 'true');
+
+                    document.body.classList.remove('no-scroll');
+                }
+            }
+
+            // закачаме/презакачаме слушателя (по-надеждно и на iOS)
+            hamburger.addEventListener('click', toggleMenu, { passive: false });
+
             // фон на хедъра при скрол
             const onHeaderScroll = () => {
                 const y = window.scrollY || document.documentElement.scrollTop;
