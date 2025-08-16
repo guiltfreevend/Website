@@ -106,7 +106,7 @@ body.scrolled header {
     right: calc(var(--pad) - 2px);
     top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
     transform: translateY(-50%) scale(1);
-    z-index: 4000;
+    z-index: 6000;
 
     display: inline-block;
     width: 46px;
@@ -152,12 +152,10 @@ body.scrolled header {
         opacity   260ms var(--ease-out),
         background-color 240ms var(--ease-out);
 }
-/* горна / средна / долна линия */
 .hamburger .bar:nth-child(1){ top: calc(50% - 8px); transform: translateX(-50%); }
 .hamburger .bar:nth-child(2){ top: 50%;             transform: translateX(-50%); }
 .hamburger .bar:nth-child(3){ top: calc(50% + 8px); transform: translateX(-50%); }
 
-/* Отворено състояние – фон зелен, линиите бели и в X */
 .hamburger.is-open{
     background: var(--brand);
     border-color: rgba(0,0,0,.12);
@@ -183,8 +181,8 @@ body.scrolled header {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity .28s var(--ease-in), visibility .28s var(--ease-in);
-    z-index: 3200;
+    transition: opacity .32s var(--ease-in), visibility .32s var(--ease-in);
+    z-index: 4500; /* под панела, над съдържанието */
 }
 .overlay.active{
     opacity: 1;
@@ -194,35 +192,42 @@ body.scrolled header {
 /* ==== Side menu – balloon effect ==== */
 .side-menu{
     position: fixed;
-    top: 8px;
-    right: var(--gap);                  /* остава малкият гап */
+    /* origin на анимацията = горе-дясно, на едно място с бутона */
+    top: calc(env(safe-area-inset-top, 0px) + 6px);
+    right: var(--gap);
+
     width: 300px;
     height: calc(100dvh - 16px);
     padding: 22px 18px 24px;
 
     background: #fdf6d9;
-    border-radius: 16px;                /* ← вече е заоблено и вдясно */
+    border-radius: 12px; /* старт: като бутона */
     box-shadow:
         -10px 12px 28px rgba(0,0,0,.18),
         -2px 0 8px rgba(0,0,0,.10);
 
-    transform-origin: right center;
-    transform: translateX(calc(100% + var(--gap))) scale(.94);
+    /* ← тук е магията: расте от горе-дясно като „балон“ */
+    transform-origin: 100% 0%;
+    transform: scale(.20);   /* свито до ~20% */
     opacity: 0;
+    filter: blur(4px);
 
     transition:
-        transform 420ms var(--ease-out),
-        opacity   300ms var(--ease-out),
-        box-shadow 300ms var(--ease-out);
-    z-index: 3300;
+        transform      460ms var(--ease-out),
+        opacity        340ms var(--ease-out),
+        filter         340ms var(--ease-out),
+        border-radius  360ms var(--ease-out),
+        box-shadow     360ms var(--ease-out);
 
+    z-index: 5000;  /* под бутона, над overlay */
     display: flex; flex-direction: column; gap: 18px;
-    will-change: transform, opacity;
+    will-change: transform, opacity, filter, border-radius;
 }
 .side-menu.open{
-    transform: translateX(0) scale(1);
+    transform: scale(1);    /* раздуване */
     opacity: 1;
-    animation: menu-pop-in 460ms var(--ease-out) 1 both;
+    filter: blur(0);
+    border-radius: 16px;    /* финално – по-меко от бутона */
 }
 @keyframes menu-pop-in{
     0%   { transform: translateX(calc(100% + var(--gap))) scale(.92); opacity: 0; }
