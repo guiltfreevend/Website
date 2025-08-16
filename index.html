@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
@@ -328,7 +328,7 @@
             const overlay      = document.getElementById('menu-overlay');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-            // стабилен обработчик за клик по бургер бутона
+            // стабилен обработчик за клик по бургер бутона (iOS-friendly)
             function toggleMenu(e) {
                 if (e) e.preventDefault();
 
@@ -357,8 +357,14 @@
                 }
             }
 
-            // закачаме/презакачаме слушателя (по-надеждно и на iOS)
+            // клик по бутона
             hamburger.addEventListener('click', toggleMenu, { passive: false });
+
+            // клик извън менюто (по overlay) – затваря
+            overlay.addEventListener('click', function(e){
+                e.preventDefault();
+                if (hamburger.classList.contains('is-open')) toggleMenu();
+            }, { passive: false });
 
             // фон на хедъра при скрол
             const onHeaderScroll = () => {
