@@ -15,19 +15,14 @@ body {
 
 /* ---------- Header base ---------- */
 #site-header {
-  position: sticky; /* може и fixed; sticky е по-приятно */
-  top: 0;
-  inset-inline: 0;
-  z-index: 1000;
+  --pad: 2rem;
+  --header-h: 56px;
+  position: sticky; 
+  height: var(--header-h);
+  padding: 0 var(--pad);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .85rem 2rem;
-  
-  --header-h: 56px;
-  height: var(--header-h);
-  padding: 0 2rem;
+  justify-content: space-between;;
   
   /* деликатен фон + бордер за контраст */
   background: linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80));
@@ -88,50 +83,35 @@ body.scrolled header {
 .cta--header svg { display: block; }
 
 /* ==== Hamburger ==== */
-.hamburger {
-    color: #356a2a;
-    position: fixed;
-    top: 8px;
-    right: 16px;
-    z-index: 1105;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+.hamburger{
+  position: fixed;
+  right: var(--pad);
+  top: calc(env(safe-area-inset-top, 0px) + var(--header-h)/2);
+  transform: translateY(-50%);              /* център по Y → не „подскача“ */
+  z-index: 2000;                             /* над overlay и side-menu */
+  display: inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; padding:0; border:0; background:transparent;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
 }
-.hamburger .bar {
-    display: block;
-    width: 26px;
-    height: 3px;
-    margin: 4px 0;
-    background-color: currentColor;       /* бранд зелено */
-    border-radius: 2px;
-    transition: transform 220ms ease, opacity 180ms ease, background-color 180ms ease;
+.hamburger .bar{
+  width:26px; height:3px; margin:4px 0; border-radius:2px;
+  background:#356a2a;
+  transform-origin:50% 50%;
+  transition: transform 220ms ease, opacity 180ms ease, background-color 180ms ease;
 }
-.hamburger.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.is-open .bar:nth-child(2) { opacity: 0; }
-.hamburger.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.hamburger.is-open .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.hamburger.is-open .bar:nth-child(2){ opacity:0; }
+.hamburger.is-open .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
 /* ==== Overlay ==== */
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .25s ease, visibility .25s ease;
-    z-index: 1001;
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.4);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .25s ease, visibility .25s ease;
+  z-index:1001;
 }
-.overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
+.overlay.active{ opacity:1; visibility:visible; pointer-events:auto; }
 
 /* ==== Side menu (отдясно) ==== */
 .side-menu {
@@ -144,7 +124,7 @@ body.scrolled header {
     background: #fdf6d9;
     box-shadow: -2px 0 12px rgba(0,0,0,.12);
     transition: right .28s ease;
-    z-index: 1003;
+    z-index: 1400;
     display: flex;
     flex-direction: column;
     gap: 18px;
