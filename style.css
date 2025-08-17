@@ -693,3 +693,36 @@ form textarea {
 /* мобилен размер на бокса */
 @media (max-width: 768px){
   .footer-icons a{ width: 34px; height: 34px; }
+  /* === Footer social icons: a bit larger + visual balance === */
+.footer-icons{ gap:16px; }
+
+.footer-icons a{
+  width:46px;
+  height:46px;
+}
+
+@media (max-width:768px){
+  .footer-icons a{ width:40px; height:40px; }
+}
+
+.footer-icons a img{
+  width:74%;
+  height:74%;
+  object-fit:contain;
+  display:block;
+
+  /* запазваш зеленото от предишния filter; тук само балансираме размера */
+  transform: scale(var(--bal,1));
+  transition: transform .2s ease, filter .2s ease;
+}
+
+.footer-icons a:hover img,
+.footer-icons a:focus img{
+  transform: translateY(-1px) scale(calc(var(--bal,1) * 1.06));
+}
+
+/* перцептивно изравняване – пипни числата, ако искаш още фина настройка */
+.footer-icons img[alt="Instagram"]{ --bal:.96; }
+.footer-icons img[alt="Facebook"] { --bal:1.08; }
+.footer-icons img[alt="LinkedIn"] { --bal:1.12; }
+.footer-icons img[alt="Email"]    { --bal:1.04; }
