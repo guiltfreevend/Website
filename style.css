@@ -807,3 +807,54 @@ form .consent-group a{
 @media (prefers-reduced-motion: reduce){
   .marquee__inner{ animation: none; }
 }
+
+/* ==== PARTNERS: еднакви „кутии“ за логата + по-голям размер ==== */
+/* вътрешният контейнер вече е flex, за да ползваме gap вместо марджини */
+.marquee__inner{
+  display: inline-flex;                  /* важно за текущата анимация */
+  align-items: center;
+  gap: clamp(28px, 4vw, 56px);           /* равни отстояния между логата */
+  animation: scroll 20s linear infinite; /* оставяме анимацията както е */
+}
+
+/* всяко лого влиза в рамка с фиксирана визуална височина */
+.marquee__inner a{
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(56px, 7.2vw, 88px);      /* ↑ общ „визуален“ размер (по-голям) */
+  width: clamp(140px, 22vw, 220px);      /* ширина на рамката – уеднаквява вида */
+  padding: 6px 10px;                     /* въздух около логото */
+}
+
+/* самото изображение се напасва в рамката без да се разтегля грозно */
+.marquee__inner img{
+  max-height: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  width: auto !important;
+  object-fit: contain;
+  margin: 0 !important;                  /* маха старите margin-и по изображенията */
+  filter: none;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+/* лек ховър за десктоп */
+@media (hover:hover){
+  .marquee__inner a:hover img{ transform: scale(1.04); }
+}
+
+/* малко повече размер на десктоп */
+@media (min-width: 1024px){
+  .marquee__inner a{
+    height: 96px;
+    width: 240px;
+  }
+}
+
+/* за хора с намалено движение */
+@media (prefers-reduced-motion: reduce){
+  .marquee__inner{ animation-duration: 40s; }
+  .marquee__inner a:hover img{ transform: none; }
+}
