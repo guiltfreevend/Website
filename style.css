@@ -540,68 +540,55 @@ form textarea {
     --bar-h: 3px;
 }
 
-/* Shell */
+/* SHELL = бутонът-кутия (затворено) → панел (отворено) */
 .menu-shell{
-    position: fixed;
-    top: var(--menu-top);
-    right: var(--gap);
-    width: var(--btn-size);
-    height: var(--btn-size);
-    border-radius: var(--btn-radius);
-    background: transparent;
-    box-shadow: none;
-    overflow: hidden;
-    z-index: 7000;
-    transition:
-        width 520ms var(--ease-out),
-        height 520ms var(--ease-out),
-        border-radius 420ms var(--ease-out),
-        box-shadow 300ms var(--ease-out),
-        background-color 300ms var(--ease-out);
+  position: fixed;
+  top: var(--menu-top);
+  right: var(--gap);
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: var(--btn-radius);
+  /* таблиетката вече е върху shell-а */
+  background: linear-gradient(180deg,#ffffff,#f7f1d9);
+  box-shadow: 0 4px 12px rgba(51,73,30,.18), inset 0 -2px 5px rgba(0,0,0,.04);
+  overflow: hidden;
+  z-index: 7000;
+  transition:
+    width 520ms var(--ease-out),
+    height 520ms var(--ease-out),
+    border-radius 420ms var(--ease-out),
+    box-shadow 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
 }
 .menu-shell[aria-expanded="true"]{
-    width: 300px;
-    height: calc(100dvh - 16px);
-    border-radius: 16px;
-    background: #fdf6d9;
-    box-shadow:
-        -10px 12px 28px rgba(0,0,0,.18),
-        -2px 0 8px rgba(0,0,0,.10);
+  width: 300px;
+  height: calc(100dvh - 16px);
+  border-radius: 16px;
+  background: #fdf6d9; /* става панел */
+  box-shadow: -10px 12px 28px rgba(0,0,0,.18), -2px 0 8px rgba(0,0,0,.10);
 }
 
-/* Бутонът вътре – важните два реда са top/right за двете състояния */
+/* Бутонът вътре – винаги прозрачен; само иконата се вижда */
 .menu-shell .hamburger{
-    position: absolute !important;   /* override на стари правила, ако някъде има position: fixed */
-    top: 0;                          /* ЗАТВОРЕНО: бутонът е плътно в горния десен ъгъл на shell-а */
-    right: 0;
-    width: var(--btn-size);
-    height: var(--btn-size);
-    border-radius: var(--btn-radius);
-    border: 1px solid rgba(51,73,30,.14);
-    background: linear-gradient(180deg, #ffffff, #f7f1d9);
-    box-shadow:
-        0 4px 12px rgba(51,73,30,.18),
-        inset 0 -2px 5px rgba(0,0,0,.04);
-    cursor: pointer; 
-    z-index: 2;
-    transform: none;
-    -webkit-tap-highlight-color: transparent;
-    display: grid;
-    place-items: center;             /* центрира вътрешността – по-стабилно на iOS */
-    transition:
-        transform 180ms var(--ease-in),
-        box-shadow 220ms var(--ease-in),
-        border-color 220ms var(--ease-in),
-        background-color 220ms var(--ease-in);
+  position: absolute;
+  top: var(--btn-offset);
+  right: var(--btn-offset);
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  z-index: 2;                  /* над съдържанието на панела */
+  display: grid;
+  place-items: center;
+  -webkit-tap-highlight-color: transparent;
+  transform: none;             /* убива стари translateY(-50%) и др. */
 }
-/* ОТВОРЕНО: бутонът „влиза“ навътре в панела с еднакъв отстъп */
+/* при отворено го държим на същия offset в панела */
 .menu-shell[aria-expanded="true"] .hamburger{
-    top: var(--btn-offset);
-    right: var(--btn-offset);
-    /* пазим „таблетката“, за да се вижда ясно X */
-    background: linear-gradient(180deg,#ffffff,#f7f1d9);
-    border-color: rgba(51,73,30,.14);
-    box-shadow: 0 4px 12px rgba(51,73,30,.18), inset 0 -2px 5px rgba(0,0,0,.04);
+  top: var(--btn-offset);
+  right: var(--btn-offset);
 }
 :root{ --bar-w:24px; --bar-h:3px; --bar-gap:7px; }
 /* Линиите – равни отстояния спрямо центъра, без subpixel calc() */
