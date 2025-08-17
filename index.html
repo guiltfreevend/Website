@@ -478,6 +478,49 @@
 
               /* последна защита за AOS */
               forceShowAOS();
+            
+                    /* ===== Partners: динамично скалиране според близост до краищата ===== */
+        function startPartnersEdgeScale(){
+            const marquee = document.querySelector('#partners .marquee');
+            if (!marquee) return;
+
+            const items = marquee.querySelectorAll('.marquee__inner a');
+            let lastW = 0;
+
+            function tick(){
+                const rect = marquee.getBoundingClientRect();
+                const w = rect.width;
+                const fadeW = Math.min(Math.max(w * 0.09, 28), 120); // 28–120px
+
+                // обновявай само ако размерът се е променил чувствително
+                if (Math.abs(w - lastW) > 1) { lastW = w; }
+
+                const leftEdge  = rect.left;
+                const rightEdge = rect.right;
+
+                items.forEach(a => {
+                    const r  = a.getBoundingClientRect();
+                    const cx = (r.left + r.right) / 2;
+
+                    // скала по краищата: ~0.94 на самия ръб → 1.00 навътре
+                    let edge = 1;
+                    if (cx < leftEdge + fadeW){
+                        const t = Math.max(0, (cx - leftEdge) / fadeW);
+                        edge = 0.94 + 0.06 * t;
+                    } else if (cx > rightEdge - fadeW){
+                        const t = Math.max(0, (rightEdge - cx) / fadeW);
+                        edge = 0.94 + 0.06 * t;
+                    } else {
+                        edge = 1;
+                    }
+                    a.style.setProperty('--edge', edge.toFixed(3));
+                });
+
+                requestAnimationFrame(tick);
+            }
+            tick();
+        }
+        startPartnersEdgeScale()
             });
     </script>
 
