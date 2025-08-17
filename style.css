@@ -552,7 +552,7 @@ form textarea {
     background: transparent;
     box-shadow: none;
     overflow: hidden;
-    z-index: 5500;
+    z-index: 7000;
     transition:
         width 520ms var(--ease-out),
         height 520ms var(--ease-out),
@@ -583,7 +583,7 @@ form textarea {
     box-shadow:
         0 4px 12px rgba(51,73,30,.18),
         inset 0 -2px 5px rgba(0,0,0,.04);
-    cursor: pointer;
+    cursor: pointer; z-index: 2;
     -webkit-tap-highlight-color: transparent;
     display: grid;
     place-items: center;             /* центрира вътрешността – по-стабилно на iOS */
@@ -601,7 +601,7 @@ form textarea {
     border-color: transparent;
     box-shadow: none;
 }
-
+:root{ --bar-w:24px; --bar-h:3px; --bar-gap:7px; }
 /* Линиите – равни отстояния спрямо центъра, без subpixel calc() */
 .menu-shell .hamburger .bar{
     position: absolute;
@@ -630,7 +630,7 @@ form textarea {
 
 /* ===== Съдържанието на панела (вътре в shell-а) ===== */
 .menu-shell > .side-menu{
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   padding: 22px 18px 24px;
   background: #fdf6d9;
   border-radius: 16px;
