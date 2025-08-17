@@ -286,7 +286,8 @@ body.no-scroll{ overflow:hidden; }
 }
 .marquee__inner {
     display: inline-block;
-    animation: scroll 20s linear infinite;
+    animation: scroll 42s linear infinite;  /* беше ~20s */
+    will-change: transform;
 }
 .marquee__inner img {
     height: 6rem;
