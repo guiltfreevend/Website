@@ -65,6 +65,7 @@ body.scrolled header {
   gap: 1.1rem;
 }
 .desktop-menu a {
+  display:inline-block;
   color: #33491E;
   text-decoration: none;
   padding: .35rem .25rem;
@@ -72,12 +73,14 @@ body.scrolled header {
   transition: color .2s ease, border-color .2s ease;
   border-bottom: 2px solid transparent;
 }
-.desktop-menu a:hover { color: #5A7D2A; }
-
-/* Активна секция (ще се слага от JS) */
-.desktop-menu a.is-active {
-  color: #5A7D2A;
-  border-bottom-color: #5A7D2A;
+.desktop-menu a:hover,
+.desktop-menu a:focus{
+  color:var(--brand);
+  border-bottom-color:var(--brand);
+}
+.desktop-menu a.is-active{
+  color:var(--brand);
+  border-bottom-color:var(--brand);
 }
 
 /* CTA бутон в хедъра */
