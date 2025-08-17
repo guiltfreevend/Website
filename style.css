@@ -759,3 +759,51 @@ form .consent-group a{
   text-underline-offset: .18em;
   text-decoration-thickness: .08em;
 }
+/* === PARTNERS (маркираме лога с еднаква височина и линкове) === */
+.marquee{
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.marquee__inner{
+  display: inline-flex;            /* вместо inline-block → лесен gap */
+  align-items: center;
+  gap: 2rem;                       /* равни разстояния между логата */
+  animation: partners-scroll 22s linear infinite;
+  will-change: transform;
+}
+
+.marquee__inner a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;                    /* ЕДНАКВА визуална височина на ВСИЧКИ лога */
+}
+
+.marquee__inner img{
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: none;                    /* махаме предишни филтри */
+  transition: transform .2s ease;
+}
+
+.marquee__inner a:hover img{
+  transform: scale(1.06);          /* лек, елегантен hover */
+}
+
+@keyframes partners-scroll{
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }  /* защото дублираме списъка */
+}
+
+/* По-малки лога и разстояния на мобилни */
+@media (max-width: 600px){
+  .marquee__inner{ gap: 1.2rem; }
+  .marquee__inner a{ height: 52px; }
+}
+
+/* Достъпност: ако потребителят не иска анимации */
+@media (prefers-reduced-motion: reduce){
+  .marquee__inner{ animation: none; }
+}
