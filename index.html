@@ -322,136 +322,134 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({ duration: 400 });
+            document.addEventListener('DOMContentLoaded', () => {
+              /* AOS + твърд fallback */
+              try { AOS.init({ duration: 400 }); } catch (e) {}
+              const forceShowAOS = () => {
+                document.querySelectorAll('[data-aos]').forEach((el) => {
+                  el.style.opacity = '1';
+                  el.style.transform = 'none';
+                });
+              };
 
-            // елементи
-            const header       = document.getElementById('site-header');
-            const hamburger    = document.getElementById('hamburger');
-            const sideMenu     = document.getElementById('side-menu');
-            const overlay      = document.getElementById('menu-overlay');
-            const scrollTopBtn = document.getElementById('scrollTopBtn');
+              /* елементи */
+              const header        = document.getElementById('site-header');
+              const menuShell     = document.getElementById('menu-shell');
+              const hamburger     = document.getElementById('hamburger');
+              const sideMenu      = document.getElementById('side-menu');
+              const overlay       = document.getElementById('menu-overlay');
+              const scrollTopBtn  = document.getElementById('scrollTopBtn');
 
-            if (!hamburger || !sideMenu || !overlay) return;
+              /* защита */
+              if (!header || !hamburger || !sideMenu || !overlay) { forceShowAOS(); return; }
 
-            const menuShell  = document.getElementById('menu-shell');
-
-            // toggle на менюто (вътре в DOMContentLoaded)
-            function toggleMenu(e){
-              if (e) e.preventDefault();
-
-              const menuShell = document.getElementById('menu-shell');
-              const hamburger = document.getElementById('hamburger');
-              const sideMenu  = document.getElementById('side-menu');
-              const overlay   = document.getElementById('menu-overlay');
-              if (!menuShell || !hamburger || !sideMenu || !overlay) return;
-
-              const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
-
-              if (!isOpen){
-                menuShell.setAttribute('aria-expanded','true');
-                hamburger.setAttribute('aria-expanded','true');
-                hamburger.setAttribute('aria-label','Затвори меню');
-                sideMenu.setAttribute('aria-hidden','false');
-                overlay.classList.add('active');
-                document.body.classList.add('no-scroll');
-              } else {
-                menuShell.setAttribute('aria-expanded','false');
-                hamburger.setAttribute('aria-expanded','false');
-                hamburger.setAttribute('aria-label','Отвори меню');
-                sideMenu.setAttribute('aria-hidden','true');
-                overlay.classList.remove('active');
-                document.body.classList.remove('no-scroll');
+              /* ---- Меню ---- */
+              function toggleMenu(e) {
+                if (e) e.preventDefault();
+                const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
+                if (!isOpen) {
+                  menuShell.setAttribute('aria-expanded', 'true');
+                  hamburger.setAttribute('aria-expanded', 'true');
+                  hamburger.setAttribute('aria-label', 'Затвори меню');
+                  sideMenu.setAttribute('aria-hidden', 'false');
+                  overlay.classList.add('active');
+                  document.body.classList.add('no-scroll');
+                } else {
+                  menuShell.setAttribute('aria-expanded', 'false');
+                  hamburger.setAttribute('aria-expanded', 'false');
+                  hamburger.setAttribute('aria-label', 'Отвори меню');
+                  sideMenu.setAttribute('aria-hidden', 'true');
+                  overlay.classList.remove('active');
+                  document.body.classList.remove('no-scroll');
+                }
               }
-            }
 
-            hamburger.addEventListener('click', toggleMenu, { passive:false });
-            overlay.addEventListener('click', function(e){
+              hamburger.addEventListener('click', toggleMenu, { passive: false });
+              overlay.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
-            }, { passive:false });
+              }, { passive: false });
 
-            // Затваряне при клик по линк
-            document.querySelectorAll('#side-menu a').forEach(a => {
-               a.addEventListener('click', () => {
-                 const shell = document.getElementById('menu-shell');
-                 if (shell.getAttribute('aria-expanded') === 'true') toggleMenu();
-               });
-             });
+              /* затваряне при клик на линк */
+              document.querySelectorAll('#side-menu a').forEach((a) => {
+                a.addEventListener('click', () => {
+                  if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
+                });
+              });
 
-            // фон на хедъра при скрол
-            const onHeaderScroll = () => {
-                const y = window.scrollY || document.documentElement.scrollTop;
-                header.style.background = y > 8
-                    ? 'linear-gradient(to bottom, rgba(253,246,217,.98), rgba(253,246,217,.90))'
-                    : 'linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80))';
-            };
-            onHeaderScroll();
-            window.addEventListener('scroll', onHeaderScroll, { passive: true });
-
-            // back-to-top
-            window.addEventListener('scroll', () => {
-                scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-            }, { passive: true });
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // плавен скрол с компенсация за височината на хедъра
-            function smoothTo(target) {
+              /* ---- Плавен скрол ---- */
+              function smoothTo(target) {
                 const el = document.querySelector(target);
                 if (!el) return;
                 const top = el.getBoundingClientRect().top + window.pageYOffset - (header.offsetHeight + 8);
                 window.scrollTo({ top, behavior: 'smooth' });
-            }
-            document.addEventListener('click', (e) => {
+              }
+
+              document.addEventListener('click', (e) => {
                 const a = e.target.closest('a[href^="#"]');
                 if (!a) return;
                 const href = a.getAttribute('href');
                 if (href.length > 1) {
-                    e.preventDefault();
-                    smoothTo(href);
-                    closeMenu();
+                  e.preventDefault();
+                  smoothTo(href);
+                  menuShell.setAttribute('aria-expanded', 'false');
+                  hamburger.setAttribute('aria-expanded', 'false');
+                  overlay.classList.remove('active');
+                  document.body.classList.remove('no-scroll');
                 }
-            }, { capture: true });
+              }, { capture: true });
 
-            // ---- Active link on scroll (robust) ----
-            const navLinks = Array.from(document.querySelectorAll('.desktop-menu a, #side-menu a'));
-            const sectionsMap = [
-              { id:'hero',         href:'#hero' },
-              { id:'intro',        href:'#hero' },        // третираме hero+intro като „Начало“
-              { id:'benefits',     href:'#benefits' },
-              { id:'not-included', href:'#not-included' },
-              { id:'suitability',  href:'#suitability' },
-              { id:'partners',     href:'#partners' },
-              { id:'founders',     href:'#founders' },
-              { id:'faq',          href:'#faq' },         // ← Q&A
-              { id:'contact',      href:'#contact' }
-            ];
+              /* ---- Активно подчертаване ---- */
+              const navLinks = Array.from(document.querySelectorAll('.desktop-menu a, #side-menu a'));
+              const sectionsMap = [
+                { id: 'hero',         href: '#hero' },
+                { id: 'intro',        href: '#hero' },
+                { id: 'benefits',     href: '#benefits' },
+                { id: 'not-included', href: '#not-included' },
+                { id: 'suitability',  href: '#suitability' },
+                { id: 'partners',     href: '#partners' },
+                { id: 'founders',     href: '#founders' },
+                { id: 'faq',          href: '#faq' },
+                { id: 'contact',      href: '#contact' }
+              ];
 
-            function setActiveLink(){
-              const y = window.scrollY + header.offsetHeight + 48;
-              let currentHref = '#hero'; // fallback най-горе
-              let bestTop = -Infinity;
+              function setActiveLink() {
+                const y = window.scrollY + header.offsetHeight + 48;
+                let currentHref = '#hero';
+                let bestTop = -Infinity;
+                sectionsMap.forEach((s) => {
+                  const el = document.getElementById(s.id);
+                  if (!el) return;
+                  const top = el.offsetTop;
+                  if (top <= y && top > bestTop) { bestTop = top; currentHref = s.href; }
+                });
+                navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === currentHref));
+              }
 
-              sectionsMap.forEach(s => {
-                const el = document.getElementById(s.id);
-                if (!el) return;
-                const top = el.offsetTop;
-                if (top <= y && top > bestTop) {
-                  bestTop = top;
-                  currentHref = s.href;
-                }
-              });
+              setActiveLink();
+              window.addEventListener('scroll', setActiveLink, { passive: true });
+              window.addEventListener('resize', setActiveLink);
 
-              navLinks.forEach(a => {
-                a.classList.toggle('is-active', a.getAttribute('href') === currentHref);
-              });
-            }
+              /* ---- Фон на хедъра при скрол ---- */
+              const onHeaderScroll = () => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+                header.style.background = y > 8
+                  ? 'linear-gradient(to bottom, rgba(253,246,217,.98), rgba(253,246,217,.90))'
+                  : 'linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80))';
+              };
+              onHeaderScroll();
+              window.addEventListener('scroll', onHeaderScroll, { passive: true });
 
-            setActiveLink();
-            window.addEventListener('scroll', setActiveLink, { passive:true });
-            window.addEventListener('resize', setActiveLink);
+              /* ---- Back-to-top ---- */
+              window.addEventListener('scroll', () => {
+                scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+              }, { passive: true });
+              scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+              /* последна защита за AOS */
+              forceShowAOS();
+            });
     </script>
+
 </body>
 </html>
