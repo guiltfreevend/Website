@@ -858,3 +858,28 @@ form .consent-group a{
   .marquee__inner{ animation-duration: 40s; }
   .marquee__inner a:hover img{ transform: none; }
 }
+/* ==== Partners: индивидуално уголемяване на конкретни лога ==== */
+/* базова идея: всяко лого има фактор --bump; по подразбиране 1 */
+.marquee__inner a { overflow: visible; } /* да не се реже при скалиране */
+.marquee__inner img{
+  transform: scale(var(--bump, 1));
+  transform-origin: center;
+  transition: transform .2s ease;
+}
+/* запазваме hover-ефекта, но го умножаваме по базовия фактор */
+@media (hover:hover){
+  .marquee__inner a:hover img{
+    transform: scale(calc(var(--bump, 1) * 1.04));
+  }
+}
+
+/* ↑ увеличения по бранд (настрой числа по вкус) */
+.marquee__inner a[aria-label="Harmonica"] img      { --bump: 1.18; }
+.marquee__inner a[aria-label="Datecs"] img         { --bump: 1.16; }
+.marquee__inner a[aria-label="Smart Organic"] img  { --bump: 1.14; }
+
+/* ако нямаш aria-label в <a>, ползвай fallback по src:
+.marquee__inner img[src*="partner2"] { --bump: 1.18; }   // Harmonica
+.marquee__inner img[src*="partner7"] { --bump: 1.16; }   // Datecs
+.marquee__inner img[src*="partner1"] { --bump: 1.14; }   // Smart Organic
+*/
