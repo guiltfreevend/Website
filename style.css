@@ -540,7 +540,8 @@ form textarea {
     --bar-h: 3px;
 }
 
-/* SHELL = бутонът-кутия (затворено) → панел (отворено) */
+/* SHELL = бутонът-кутия (затворено) → панел (отворено)
+   ЗАМЕНИ целия блок .menu-shell с този, за да махнем „кутийката“ когато е затворено */
 .menu-shell{
   position: fixed;
   top: var(--menu-top);
@@ -548,9 +549,11 @@ form textarea {
   width: var(--btn-size);
   height: var(--btn-size);
   border-radius: var(--btn-radius);
-  /* таблиетката вече е върху shell-а */
-  background: linear-gradient(180deg,#ffffff,#f7f1d9);
-  box-shadow: 0 4px 12px rgba(51,73,30,.18), inset 0 -2px 5px rgba(0,0,0,.04);
+
+  /* махаме таблета/кутийката в затворено състояние */
+  background: transparent;
+  box-shadow: none;
+
   overflow: hidden;
   z-index: 7000;
   transition:
