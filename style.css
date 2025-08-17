@@ -722,7 +722,7 @@ form textarea {
 }
 
 /* перцептивно изравняване – пипни числата, ако искаш още фина настройка */
-.footer-icons img[alt="Instagram"]{ --bal:.98; }
+.footer-icons img[alt="Instagram"]{ --bal:1.10; }
 .footer-icons img[alt="Facebook"] { --bal:1.08; }
 .footer-icons img[alt="LinkedIn"] { --bal:1.38; }
 .footer-icons img[alt="Email"]    { --bal:1.40; }
