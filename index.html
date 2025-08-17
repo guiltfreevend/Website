@@ -22,7 +22,7 @@
 
       <!-- Десктоп меню -->
       <nav class="desktop-menu" role="navigation" aria-label="Основна навигация">
-        <a href="#intro">Начало</a>
+        <a href="#hero">Начало</a>
         <a href="#benefits">Защо нас</a>
         <a href="#not-included">Какво няма при нас</a>
         <a href="#suitability">Локации</a>
@@ -60,7 +60,7 @@
                 <span class="menu-title">GuiltFreeVend</span>
             </div>
             <ul class="menu-list">
-                <li><a href="#intro">Начало</a></li>
+                <li><a href="#hero">Начало</a></li>
                 <li><a href="#benefits">Защо нас</a></li>
                 <li><a href="#not-included">Какво няма при нас</a></li>
                 <li><a href="#suitability">Локации</a></li>
@@ -415,23 +415,43 @@
                 }
             }, { capture: true });
 
-            // активна секция в менюто
-            const ids = ['intro','benefits','not-included','suitability','partners','founders','faq','contact'];
-            const allLinks = Array.from(document.querySelectorAll('.desktop-menu a, #side-menu a'));
-            const linkFor = id => allLinks.find(a => a.getAttribute('href') === '#' + id);
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const id = entry.target.id;
-                    const link = linkFor(id);
-                    if (!link) return;
-                    if (entry.isIntersecting) {
-                        allLinks.forEach(a => a.classList.remove('is-active'));
-                        link.classList.add('is-active');
-                    }
-                });
-            }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.1 });
-            ids.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
-        });
+            // ---- Active link on scroll (robust) ----
+            const navLinks = Array.from(document.querySelectorAll('.desktop-menu a, #side-menu a'));
+            const sectionsMap = [
+              { id:'hero',         href:'#hero' },
+              { id:'intro',        href:'#hero' },        // третираме hero+intro като „Начало“
+              { id:'benefits',     href:'#benefits' },
+              { id:'not-included', href:'#not-included' },
+              { id:'suitability',  href:'#suitability' },
+              { id:'partners',     href:'#partners' },
+              { id:'founders',     href:'#founders' },
+              { id:'faq',          href:'#faq' },         // ← Q&A
+              { id:'contact',      href:'#contact' }
+            ];
+
+            function setActiveLink(){
+              const y = window.scrollY + header.offsetHeight + 48;
+              let currentHref = '#hero'; // fallback най-горе
+              let bestTop = -Infinity;
+
+              sectionsMap.forEach(s => {
+                const el = document.getElementById(s.id);
+                if (!el) return;
+                const top = el.offsetTop;
+                if (top <= y && top > bestTop) {
+                  bestTop = top;
+                  currentHref = s.href;
+                }
+              });
+
+              navLinks.forEach(a => {
+                a.classList.toggle('is-active', a.getAttribute('href') === currentHref);
+              });
+            }
+
+            setActiveLink();
+            window.addEventListener('scroll', setActiveLink, { passive:true });
+            window.addEventListener('resize', setActiveLink);
     </script>
 </body>
 </html>
