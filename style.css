@@ -452,37 +452,9 @@ form textarea {
     margin-bottom: 1rem;
 }
 
-.footer-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.2rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.footer-icons a img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  display: block;
-  filter: brightness(0) contrast(100%);
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.footer-icons a img:hover {
-    transform: scale(1.1);
-    filter: none;
-}
-
 .footer-text {
     font-size: 0.95rem;
     color: #33491E;
-}
-
-/* Специално за LinkedIn */
-.footer-icons img[alt="LinkedIn"] {
-  background-color: transparent;
 }
 
 /* Responsive footer */
@@ -678,3 +650,46 @@ form textarea {
 .menu-shell[aria-expanded="true"] > .side-menu{
   opacity: 1; transform: translateY(0); pointer-events: auto;
 }
+/* === Footer social icons – equal size, equal spacing, green === */
+.footer-icons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;                 /* равни разстояния */
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* квадратен контейнер → визуално еднакъв бокс за всички */
+.footer-icons a{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;               /* размер на иконката (бокс) desktop */
+  height: 40px;
+  border-radius: 8px;        /* по желание; махни ако не искаш закръгляне */
+  text-decoration: none;
+}
+
+/* самото изображение се мащабира вътре в бокса */
+.footer-icons a img{
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  display: block;
+
+  /* оцветяване в бранд зелено чрез CSS filter (работи за <img src="*.svg/png">) */
+  filter: invert(33%) sepia(13%) saturate(1090%) hue-rotate(55deg) brightness(90%) contrast(92%);
+  transition: transform .2s ease, filter .2s ease;
+}
+
+/* hover/focus – леко вдигане и по-тъмен зелeн */
+.footer-icons a:hover img,
+.footer-icons a:focus img{
+  transform: translateY(-1px) scale(1.05);
+  filter: invert(36%) sepia(26%) saturate(900%) hue-rotate(45deg) brightness(88%) contrast(95%);
+}
+
+/* мобилен размер на бокса */
+@media (max-width: 768px){
+  .footer-icons a{ width: 34px; height: 34px; }
