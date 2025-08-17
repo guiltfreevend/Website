@@ -876,5 +876,4 @@ form .consent-group a{
 /* ↑ увеличения по бранд (настрой числа по вкус) */
 .marquee__inner a[aria-label="Harmonica"] img      { --bump: 2.5; }
 .marquee__inner a[aria-label="Datecs"] img         { --bump: 2.5; }
-.marquee__inner a[aria-label="Smart Organic"] img  { --bump: 1.6; }
-
+.marquee__inner a[aria-label="Smart Organic"] img  { --bump: 1.3; }
