@@ -874,12 +874,7 @@ form .consent-group a{
 }
 
 /* ↑ увеличения по бранд (настрой числа по вкус) */
-.marquee__inner a[aria-label="Harmonica"] img      { --bump: 1.9; }
-.marquee__inner a[aria-label="Datecs"] img         { --bump: 1.9; }
-.marquee__inner a[aria-label="Smart Organic"] img  { --bump: 1.9; }
+.marquee__inner a[aria-label="Harmonica"] img      { --bump: 2.5; }
+.marquee__inner a[aria-label="Datecs"] img         { --bump: 2.5; }
+.marquee__inner a[aria-label="Smart Organic"] img  { --bump: 1.6; }
 
-/* ако нямаш aria-label в <a>, ползвай fallback по src:
-.marquee__inner img[src*="partner2"] { --bump: 1.18; }   // Harmonica
-.marquee__inner img[src*="partner7"] { --bump: 1.16; }   // Datecs
-.marquee__inner img[src*="partner1"] { --bump: 1.14; }   // Smart Organic
-*/
