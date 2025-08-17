@@ -726,3 +726,36 @@ form textarea {
 .footer-icons img[alt="Facebook"] { --bal:1.08; }
 .footer-icons img[alt="LinkedIn"] { --bal:1.38; }
 .footer-icons img[alt="Email"]    { --bal:1.40; }
+
+/* ==== Consent checkbox – tidy layout & brand link ==== */
+form .consent-group{
+  display: grid;
+  grid-template-columns: 1.25em 1fr; /* чекбокс | текст */
+  column-gap: .6rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+form .consent-group input[type="checkbox"]{
+  /* override на form input { flex: 1 1 45% } */
+  flex: 0 0 auto !important;
+  width: 1.25em;
+  height: 1.25em;
+  margin: .2em 0 0;
+  border-radius: .3rem;
+  accent-color: var(--brand);        /* зелен чек */
+}
+
+form .consent-group label{
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+form .consent-group a{
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: .18em;
+  text-decoration-thickness: .08em;
+}
