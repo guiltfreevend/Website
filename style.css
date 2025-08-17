@@ -675,47 +675,38 @@ form textarea {
 .menu-shell[aria-expanded="true"] > .side-menu{
   opacity: 1; transform: translateY(0); pointer-events: auto;
 }
-/* FIX: визуално центриране на трите линии в бутона
-   КЪДЕ: сложи този блок в КРАЯ на style.css, за да override-не старите правила
-   (не пипаме нищо друго). */
+/* === Center the three bars inside the hamburger (Safari-safe) ===
+   ADD this block at the VERY END of style.css. It overrides only the bar layout. */
 
 .menu-shell .hamburger .bar{
-  position: absolute;
-  top: 50% !important;
-  left: 50% !important;
-  width: var(--bar-w);
-  height: var(--bar-h);
+  position: absolute !important;
+  left: calc(50% - var(--bar-w)/2) !important;   /* exact horizontal center */
+  width: var(--bar-w); height: var(--bar-h);
   margin: 0;
   border-radius: 9999px;
   background-color: #356a2a;
-  transform-origin: center;
-  /* точно в геометричния център на бутона */
-  transform: translate(-50%, -50%) !important;
-  transition:
-    transform 420ms var(--ease-out),
-    opacity   260ms var(--ease-out),
-    background-color 240ms var(--ease-out);
+  transform: none !important;                    /* neutralize old transforms */
 }
 
-/* равни отстояния спрямо центъра (корекция с !important против стари правила) */
+/* equal vertical spacing around the center */
 .menu-shell .hamburger .bar:nth-child(1){
-  transform: translate(-50%, calc(-50% - var(--bar-gap))) !important;
+  top: calc(50% - var(--bar-h)/2 - var(--bar-gap)) !important;
 }
 .menu-shell .hamburger .bar:nth-child(2){
-  transform: translate(-50%, -50%) !important;
+  top: calc(50% - var(--bar-h)/2) !important;
 }
 .menu-shell .hamburger .bar:nth-child(3){
-  transform: translate(-50%, calc(-50% + var(--bar-gap))) !important;
+  top: calc(50% - var(--bar-h)/2 + var(--bar-gap)) !important;
 }
 
-/* състояние Х */
+/* X state */
 .menu-shell .hamburger[aria-expanded="true"] .bar{ background-color:#33491E; }
 .menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(1){
-  transform: translate(-50%, -50%) rotate(45deg) !important;
+  top: 50% !important; transform: translateY(-50%) rotate(45deg) !important;
 }
 .menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(2){
   opacity: 0 !important;
 }
 .menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(3){
-  transform: translate(-50%, -50%) rotate(-45deg) !important;
+  top: 50% !important; transform: translateY(-50%) rotate(-45deg) !important;
 }
