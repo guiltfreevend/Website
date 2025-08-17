@@ -538,7 +538,6 @@ form textarea {
     --btn-offset: 10px;   /* на колко px да „влезе“ бутонът в панела когато е отворен */
     --bar-w: 24px;
     --bar-h: 3px;
-    --bar-gap: 8px;       /* вертикално отместване на горна/долна линия */
 }
 
 /* Shell */
@@ -583,7 +582,9 @@ form textarea {
     box-shadow:
         0 4px 12px rgba(51,73,30,.18),
         inset 0 -2px 5px rgba(0,0,0,.04);
-    cursor: pointer; z-index: 2;
+    cursor: pointer; 
+    z-index: 2;
+    transform: none;
     -webkit-tap-highlight-color: transparent;
     display: grid;
     place-items: center;             /* центрира вътрешността – по-стабилно на iOS */
@@ -597,9 +598,10 @@ form textarea {
 .menu-shell[aria-expanded="true"] .hamburger{
     top: var(--btn-offset);
     right: var(--btn-offset);
-    background: transparent;
-    border-color: transparent;
-    box-shadow: none;
+    /* пазим „таблетката“, за да се вижда ясно X */
+    background: linear-gradient(180deg,#ffffff,#f7f1d9);
+    border-color: rgba(51,73,30,.14);
+    box-shadow: 0 4px 12px rgba(51,73,30,.18), inset 0 -2px 5px rgba(0,0,0,.04);
 }
 :root{ --bar-w:24px; --bar-h:3px; --bar-gap:7px; }
 /* Линиите – равни отстояния спрямо центъра, без subpixel calc() */
