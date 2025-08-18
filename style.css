@@ -60,9 +60,6 @@ body{ padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
     overflow:hidden; clip:rect(0,0,0,0);
     white-space:nowrap; border:0;
 }
-body.scrolled header {
-    background-color: #fdf6d9;
-}
 
 /* DESKTOP MENU */
 .desktop-menu {
@@ -278,30 +275,6 @@ body.no-scroll{ overflow:hidden; }
     }
 }
 
-/* PARTNERS MARQUEE */
-.marquee {
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 2rem 0;
-}
-.marquee__inner {
-    display: inline-block;
-    animation: scroll 42s linear infinite;  /* беше ~20s */
-    will-change: transform;
-}
-.marquee__inner img {
-    height: 6rem;
-    margin: 0 2rem;
-    transition: transform 0.3s;
-}
-.marquee__inner img:hover {
-    transform: scale(1.05);
-}
-@keyframes scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
 /* FORM STYLES */
 .form-title {
     font-size: 1.8rem;
@@ -328,29 +301,6 @@ form textarea {
 form textarea {
     flex: 1 1 100%;
     height: 8rem;
-}
-.consent-group {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-top: 1.2rem;
-  text-align: left;
-  max-width: 100%;
-  line-height: 1.5;
-}
-
-.consent-group input[type="checkbox"] {
-  margin-top: 0.3em;
-  width: 1.2em;
-  height: 1.2em;
-  flex-shrink: 0;
-}
-
-.consent-group label {
-  display: inline;
-  font-size: 0.95rem;
-  color: #33491E;
-  margin: 0;
 }
 
 .consent-group .required {
@@ -456,14 +406,6 @@ form textarea {
 .footer-text {
     font-size: 0.95rem;
     color: #33491E;
-}
-
-/* Responsive footer */
-@media (max-width: 768px) {
-    .footer-icons a img {
-        width: 26px;
-        height: 26px;
-    }
 }
 
 /* SCROLL TO TOP BUTTON */
@@ -639,15 +581,6 @@ form textarea {
   transform: none !important; /* махаме стари translate/scale, ако има */
   position: static;           /* а „истинското“ правило задава absolute в shell-а */
 }
-.menu-shell > .side-menu{
-  position: absolute; inset: 0;
-  padding: 22px 18px 24px;
-  background: #fdf6d9;
-  border-radius: 16px; overflow: auto;
-  opacity: 0; transform: translateY(6px);
-  transition: opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
-  pointer-events: none;
-}
 .menu-shell[aria-expanded="true"] > .side-menu{
   opacity: 1; transform: translateY(0); pointer-events: auto;
 }
@@ -659,36 +592,6 @@ form textarea {
   gap: 14px;                 /* равни разстояния */
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
-}
-
-/* квадратен контейнер → визуално еднакъв бокс за всички */
-.footer-icons a{
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;               /* размер на иконката (бокс) desktop */
-  height: 40px;
-  border-radius: 8px;        /* по желание; махни ако не искаш закръгляне */
-  text-decoration: none;
-}
-
-/* самото изображение се мащабира вътре в бокса */
-.footer-icons a img{
-  width: 72%;
-  height: 72%;
-  object-fit: contain;
-  display: block;
-
-  /* оцветяване в бранд зелено чрез CSS filter (работи за <img src="*.svg/png">) */
-  filter: invert(33%) sepia(13%) saturate(1090%) hue-rotate(55deg) brightness(90%) contrast(92%);
-  transition: transform .2s ease, filter .2s ease;
-}
-
-/* hover/focus – леко вдигане и по-тъмен зелeн */
-.footer-icons a:hover img,
-.footer-icons a:focus img{
-  transform: translateY(-1px) scale(1.05);
-  filter: invert(36%) sepia(26%) saturate(900%) hue-rotate(45deg) brightness(88%) contrast(95%);
 }
 
 /* мобилен размер на бокса */
