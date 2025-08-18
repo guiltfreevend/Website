@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
+    <link rel="preload" as="image" href="machinehero1.webp" imagesrcset="machinehero1.webp 1x" />
+    <link rel="preload" as="image" href="machinehero2.jpg" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GuiltFreeVend</title>
@@ -444,6 +446,15 @@
 
               /* защита */
               if (!header || !hamburger || !sideMenu || !overlay) { forceShowAOS(); return; }
+                
+              /* ---- Hero: синхронизиране на височината на хедъра ---- */
+              const setHeaderHeightVar = () => {
+                if (!header) return;
+                document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+              };
+              setHeaderHeightVar();
+              window.addEventListener('resize', setHeaderHeightVar, { passive: true });
+
 
               /* ---- Меню ---- */
               function toggleMenu(e) {
