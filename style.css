@@ -1,4 +1,4 @@
-/* =========================================================
+  /* =========================================================
    GuiltFreeVend – Clean CSS (18.08)
    ========================================================= */
 
@@ -703,3 +703,31 @@ form .consent-group a{
         0 0 0 3px rgba(255,255,255,.9),
         0 0 0 6px rgba(106,168,110,.55);
 }
+/* По-тъмен зелен за основния CTA */
+.hero .cta-pill{
+  --cta-bg-top: var(--brand-700);  /* #4E6A22 */
+  --cta-bg: #3c551a;               /* една идея по-тъмен долу */
+}
+
+/* Центриране долу на мобилен/портрет и малко „по-надолу“ */
+@media (max-aspect-ratio: 1/1){
+  .hero{ position: relative; }
+
+  .hero-cta-wrap{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(18px, 7vh, 80px); /* сваля по-надолу */
+    display: flex;
+    flex-direction: column;
+    align-items: center;            /* центриране по хоризонтала */
+    gap: 10px;
+    width: max-content;
+  }
+
+  /* нулира стари марджини, ако има */
+  .hero .cta-pill{ margin: 0 !important; }
+}
+
+/* Ако по невнимание SVG стрелката остане в HTML, я скрий: */
+.hero .cta-pill .cta-icon{ display:none !important; }
