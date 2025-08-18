@@ -1,126 +1,158 @@
-/* Reset & basics */
+/* =========================================================
+   GuiltFreeVend – Clean CSS (18.08)
+   ========================================================= */
+
+/* -------------------- Root & Reset -------------------- */
 :root{
   --pad: 2rem;
   --header-h: 56px;
 
-  /* нови */
-  --menu-top: calc(env(safe-area-inset-top, 0px) + 6px);
+  /* Brand */
   --brand: #5A7D2A;
   --brand-700: #4E6A22;
   --ink: #33491E;
-  --gap: 10px;                 /* разстояние между менюто и десния ръб */
+
+  /* Mobile menu */
+  --menu-top: calc(env(safe-area-inset-top, 0px) + 6px);
+  --gap: 10px;
   --ease-out: cubic-bezier(.16,1,.29,.99);
   --ease-in:  cubic-bezier(.4,0,.2,1);
+
+  /* Hamburger bars */
+  --btn-size: 46px;
+  --btn-radius: 12px;
+  --btn-offset: 10px;
+  --bar-w: 24px;
+  --bar-h: 3px;
+  --bar-gap: 7px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-html {
-    scroll-behavior: smooth;
-}
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fdf6d9;
-    color: #33491E;
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Segoe UI', sans-serif;
+  background-color:#fdf6d9;
+  color:var(--ink);
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
 }
 
-/* ---------- Header base ---------- */
-/* фиксиран header + отстояние за съдържанието */
+/* Utility */
+.sr-only{
+  position:absolute !important; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0);
+  white-space:nowrap; border:0;
+}
+
+/* =========================================================
+   Header & Navigation
+   ========================================================= */
 #site-header{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 3000;
-  height: var(--header-h);
-  padding: 0 var(--pad);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background: linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80));
-  backdrop-filter: saturate(160%) blur(6px);
-  border-bottom: 1px solid rgba(51,73,30,.12);
+  position:fixed; top:0; left:0; right:0; z-index:3000;
+  height:var(--header-h);
+  padding:0 var(--pad);
+  display:flex; align-items:center; justify-content:flex-end;
+  background:linear-gradient(to bottom, rgba(253,246,217,.92), rgba(253,246,217,.80));
+  backdrop-filter:saturate(160%) blur(6px);
+  border-bottom:1px solid rgba(51,73,30,.12);
 }
-body{ padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
 
 #site-header .brand{
-  display: flex;
-  align-items: center;
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: #33491E;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.sr-only{
-    position:absolute !important;
-    width:1px; height:1px;
-    padding:0; margin:-1px;
-    overflow:hidden; clip:rect(0,0,0,0);
-    white-space:nowrap; border:0;
+  display:flex; align-items:center;
+  font-weight:800; font-size:1.25rem;
+  color:var(--ink); text-decoration:none; white-space:nowrap;
 }
 
-/* DESKTOP MENU */
-.desktop-menu {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-}
-.desktop-menu a {
-  display:inline-block;
-  color: #33491E;
-  text-decoration: none;
-  padding: .35rem .25rem;
-  font-weight: 500;
+/* Desktop menu */
+.desktop-menu{ display:flex; align-items:center; gap:1.1rem; }
+.desktop-menu a{
+  display:inline-block; color:var(--ink); text-decoration:none;
+  padding:.35rem .25rem; font-weight:500;
+  border-bottom:2px solid transparent;
   transition: color .2s ease, border-color .2s ease;
-  border-bottom: 2px solid transparent;
 }
 .desktop-menu a:hover,
-.desktop-menu a:focus{
-  color:var(--brand);
-  border-bottom-color:var(--brand);
-}
+.desktop-menu a:focus,
 .desktop-menu a.is-active{
   color:var(--brand);
   border-bottom-color:var(--brand);
 }
 
-/* CTA бутон в хедъра */
-.cta--header {
-  --g: #5A7D2A;
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .9rem 1.8rem;
-  background: var(--g);
-  color: #fff !important;
-  border-radius: .55rem;
-  box-shadow: 0 3px 10px rgba(90,125,42,.25);
-  font-weight: 700;
+/* Header CTA */
+.cta--header{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.9rem 1.8rem; background:var(--brand);
+  color:#fff !important; border-radius:.55rem;
+  box-shadow:0 3px 10px rgba(90,125,42,.25);
+  font-weight:700; text-decoration:none;
+  transition: transform .2s ease, background .2s ease;
 }
-.cta--header:hover { background: #4E6A22; transform: translateY(-1px); }
-.cta--header svg { display: block; }
+.cta--header:hover{ background:var(--brand-700); transform:translateY(-1px); }
 
-/* ==== Overlay (лек blur + клик за затваряне) ==== */
-.overlay{
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.38);
-    backdrop-filter: blur(2px);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity .32s var(--ease-in), visibility .32s var(--ease-in);
-    z-index: 4500; /* под панела, над съдържанието */
+/* Hide desktop menu on tablets/phones */
+@media (max-width:1024px){ .desktop-menu{ display:none; } }
+
+/* =========================================================
+   Mobile Menu: Shell + Hamburger + Panel
+   ========================================================= */
+/* Shell (closed = only icon; open = full panel) */
+.menu-shell{
+  position:fixed; top:var(--menu-top); right:var(--gap);
+  width:var(--btn-size); height:var(--btn-size);
+  border-radius:var(--btn-radius);
+  background:transparent; box-shadow:none;
+  overflow:hidden; z-index:7000;
+  transition:
+    width 520ms var(--ease-out),
+    height 520ms var(--ease-out),
+    border-radius 420ms var(--ease-out),
+    box-shadow 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
 }
-.overlay.active{
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+.menu-shell[aria-expanded="true"]{
+  width:300px; height:calc(100dvh - 16px);
+  border-radius:16px; background:#fdf6d9;
+  box-shadow:-10px 12px 28px rgba(0,0,0,.18), -2px 0 8px rgba(0,0,0,.10);
 }
 
-/* вътрешни елементи – остават като при теб */
+/* Icon button */
+.menu-shell .hamburger{
+  position:absolute; top:var(--btn-offset); right:var(--btn-offset);
+  width:var(--btn-size); height:var(--btn-size);
+  border:0; background:transparent; box-shadow:none;
+  cursor:pointer; z-index:2; display:grid; place-items:center;
+  -webkit-tap-highlight-color:transparent;
+}
+/* Bars */
+.menu-shell .hamburger .bar{
+  position:absolute; top:50%; left:50%;
+  width:var(--bar-w); height:var(--bar-h);
+  border-radius:9999px; background-color:#356a2a;
+  transform-origin:center; transition:transform 420ms var(--ease-out), opacity 260ms var(--ease-out), background-color 240ms var(--ease-out);
+}
+.menu-shell .hamburger .bar:nth-child(1){ transform:translate(-50%, calc(-50% - var(--bar-gap))); }
+.menu-shell .hamburger .bar:nth-child(2){ transform:translate(-50%, -50%); }
+.menu-shell .hamburger .bar:nth-child(3){ transform:translate(-50%, calc(-50% + var(--bar-gap))); }
+
+/* Burger → X */
+.menu-shell .hamburger[aria-expanded="true"] .bar{ background-color:var(--ink); }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(1){ transform:translate(-50%, -50%) rotate(45deg); }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(2){ opacity:0; }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(3){ transform:translate(-50%, -50%) rotate(-45deg); }
+
+/* Sliding panel inside the shell */
+.menu-shell > .side-menu{
+  position:absolute; inset:0; z-index:1;
+  padding:22px 18px 24px; background:#fdf6d9; border-radius:16px;
+  overflow:auto; opacity:0; transform:translateY(6px);
+  transition:opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
+  pointer-events:none;
+}
+.menu-shell[aria-expanded="true"] > .side-menu{
+  opacity:1; transform:translateY(0); pointer-events:auto;
+}
+
+/* Side-menu inner bits (kept minimal) */
 .side-menu .menu-head{
   display:flex; align-items:center; justify-content:space-between;
   padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.06);
@@ -130,792 +162,275 @@ body{ padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); }
 .side-menu .menu-list a{
   display:inline-block; text-decoration:none; color:var(--ink);
   font-size:1rem; line-height:1.3; padding:6px 2px;
-  transition: color .18s var(--ease-in), transform .18s var(--ease-in);
+  transition:color .18s var(--ease-in), transform .18s var(--ease-in);
 }
-.side-menu .menu-list a:hover{ color:#6DAA24; transform: translateX(-2px); }
+.side-menu .menu-list a:hover{ color:#6DAA24; transform:translateX(-2px); }
 .side-menu .cta-button{
   margin-top:auto; display:inline-block; text-align:center;
   padding:12px 14px; background:var(--brand); color:#fff; border-radius:10px;
-  font-weight:700; text-decoration:none; transition: background .2s var(--ease-in), transform .2s var(--ease-in);
+  font-weight:700; text-decoration:none; transition:background .2s var(--ease-in), transform .2s var(--ease-in);
 }
-.side-menu .cta-button:hover{ background:var(--brand-700); transform: translateY(-1px); }
+.side-menu .cta-button:hover{ background:var(--brand-700); transform:translateY(-1px); }
 
+/* Overlay */
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.38); backdrop-filter:blur(2px);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .32s var(--ease-in), visibility .32s var(--ease-in);
+  z-index:4500;
+}
+.overlay.active{ opacity:1; visibility:visible; pointer-events:auto; }
+
+/* Desktop: hide mobile shell/overlay */
 @media (min-width:1025px){
-  .side-menu, .overlay{ display:none!important; }
+  .menu-shell, .overlay{ display:none !important; }
 }
 
-/* безскрол при отворено меню */
-body.no-scroll{ overflow:hidden; }
-
-/* Уважаваме потребители с предпочитание за по-малко движение */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .hamburger, .overlay, .side-menu{
-    transition: none !important;
-    animation: none !important;
-  }
+  .hamburger, .overlay, .side-menu{ transition:none !important; animation:none !important; }
 }
 
-/* HERO */
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    padding: 2rem 1rem;
+/* =========================================================
+   Hero & Generic Sections
+   ========================================================= */
+.hero{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-height:60vh; padding:2rem 1rem; text-align:center;
 }
-.hero-logo {
-    max-width: 360px;
-    height: auto;
-    width: 100%;
-    margin-bottom: 2rem;
+.hero-logo{ max-width:360px; width:100%; height:auto; margin-bottom:2rem; }
+
+.hero-btn{
+  margin-top:1.5rem; padding:1.2rem 2.5rem;
+  background-color:var(--brand); color:#fff; font-size:1.25rem; font-weight:700;
+  border-radius:.5rem; text-decoration:none;
+  transition: transform .2s ease, background-color .2s ease;
 }
-.hero-btn {
-    margin-top: 1.5rem;
-    padding: 1.2rem 2.5rem;
-    background-color: #5A7D2A;
-    color: #fff;
-    font-size: 1.25rem;
-    font-weight: 700;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+.hero-btn:hover{ transform:scale(1.05); background-color:var(--brand-700); }
+
+.section{ padding:4rem 2rem; text-align:center; }
+
+/* =========================================================
+   Benefits
+   ========================================================= */
+.benefits-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:2rem; margin-top:2rem;
 }
-.hero-btn:hover {
-    transform: scale(1.05);
-    background-color: #4E6A22;
+.benefit-item{
+  background:#fffbe9; border-radius:.5rem; padding:1.5rem;
+  text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.benefit-item:hover{ transform:translateY(-5px); box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+.benefit-item img{ width:64px; height:64px; margin-bottom:1rem; }
+.benefit-item h3{ margin-bottom:.5rem; color:var(--brand); }
+.benefit-item p{ font-size:1rem; color:#555; line-height:1.5; }
+
+/* =========================================================
+   Intro
+   ========================================================= */
+@media (min-width:769px){
+  #intro.section{ display:flex; flex-direction:column; align-items:center; padding:5rem 2rem; background-color:#fdf6d9; }
+  #intro h2{ font-size:2rem; margin-bottom:2rem; color:var(--ink); }
+  #intro .intro-content{ max-width:960px; display:flex; flex-direction:column; align-items:center; }
+  #intro .intro-text{ text-align:center; font-size:1.125rem; line-height:1.8; max-width:720px; color:#2a3f15; }
+  #intro .intro-text p{ margin-bottom:1.5rem; }
+}
+#intro .intro-image{ flex:1 1 300px; }
+#intro .intro-image img{ max-width:100%; border-radius:.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+@media (max-width:768px){ #intro .intro-text{ text-align:center; } }
+
+/* =========================================================
+   Partners – slow marquee + edge fade + size harmonisation
+   ========================================================= */
+#partners .marquee{
+  --fadeW: clamp(28px, 9vw, 120px);
+  position:relative; overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right, transparent 0,
+    rgba(0,0,0,.15) calc(var(--fadeW)*.35),
+    #000 calc(var(--fadeW)*1.1),
+    #000 calc(100% - var(--fadeW)*1.1),
+    rgba(0,0,0,.15) calc(100% - var(--fadeW)*.35),
+    transparent 100%);
+          mask-image:linear-gradient(to right, transparent 0,
+    rgba(0,0,0,.15) calc(var(--fadeW)*.35),
+    #000 calc(var(--fadeW)*1.1),
+    #000 calc(100% - var(--fadeW)*1.1),
+    rgba(0,0,0,.15) calc(100% - var(--fadeW)*.35),
+    transparent 100%);
+}
+#partners .marquee__inner{
+  display:inline-flex; align-items:center;
+  gap:clamp(28px,4vw,56px);
+  animation:partners-slow 38s linear infinite; /* по-бавно и smooth */
+  will-change:transform;
+}
+#partners .marquee__inner a{
+  flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+  height:clamp(56px, 7.2vw, 88px);
+  width: clamp(140px, 22vw, 220px);
+  padding:6px 10px;
+}
+#partners .marquee__inner img{
+  max-height:100%; max-width:100%; object-fit:contain;
+  transition:transform .2s ease;
+}
+@media (hover:hover){ #partners .marquee__inner a:hover img{ transform:scale(1.04); } }
+
+/* фини корекции за дребни лога */
+#partners .marquee__inner a[aria-label="Harmonica"] img    { transform:scale(1.25); }
+#partners .marquee__inner a[aria-label="Datecs"] img       { transform:scale(1.25); }
+#partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.10); }
+
+@media (min-width:1024px){
+  #partners .marquee__inner a{ height:96px; width:240px; }
 }
 
-/* GENERAL SECTIONS */
-.section {
-    padding: 4rem 2rem;
-    text-align: center;
+/* достъпност */
+@media (prefers-reduced-motion: reduce){ #partners .marquee__inner{ animation-duration:60s; } }
+
+@keyframes partners-slow{
+  from{ transform:translateX(0); }
+  to  { transform:translateX(-50%); }
 }
 
-/* BENEFITS GRID */
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+/* =========================================================
+   Forms
+   ========================================================= */
+.form-title{
+  font-size:1.8rem; color:var(--ink);
+  margin-bottom:1.5rem; font-weight:700;
 }
-.benefit-item {
-    background: #fffbe9;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+form{
+  max-width:600px; margin:0 auto;
+  display:flex; flex-wrap:wrap; gap:1rem;
 }
-.benefit-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+form input, form textarea{
+  flex:1 1 45%; padding:.75rem;
+  border:1px solid #ccc; border-radius:.25rem; font-size:1rem;
 }
-.benefit-item img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 1rem;
-}
-.benefit-item h3 {
-    margin-bottom: 0.5rem;
-    color: #5A7D2A;
-}
-.benefit-item p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.5;
-}
+form textarea{ flex:1 1 100%; height:8rem; }
 
-/* INTRO LAYOUT */
-@media (min-width: 769px) {
-  #intro.section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5rem 2rem;
-    background-color: #fdf6d9;
-  }
+/* Consent (grid) */
+form .consent-group{
+  display:grid; grid-template-columns:1.25em 1fr; column-gap:.6rem;
+  align-items:start; margin-top:1rem; text-align:left; max-width:100%; line-height:1.5;
+}
+form .consent-group input[type="checkbox"]{
+  flex:0 0 auto !important; width:1.25em; height:1.25em;
+  margin:.2em 0 0; border-radius:.3rem; accent-color:var(--brand);
+}
+form .consent-group label{ margin:0; font-size:1rem; line-height:1.55; color:var(--ink); }
+form .consent-group a{
+  color:var(--brand); text-decoration:underline;
+  text-underline-offset:.18em; text-decoration-thickness:.08em;
+}
+.consent-group .required{ color:#b00; margin-left:.2rem; }
 
-  #intro h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #33491E;
-  }
+/* Submit */
+.submit-btn{
+  flex:1 1 100%; padding:.75rem; border:none; border-radius:.25rem;
+  background:var(--brand); color:#fff; font-size:1.1rem; font-weight:600;
+  cursor:pointer; transition:background .3s;
+}
+.submit-btn:hover{ background:#2a3f15; }
 
-  #intro .intro-content {
-    max-width: 960px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+/* =========================================================
+   Founders
+   ========================================================= */
+.founder-wrapper{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:2rem;
+  max-width:900px; margin:2rem auto 0; text-align:center;
+}
+.founder-card{
+  flex:1 1 300px; padding:1rem; background-color:#f7f3e6;
+  border-radius:.75rem; box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+.founder-img{
+  width:120px; height:120px; object-fit:cover; border-radius:50%;
+  margin-bottom:1rem; border:3px solid var(--brand);
+}
+.founder-card h3{ margin-bottom:.5rem; color:var(--brand-700); }
+.founder-card p{ font-size:.95rem; color:var(--ink); }
 
-  #intro .intro-text {
-    text-align: center;
-    font-size: 1.125rem;
-    line-height: 1.8;
-    max-width: 720px;
-    color: #2a3f15;
-  }
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-container details{
+  max-width:800px; margin:1rem auto; border:1px solid #ccc;
+  border-radius:.5rem; background:#fff8e3; padding:1rem; transition:all .3s ease;
+}
+.faq-container summary{
+  font-weight:600; font-size:1.1rem; cursor:pointer; color:var(--ink); list-style:none;
+}
+.faq-container details[open]{ background:#fdf6d9; box-shadow:0 2px 6px rgba(0,0,0,.05); }
+.faq-container p{ margin-top:.5rem; line-height:1.6; color:#444; }
 
-  #intro .intro-text p {
-    margin-bottom: 1.5rem;
-  }
+/* =========================================================
+   Suitability (modern cards)
+   ========================================================= */
+.suitability{ --card-bg:#fffbe9; --card-b:1px solid rgba(51,73,30,.10); --shadow:0 6px 14px rgba(0,0,0,.06); --shadow-h:0 12px 24px rgba(0,0,0,.10); text-align:center; }
+.suit-title{ font-size:clamp(1.6rem, 1.2rem + 2.2vw, 2.4rem); line-height:1.2; color:var(--ink); margin-bottom:.75rem; }
+.suit-lead{ max-width:840px; margin:0 auto 1.2rem; font-size:clamp(1rem, .9rem + .4vw, 1.15rem); line-height:1.7; color:#2a3f15; opacity:.92; }
+.suitability-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:clamp(14px,2.2vw,22px); margin:1.2rem auto 0; max-width:1100px; }
+.suit-item{
+  background:var(--card-bg); border:var(--card-b); border-radius:16px;
+  padding:18px 18px 16px; text-align:left; box-shadow:var(--shadow);
+  transition:transform .25s var(--ease-out), box-shadow .25s var(--ease-out);
 }
-#intro .intro-image {
-    flex: 1 1 300px;
+.suit-item:hover{ transform:translateY(-4px); box-shadow:var(--shadow-h); }
+.suit-icon{
+  width:46px; height:46px; border-radius:50%; display:grid; place-items:center;
+  font-size:24px; line-height:1; background:radial-gradient(70% 70% at 30% 30%, #fff 0, #f7f1d9 100%);
+  border:1px solid rgba(51,73,30,.12);
+  box-shadow:0 4px 10px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
+  margin-bottom:10px;
 }
-#intro .intro-image img {
-    max-width: 100%;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-@media (max-width: 768px) {
-    #intro .intro-text {
-        text-align: center;
-    }
-}
+.suit-item h3{ color:var(--brand-700); font-size:1.06rem; margin-bottom:.35rem; }
+.suit-item p{ color:#2a3f15; opacity:.95; font-size:.98rem; line-height:1.55; }
+.suit-footnote{ margin:1.2rem auto 0; font-size:.95rem; color:#2a3f15; opacity:.8; }
+@media (min-width:1024px){ .suitability{ padding-top:3.2rem; padding-bottom:3.2rem; } .suitability-grid{ gap:20px; } }
 
-/* FORM STYLES */
-.form-title {
-    font-size: 1.8rem;
-    color: #33491E;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-}
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-form input,
-form textarea {
-    flex: 1 1 45%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-}
+/* =========================================================
+   Footer
+   ========================================================= */
+.custom-footer{ background-color:#f4f0de; padding:2rem 1rem; text-align:center; }
+.footer-container{ max-width:800px; margin:0 auto; }
+.footer-follow{ font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:1rem; }
+.footer-text{ font-size:.95rem; color:var(--ink); }
 
-form textarea {
-    flex: 1 1 100%;
-    height: 8rem;
-}
-
-.consent-group .required {
-  color: #b00;
-  margin-left: 0.2rem;
-}
-.submit-btn {
-    flex: 1 1 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 0.25rem;
-    background: #5A7D2A;
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.submit-btn:hover {
-    background: #2a3f15;
-}
-
-/* FOUNDERS */
-.founder-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    max-width: 900px;
-    margin: 2rem auto 0;
-    text-align: center;
-}
-.founder-card {
-    flex: 1 1 300px;
-    padding: 1rem;
-    background-color: #f7f3e6;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-.founder-img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid #5A7D2A;
-}
-.founder-card h3 {
-    margin-bottom: 0.5rem;
-    color: #4E6A22;
-}
-.founder-card p {
-    font-size: 0.95rem;
-    color: #33491E;
-}
-
-/* FAQ */
-.faq-container details {
-    max-width: 800px;
-    margin: 1rem auto;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    background: #fff8e3;
-    padding: 1rem;
-    transition: all 0.3s ease;
-}
-.faq-container summary {
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    color: #33491E;
-    list-style: none;
-}
-.faq-container details[open] {
-    background: #fdf6d9;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-.faq-container p {
-    margin-top: 0.5rem;
-    line-height: 1.6;
-    color: #444;
-}
-
-/* FOOTER */
-.custom-footer {
-    background-color: #f4f0de;
-    padding: 2rem 1rem;
-    text-align: center;
-}
-
-.footer-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.footer-follow {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #33491E;
-    margin-bottom: 1rem;
-}
-
-.footer-text {
-    font-size: 0.95rem;
-    color: #33491E;
-}
-
-/* SCROLL TO TOP BUTTON */
-#scrollTopBtn {
-    position: fixed;
-    bottom: 2rem; right: 2rem;
-    display: none;
-    background-color: #5A7D2A;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    width: 48px; height: 48px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    z-index: 999;
-}
-#scrollTopBtn:hover {
-    background-color: #4E6A22;
-    transform: scale(1.05);
-}
-@media (max-width: 768px) {
-    #scrollTopBtn {
-        width: 40px; height: 40px; font-size: 1.3rem;
-        bottom: 1.5rem; right: 1.5rem;
-    }
-}
-
-/* MEDIA QUERIES */
-@media (max-width: 1024px) {
-    .desktop-menu { display: none; }
-}
-@media (min-width: 1025px) {
-    .hamburger, .overlay, .side-menu {
-        display: none !important;
-    }
-}
-
-/* -------- Обвивка: от бутон (46x46) до панел -------- */
-/* Размери/променливи за бутона */
-:root{
-    --btn-size: 46px;
-    --btn-radius: 12px;
-    --btn-offset: 10px;   /* на колко px да „влезе“ бутонът в панела когато е отворен */
-    --bar-w: 24px;
-    --bar-h: 3px;
-}
-
-/* SHELL = бутонът-кутия (затворено) → панел (отворено)
-   ЗАМЕНИ целия блок .menu-shell с този, за да махнем „кутийката“ когато е затворено */
-.menu-shell{
-  position: fixed;
-  top: var(--menu-top);
-  right: var(--gap);
-  width: var(--btn-size);
-  height: var(--btn-size);
-  border-radius: var(--btn-radius);
-
-  /* махаме таблета/кутийката в затворено състояние */
-  background: transparent;
-  box-shadow: none;
-
-  overflow: hidden;
-  z-index: 7000;
-  transition:
-    width 520ms var(--ease-out),
-    height 520ms var(--ease-out),
-    border-radius 420ms var(--ease-out),
-    box-shadow 300ms var(--ease-out),
-    background-color 300ms var(--ease-out);
-}
-.menu-shell[aria-expanded="true"]{
-  width: 300px;
-  height: calc(100dvh - 16px);
-  border-radius: 16px;
-  background: #fdf6d9; /* става панел */
-  box-shadow: -10px 12px 28px rgba(0,0,0,.18), -2px 0 8px rgba(0,0,0,.10);
-}
-
-/* Бутонът вътре – винаги прозрачен; само иконата се вижда */
-.menu-shell .hamburger{
-  position: absolute;
-  top: var(--btn-offset);
-  right: var(--btn-offset);
-  width: var(--btn-size);
-  height: var(--btn-size);
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  cursor: pointer;
-  z-index: 2;                  /* над съдържанието на панела */
-  display: grid;
-  place-items: center;
-  -webkit-tap-highlight-color: transparent;
-  transform: none;             /* убива стари translateY(-50%) и др. */
-}
-/* при отворено го държим на същия offset в панела */
-.menu-shell[aria-expanded="true"] .hamburger{
-  top: var(--btn-offset);
-  right: var(--btn-offset);
-}
-:root{ --bar-w:24px; --bar-h:3px; --bar-gap:7px; }
-/* Линиите – равни отстояния спрямо центъра, без subpixel calc() */
-.menu-shell .hamburger .bar{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--bar-w);
-  height: var(--bar-h);
-  margin: 0;
-  border-radius: 9999px;
-  background-color: #356a2a;
-  transform-origin: center;
-  /* базово – точно в центъра на бутона */
-  transform: translate(-50%, -50%);
-  transition:
-    transform 420ms var(--ease-out),
-    opacity   260ms var(--ease-out),
-    background-color 240ms var(--ease-out);
-}
-
-/* симетрично отместване спрямо центъра */
-.menu-shell .hamburger .bar:nth-child(1){
-  transform: translate(-50%, calc(-50% - var(--bar-gap)));
-}
-.menu-shell .hamburger .bar:nth-child(2){
-  transform: translate(-50%, -50%);
-}
-.menu-shell .hamburger .bar:nth-child(3){
-  transform: translate(-50%, calc(-50% + var(--bar-gap)));
-}
-
-/* Burger → X */
-.menu-shell .hamburger[aria-expanded="true"] .bar{ background-color:#33491E; }
-.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(1){
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(2){
-  opacity: 0;
-}
-.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(3){
-  transform: translate(-50%, -50%) rotate(-45deg);}
-
-/* ===== Съдържанието на панела (вътре в shell-а) ===== */
-.menu-shell > .side-menu{
-  position: absolute; inset: 0; z-index: 1;
-  padding: 22px 18px 24px;
-  background: #fdf6d9;
-  border-radius: 16px;
-  overflow: auto;
-
-  opacity: 0; transform: translateY(6px);
-  transition: opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
-  pointer-events: none;
-}
-.menu-shell[aria-expanded="true"] > .side-menu{
-  opacity: 1; transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* Overlay ред (остави си твоя .overlay, само напомняне за z-index) */
-.overlay{ z-index: 4500; }
-
-/* Desktop: крий мобилната обвивка/overlay */
-@media (min-width:1025px){
-  .menu-shell, .overlay{ display: none !important; }
-}
-/* Никакъв blur/почерняване върху менюто */
-.side-menu{
-  filter: none !important;
-  opacity: 1;                 /* видимостта вече я управляваме през shell-а */
-  transform: none !important; /* махаме стари translate/scale, ако има */
-  position: static;           /* а „истинското“ правило задава absolute в shell-а */
-}
-.menu-shell[aria-expanded="true"] > .side-menu{
-  opacity: 1; transform: translateY(0); pointer-events: auto;
-}
-/* === Footer social icons – equal size, equal spacing, green === */
-.footer-icons{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;                 /* равни разстояния */
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* мобилен размер на бокса */
-@media (max-width: 768px){
-  .footer-icons a{ width: 34px; height: 34px; }
-  /* === Footer social icons: a bit larger + visual balance === */
-.footer-icons{ gap:16px; }
-
-.footer-icons a{
-  width:46px;
-  height:46px;
-}
-
-@media (max-width:768px){
-  .footer-icons a{ width:40px; height:40px; }
-}
-
+/* Footer icons – equal size + brand green */
+.footer-icons{ display:flex; justify-content:center; align-items:center; gap:16px; margin-bottom:1.5rem; flex-wrap:wrap; }
+.footer-icons a{ display:inline-flex; justify-content:center; align-items:center; width:46px; height:46px; text-decoration:none; }
+@media (max-width:768px){ .footer-icons a{ width:40px; height:40px; } }
 .footer-icons a img{
-  width:74%;
-  height:74%;
-  object-fit:contain;
-  display:block;
-
-  /* запазваш зеленото от предишния filter; тук само балансираме размера */
-  transform: scale(var(--bal,1));
+  width:74%; height:74%; object-fit:contain; display:block;
+  filter: invert(33%) sepia(13%) saturate(1090%) hue-rotate(55deg) brightness(90%) contrast(92%);
+  transform:scale(var(--bal,1));
   transition: transform .2s ease, filter .2s ease;
 }
-
-.footer-icons a:hover img,
-.footer-icons a:focus img{
-  transform: translateY(-1px) scale(calc(var(--bal,1) * 1.06));
-}
-
-/* перцептивно изравняване – пипни числата, ако искаш още фина настройка */
 .footer-icons img[alt="Instagram"]{ --bal:1.10; }
 .footer-icons img[alt="Facebook"] { --bal:1.08; }
-.footer-icons img[alt="LinkedIn"] { --bal:1.38; }
-.footer-icons img[alt="Email"]    { --bal:1.40; }
-
-/* ==== Consent checkbox – tidy layout & brand link ==== */
-form .consent-group{
-  display: grid;
-  grid-template-columns: 1.25em 1fr; /* чекбокс | текст */
-  column-gap: .6rem;
-  align-items: start;
-  margin-top: 1rem;
+.footer-icons img[alt="LinkedIn"] { --bal:1.30; }
+.footer-icons img[alt="Email"]    { --bal:1.32; }
+.footer-icons a:hover img,
+.footer-icons a:focus img{
+  transform:translateY(-1px) scale(calc(var(--bal,1)*1.06));
+  filter: invert(36%) sepia(26%) saturate(900%) hue-rotate(45deg) brightness(88%) contrast(95%);
 }
 
-form .consent-group input[type="checkbox"]{
-  /* override на form input { flex: 1 1 45% } */
-  flex: 0 0 auto !important;
-  width: 1.25em;
-  height: 1.25em;
-  margin: .2em 0 0;
-  border-radius: .3rem;
-  accent-color: var(--brand);        /* зелен чек */
+/* =========================================================
+   Back-to-top
+   ========================================================= */
+#scrollTopBtn{
+  position:fixed; bottom:2rem; right:2rem; display:none;
+  background-color:var(--brand); color:#fff; border:none; border-radius:50%;
+  font-size:1.5rem; width:48px; height:48px; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  transition:background-color .3s ease, transform .3s ease;
+  z-index:999;
 }
-
-form .consent-group label{
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--ink);
-}
-
-form .consent-group a{
-  color: var(--brand);
-  text-decoration: underline;
-  text-underline-offset: .18em;
-  text-decoration-thickness: .08em;
-}
-/* === PARTNERS (маркираме лога с еднаква височина и линкове) === */
-.marquee{
-  overflow: hidden;
-  margin: 2rem 0;
-}
-
-.marquee__inner{
-  display: inline-flex;            /* вместо inline-block → лесен gap */
-  align-items: center;
-  gap: 2rem;                       /* равни разстояния между логата */
-  animation: partners-scroll 22s linear infinite;
-  will-change: transform;
-}
-
-.marquee__inner a{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 64px;                    /* ЕДНАКВА визуална височина на ВСИЧКИ лога */
-}
-
-.marquee__inner img{
-  height: 100%;
-  width: auto;
-  object-fit: contain;
-  filter: none;                    /* махаме предишни филтри */
-  transition: transform .2s ease;
-}
-
-.marquee__inner a:hover img{
-  transform: scale(1.06);          /* лек, елегантен hover */
-}
-
-@keyframes partners-scroll{
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }  /* защото дублираме списъка */
-}
-
-/* По-малки лога и разстояния на мобилни */
-@media (max-width: 600px){
-  .marquee__inner{ gap: 1.2rem; }
-  .marquee__inner a{ height: 52px; }
-}
-
-/* Достъпност: ако потребителят не иска анимации */
-@media (prefers-reduced-motion: reduce){
-  .marquee__inner{ animation: none; }
-}
-
-/* ==== PARTNERS: еднакви „кутии“ за логата + по-голям размер ==== */
-/* вътрешният контейнер вече е flex, за да ползваме gap вместо марджини */
-.marquee__inner{
-  display: inline-flex;                  /* важно за текущата анимация */
-  align-items: center;
-  gap: clamp(28px, 4vw, 56px);           /* равни отстояния между логата */
-  animation: scroll 20s linear infinite; /* оставяме анимацията както е */
-}
-
-/* всяко лого влиза в рамка с фиксирана визуална височина */
-.marquee__inner a{
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: clamp(56px, 7.2vw, 88px);      /* ↑ общ „визуален“ размер (по-голям) */
-  width: clamp(140px, 22vw, 220px);      /* ширина на рамката – уеднаквява вида */
-  padding: 6px 10px;                     /* въздух около логото */
-}
-
-/* самото изображение се напасва в рамката без да се разтегля грозно */
-.marquee__inner img{
-  max-height: 100% !important;
-  max-width: 100% !important;
-  height: auto !important;
-  width: auto !important;
-  object-fit: contain;
-  margin: 0 !important;                  /* маха старите margin-и по изображенията */
-  filter: none;
-  transition: transform .2s ease, opacity .2s ease;
-}
-
-/* лек ховър за десктоп */
-@media (hover:hover){
-  .marquee__inner a:hover img{ transform: scale(1.04); }
-}
-
-/* малко повече размер на десктоп */
-@media (min-width: 1024px){
-  .marquee__inner a{
-    height: 96px;
-    width: 240px;
-  }
-}
-
-/* за хора с намалено движение */
-@media (prefers-reduced-motion: reduce){
-  .marquee__inner{ animation-duration: 40s; }
-  .marquee__inner a:hover img{ transform: none; }
-}
-/* ==== Partners: индивидуално уголемяване на конкретни лога ==== */
-/* базова идея: всяко лого има фактор --bump; по подразбиране 1 */
-.marquee__inner a { overflow: visible; } /* да не се реже при скалиране */
-.marquee__inner img{
-  transform: scale(var(--bump, 1));
-  transform-origin: center;
-  transition: transform .2s ease;
-}
-/* запазваме hover-ефекта, но го умножаваме по базовия фактор */
-@media (hover:hover){
-  .marquee__inner a:hover img{
-    transform: scale(calc(var(--bump, 1) * 1.04));
-  }
-}
-
-/* ↑ увеличения по бранд (настрой числа по вкус) */
-.marquee__inner a[aria-label="Harmonica"] img      { --bump: 2.5; }
-.marquee__inner a[aria-label="Datecs"] img         { --bump: 2.5; }
-.marquee__inner a[aria-label="Smart Organic"] img  { --bump: 1.3; }
-
-/* ==== PARTNERS: edge fade + динамично скалиране ==== */
-#partners .marquee{
-  /* ширина на зоната за плавно изчезване */
-  --fadeW: clamp(28px, 9vw, 120px);
-  position: relative;
-
-  /* истински fade (работи и в iOS Safari) */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    rgba(0,0,0,.15) calc(var(--fadeW) * .35),
-    #000 calc(var(--fadeW) * 1.1),
-    #000 calc(100% - var(--fadeW) * 1.1),
-    rgba(0,0,0,.15) calc(100% - var(--fadeW) * .35),
-    transparent 100%
-  );
-          mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    rgba(0,0,0,.15) calc(var(--fadeW) * .35),
-    #000 calc(var(--fadeW) * 1.1),
-    #000 calc(100% - var(--fadeW) * 1.1),
-    rgba(0,0,0,.15) calc(100% - var(--fadeW) * .35),
-    transparent 100%
-  );
-}
-
-/* fallback за много стари браузъри – „покриваме“ със същия фон */
-#partners .marquee::before,
-#partners .marquee::after{
-  content:"";
-  position:absolute; top:0; bottom:0;
-  width: var(--fadeW);
-  pointer-events:none; z-index: 1;
-}
-#partners .marquee::before{
-  left:0;
-  background: linear-gradient(to right, #fdf6d9, rgba(253,246,217,0));
-}
-#partners .marquee::after{
-  right:0;
-  background: linear-gradient(to left, #fdf6d9, rgba(253,246,217,0));
-}
-
-/* базово скалиране + персонални корекции (от преди) */
-#partners .marquee__inner a{ --edge: 1; overflow: visible; }
-#partners .marquee__inner img{
-  transform: scale(calc(var(--bump, 1) * var(--edge, 1)));
-  transform-origin: center;
-  transition: transform .08s linear;
-}
-@media (hover:hover){
-  #partners .marquee__inner a:hover img{
-    transform: scale(calc(var(--bump, 1) * var(--edge, 1) * 1.04));
-  }
-}
-
-/* ==== SUITABILITY (карти) ==== */
-.suitability{
-  --card-bg: #fffbe9;
-  --card-b: 1px solid rgba(51,73,30,.10);
-  --shadow: 0 6px 14px rgba(0,0,0,.06);
-  --shadow-h: 0 12px 24px rgba(0,0,0,.10);
-  text-align: center;
-}
-
-.suit-title{
-  font-size: clamp(1.6rem, 1.2rem + 2.2vw, 2.4rem);
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: .75rem;
-}
-
-.suit-lead{
-  max-width: 840px;
-  margin: 0 auto 1.2rem;
-  font-size: clamp(1rem, .9rem + .4vw, 1.15rem);
-  line-height: 1.7;
-  color: #2a3f15;
-  opacity: .92;
-}
-
-.suitability-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: clamp(14px, 2.2vw, 22px);
-  margin: 1.2rem auto 0;
-  max-width: 1100px;
-}
-
-.suit-item{
-  background: var(--card-bg);
-  border: var(--card-b);
-  border-radius: 16px;
-  padding: 18px 18px 16px;
-  text-align: left;
-  box-shadow: var(--shadow);
-  transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out);
-}
-.suit-item:hover{ transform: translateY(-4px); box-shadow: var(--shadow-h); }
-
-.suit-icon{
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  display: grid; place-items: center;
-  font-size: 24px; line-height: 1;
-  background: radial-gradient(70% 70% at 30% 30%, #ffffff 0, #f7f1d9 100%);
-  border: 1px solid rgba(51,73,30,.12);
-  box-shadow: 0 4px 10px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
-  margin-bottom: 10px;
-}
-
-.suit-item h3{
-  color: var(--brand-700);
-  font-size: 1.06rem;
-  margin-bottom: .35rem;
-}
-
-.suit-item p{
-  color: #2a3f15;
-  opacity: .95;
-  font-size: .98rem;
-  line-height: 1.55;
-}
-
-.suit-footnote{
-  margin: 1.2rem auto 0;
-  font-size: .95rem;
-  color: #2a3f15;
-  opacity: .8;
-}
-
-/* малко по-стегнат десктоп layout */
-@media (min-width: 1024px){
-  .suitability{ padding-top: 3.2rem; padding-bottom: 3.2rem; }
-  .suitability-grid{ gap: 20px; }
-}
+#scrollTopBtn:hover{ background-color:var(--brand-700); transform:scale(1.05); }
+@media (max-width:768px){ #scrollTopBtn{ width:40px; height:40px; font-size:1.3rem; bottom:1.5rem; right:1.5rem; } }
