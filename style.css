@@ -196,12 +196,21 @@ body{
    Hero & Generic Sections
    ========================================================= */
 .hero{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  min-height:60vh; padding:2rem 1rem; text-align:center;
+  flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: clamp(48px, 8vh, 96px) 16px;
+  min-height: calc(100svh - var(--header-h, 64px)); /* 100% екран - височина на хедъра */
+  background-color: #fdf6d9; /* запазваме фон за мобилен/портрет */
+  overflow: hidden;
 }
-.hero-logo{ max-width:360px; width:100%; height:auto; margin-bottom:2rem; }
+.hero > * { position: relative; z-index: 1; }
 
 .hero-btn{
+  backdrop-filter: saturate(140%) blur(2px);
+  -webkit-backdrop-filter: saturate(140%) blur(2px);
   margin-top:1.5rem; padding:1.2rem 2.5rem;
   background-color:var(--brand); color:#fff; font-size:1.25rem; font-weight:700;
   border-radius:.5rem; text-decoration:none;
@@ -210,6 +219,51 @@ body{
 .hero-btn:hover{ transform:scale(1.05); background-color:var(--brand-700); }
 
 .section{ padding:4rem 2rem; text-align:center; }
+
+/* ===== ФУЛСКРИЙН ФОН само за екрани >= квадрат (ширина >= височина) ===== */
+@media (min-aspect-ratio: 1/1) {
+  .hero {
+    /* JPEG fallback за по-стари браузъри */
+    background-image: url("machinehero2.jpg");
+    /* Предпочитан WebP + fallback чрез image-set */
+    background-image: image-set(
+      url("machinehero1.webp") type("image/webp"),
+      url("machinehero2.jpg") type("image/jpeg")
+    );
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  /* Лек градиент за по-добра четимост на CTA/лого, без да убива снимката */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,.30) 0%,
+      rgba(0,0,0,.18) 40%,
+      rgba(0,0,0,.30) 100%
+    );
+    z-index: 0;
+  }
+}
+
+/* Фолбек ако някой браузър не поддържа aspect-ratio media feature */
+@media (min-width: 1024px) {
+  .hero {
+    background-image: url("machinehero2.jpg");
+    background-image: image-set(
+      url("machinehero1.webp") type("image/webp"),
+      url("machinehero2.jpg") type("image/jpeg")
+    );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
 
 /* =========================================================
    Benefits
