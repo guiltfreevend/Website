@@ -731,3 +731,15 @@ form .consent-group a{
 
 /* Ако по невнимание SVG стрелката остане в HTML, я скрий: */
 .hero .cta-pill .cta-icon{ display:none !important; }
+
+/* HERO CTA – плътен (без градиент) */
+.hero .cta-pill{
+  background: var(--brand-700) !important;  /* тъмно зелено от бранда */
+  background-image: none !important;        /* сигурно маха градиента */
+  box-shadow: 0 10px 28px rgba(42,68,22,.35);/* външна сянка, без inset */
+  border: 1px solid rgba(255,255,255,.22);   /* тънък контур; махни ако не искаш */
+}
+
+/* Hover/Active – лека промяна в същия тон */
+.hero .cta-pill:hover{  background: var(--brand); }
+.hero .cta-pill:active{ background: #445d20; box-shadow: 0 8px 20px rgba(42,68,22,.28); }
