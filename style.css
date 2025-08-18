@@ -52,32 +52,44 @@ body{
   position: sticky;
   top: 0;
   z-index: 1000;
-  /* прозрачен градиент отгоре към напълно прозрачно долу */
-  background: linear-gradient(
-    to bottom,
-    rgba(253,246,217,0.22) 0%,   /* почти прозрачно най-горе */
-    rgba(253,246,217,0.12) 45%,
-    rgba(253,246,217,0.00) 100%  /* напълно прозрачно към снимката */
-  );
-  backdrop-filter: saturate(130%) blur(6px);
-  -webkit-backdrop-filter: saturate(130%) blur(6px);
-  transition: background .25s ease, box-shadow .25s ease;
+  background: transparent;                  /* самата лента прозрачна */
+  backdrop-filter: saturate(120%) blur(4px);/* леко четимост над изображението */
+  -webkit-backdrop-filter: saturate(120%) blur(4px);
 }
+
+#site-header::after { content: none !important; }
 
 /* когато скролнем – става малко по-плътен за четимост */
 #site-header.is-scrolled{
-  background: linear-gradient(
-    to bottom,
-    rgba(253,246,217,0.90) 0%,
-    rgba(253,246,217,0.86) 60%,
-    rgba(253,246,217,0.80) 100%
-  );
   box-shadow: 0 6px 24px rgba(0,0,0,.06);
 }
 
+/* Градиент САМО вътре в лентата (запълва я 100%) */
+#site-header::before{
+  content: "";
+  position: absolute;
+  inset: 0;                /* вътре в лентата, не извън нея */
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(253,246,217,0.12) 0%,
+    rgba(253,246,217,0.08) 55%,
+    rgba(253,246,217,0.00) 100%
+  );
+}
+
+/* При скрол – леко повечe „плътност“ за контраст, пак само вътре в header */
+#site-header.is-scrolled::before{
+  background: linear-gradient(
+    to bottom,
+    rgba(253,246,217,0.92) 0%,
+    rgba(253,246,217,0.88) 60%,
+    rgba(253,246,217,0.82) 100%
+  );
+}
 
 /* Desktop menu */
-.desktop-menu{ display:flex; align-items:center; gap:1.1rem; }
+.desktop-menu{ display:flex; align-items:center; gap:1.1rem;}
 .desktop-menu a{
   display:inline-block; color:var(--ink); text-decoration:none;
   padding:.35rem .25rem; font-weight:500;
@@ -89,6 +101,30 @@ body{
 .desktop-menu a.is-active{
   color:var(--brand);
   border-bottom-color:var(--brand);
+}
+
+@media (min-width: 992px) {
+  #site-header .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  /* менюто да отиде вдясно */
+  .desktop-menu {
+    margin-left: auto;
+  }
+  .desktop-menu ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(12px, 1.8vw, 24px);
+  }
+  /* ако има паднали подменюта наляво – изрично ги държим вдясно */
+  .desktop-menu li { position: relative; }
+  .desktop-menu li > ul {
+    right: 0; left: auto;
+    text-align: left;
+  }
 }
 
 /* Header CTA */
@@ -307,11 +343,7 @@ body{
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgba(253,246,217,1) 0%,
-      rgba(253,246,217,0.85) 6%,
-      rgba(253,246,217,0.00) 20%
+    background: none !important; 
     );
     z-index: 0;
   }
