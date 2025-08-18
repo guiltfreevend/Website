@@ -538,9 +538,11 @@
               /* ---- Фон на хедъра при скрол ---- */
               const onHeaderScroll = () => {
                 const y = window.scrollY || document.documentElement.scrollTop;
-                header.style.background = y > 12
-                  ? 'linear-gradient(to bottom, rgba(253,246,217,.96), rgba(253,246,217,.88))'
-                  : 'linear-gradient(to bottom, rgba(253,246,217,.06), rgba(253,246,217,.06))';
+                if (y > 24) {
+                  header.classList.add('is-scrolled');
+                } else {
+                  header.classList.remove('is-scrolled');
+                }
               };
               onHeaderScroll();
               window.addEventListener('scroll', onHeaderScroll, { passive: true });
