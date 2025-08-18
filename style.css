@@ -614,3 +614,47 @@ form .consent-group a{
 }
 #scrollTopBtn:hover{ background-color:var(--brand-700); transform:scale(1.05); }
 @media (max-width:768px){ #scrollTopBtn{ width:40px; height:40px; font-size:1.3rem; bottom:1.5rem; right:1.5rem; } }
+
+/* HERO – CTA „пилюла“ + състояния */
+.hero .cta-pill{
+  --cta-bg-top:#6AA86E;         /* лек градиент за „живост“ */
+  --cta-bg:#5A7D2A;
+  --cta-text:#fff;
+  --cta-shadow:rgba(42,68,22,.35);
+
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 22px;
+  border-radius:999px;
+  background:linear-gradient(180deg,var(--cta-bg-top),var(--cta-bg));
+  color:var(--cta-text); text-decoration:none;
+  font-weight:800; letter-spacing:.2px;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 10px 28px var(--cta-shadow), inset 0 -2px 0 rgba(255,255,255,.18);
+  transition:transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  -webkit-backdrop-filter:saturate(130%) blur(2px);
+  backdrop-filter:saturate(130%) blur(2px);
+}
+.hero .cta-pill .cta-icon{ width:20px; height:20px; flex:0 0 20px; transition:transform .18s ease; }
+.hero .cta-pill:hover{ transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
+.hero .cta-pill:hover .cta-icon{ transform:translateX(2px); }
+.hero .cta-pill:active{ transform:translateY(0); box-shadow:0 8px 20px var(--cta-shadow); }
+.hero .cta-pill:focus-visible{
+  outline:0;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.9),
+    0 0 0 6px rgba(106,168,110,.55),
+    0 12px 30px var(--cta-shadow);
+}
+
+/* микро-копи под бутона */
+.hero-cta-note{
+  display:block;
+  margin-top:8px;
+  color:#fff; opacity:.9; font-size:.9rem;
+  text-shadow:0 1px 8px rgba(0,0,0,.35);
+}
+
+/* мобилен: бутонът малко по-надолу */
+@media (max-aspect-ratio: 1/1){
+  .hero .cta-pill{ margin-top: clamp(24px, 7vh, 48px); }
+}
