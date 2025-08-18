@@ -362,7 +362,35 @@ body{
     background-repeat: no-repeat;
   }
 }
+/* HERO: mobile/portrait → square (<= 1:1) */
+@media (max-aspect-ratio: 1/1) {
+  .hero{
+    /* WebP + JPEG fallback */
+    background-image: image-set(
+      url("machineheromobile.webp") type("image/webp"),
+      url("machineheromobile.jpg")  type("image/jpeg")
+    );
+    background-size: cover;
+    /* позициониране, което работи добре за мобилен */
+    background-position: center 28%;   /* пипни процента при нужда */
+    background-repeat: no-repeat;
 
+    /* запазваме пълна височина на екрана под хедъра */
+    min-height: calc(100svh - var(--header-h, 64px));
+  }
+
+  /* по желание лек градиент за четимост; ако не искаш – изтрий този блок */
+  .hero::before{
+    content:"";
+    position:absolute; inset:0; pointer-events:none; z-index:0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,.22) 0%,
+      rgba(0,0,0,.10) 30%,
+      rgba(0,0,0,0)  60%
+    );
+  }
+}
 /* =========================================================
    Benefits
    ========================================================= */
