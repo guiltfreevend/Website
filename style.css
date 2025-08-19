@@ -880,3 +880,40 @@ form .consent-group a{
     width: max-content;
   }
 }
+/* ==== MOBILE / PORTRAIT: без никаква „лента“ + една мобилна версия на hero ==== */
+@media (max-width:1024px), (max-aspect-ratio: 1/1){
+
+  /* 0) Скрий напълно header-а на мобилно (хамбургерът е отделен елемент) */
+  #site-header{ display: none !important; }
+  body{ padding-top: 0 !important; }
+
+  /* 1) Hero – да пълни целия екран и да започва от самия връх */
+  .hero{
+    margin-top: 0 !important;
+    min-height: 100svh;
+    padding-top: clamp(48px, 6vh, 96px);
+    background-image: image-set(
+      url("machineheromobile.webp") type("image/webp"),
+      url("machineheromobile.jpg")  type("image/jpeg")
+    );
+    background-size: cover;
+    background-position: center 24%;
+    background-repeat: no-repeat;
+  }
+
+  /* махаме всякакви оувърлеи/градиенти върху hero */
+  .hero::before{ content: none !important; }
+
+  /* 2) CTA – центрирани долу */
+  .hero-cta-wrap{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(18px, 7vh, 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+  }
+}
