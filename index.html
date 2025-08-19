@@ -451,8 +451,20 @@
               };
               setHeaderHeightVar();
               window.addEventListener('resize', setHeaderHeightVar, { passive: true });
-
-
+                
+            <script>
+             (function(){
+               const header = document.getElementById('site-header');
+               if(!header) return;
+               const onScroll = () => {
+                 const y = window.scrollY || document.documentElement.scrollTop;
+                 header.classList.toggle('is-scrolled', y > 20);
+               };
+               onScroll();
+               window.addEventListener('scroll', onScroll, {passive:true});
+               window.addEventListener('resize', onScroll, {passive:true});
+             })();
+            </script>
               /* ---- Меню ---- */
               function toggleMenu(e) {
                 if (e) e.preventDefault();
