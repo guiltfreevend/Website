@@ -811,3 +811,22 @@ form .consent-group a{
   }
   .hero .cta-pill{ margin: 0 !important; }
 }
+/* ===== Mobile portrait: без каквато и да е „лента“ отгоре ===== */
+@media (max-aspect-ratio: 1/1){
+  /* самият header винаги прозрачен */
+  #site-header,
+  #site-header.is-scrolled{
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* махаме всички вътрешни градиенти/overlays */
+  #site-header::before,
+  #site-header::after,
+  #site-header.is-scrolled::before,
+  #site-header.is-scrolled::after{
+    content: none !important;
+  }
+}
