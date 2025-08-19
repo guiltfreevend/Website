@@ -422,209 +422,168 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-            document.addEventListener('DOMContentLoaded', () => {
-              /* AOS + твърд fallback */
-              try { AOS.init({ duration: 400 }); } catch (e) {}
-              const forceShowAOS = () => {
-                document.querySelectorAll('[data-aos]').forEach((el) => {
-                  el.style.opacity = '1';
-                  el.style.transform = 'none';
-                });
-              };
-
-              /* елементи */
-              const header        = document.getElementById('site-header');
-              const menuShell     = document.getElementById('menu-shell');
-              const hamburger     = document.getElementById('hamburger');
-              const sideMenu      = document.getElementById('side-menu');
-              const overlay       = document.getElementById('menu-overlay');
-              const scrollTopBtn  = document.getElementById('scrollTopBtn');
-
-              /* защита */
-              if (!header || !hamburger || !sideMenu || !overlay) { forceShowAOS(); return; }
-                
-              /* ---- Hero: синхронизиране на височината на хедъра ---- */
-              const setHeaderHeightVar = () => {
-                if (!header) return;
-                document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
-              };
-              setHeaderHeightVar();
-              window.addEventListener('resize', setHeaderHeightVar, { passive: true });
-                
-            <script>
-             (function(){
-               const header = document.getElementById('site-header');
-               if(!header) return;
-               const onScroll = () => {
-                 const y = window.scrollY || document.documentElement.scrollTop;
-                 header.classList.toggle('is-scrolled', y > 20);
-               };
-               onScroll();
-               window.addEventListener('scroll', onScroll, {passive:true});
-               window.addEventListener('resize', onScroll, {passive:true});
-             })();
-            </script>
-              /* ---- Меню ---- */
-              function toggleMenu(e) {
-                if (e) e.preventDefault();
-                const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
-                if (!isOpen) {
-                  menuShell.setAttribute('aria-expanded', 'true');
-                  hamburger.setAttribute('aria-expanded', 'true');
-                  hamburger.setAttribute('aria-label', 'Затвори меню');
-                  sideMenu.setAttribute('aria-hidden', 'false');
-                  overlay.classList.add('active');
-                  document.body.classList.add('no-scroll');
-                } else {
-                  menuShell.setAttribute('aria-expanded', 'false');
-                  hamburger.setAttribute('aria-expanded', 'false');
-                  hamburger.setAttribute('aria-label', 'Отвори меню');
-                  sideMenu.setAttribute('aria-hidden', 'true');
-                  overlay.classList.remove('active');
-                  document.body.classList.remove('no-scroll');
-                }
-              }
-
-              hamburger.addEventListener('click', toggleMenu, { passive: false });
-              overlay.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
-              }, { passive: false });
-
-              /* затваряне при клик на линк */
-              document.querySelectorAll('#side-menu a').forEach((a) => {
-                a.addEventListener('click', () => {
-                  if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
-                });
-              });
-
-              /* ---- Плавен скрол ---- */
-              function smoothTo(target) {
-                const el = document.querySelector(target);
-                if (!el) return;
-                const top = el.getBoundingClientRect().top + window.pageYOffset - (header.offsetHeight + 8);
-                window.scrollTo({ top, behavior: 'smooth' });
-              }
-
-              document.addEventListener('click', (e) => {
-                const a = e.target.closest('a[href^="#"]');
-                if (!a) return;
-                const href = a.getAttribute('href');
-                if (href.length > 1) {
-                  e.preventDefault();
-                  smoothTo(href);
-                  menuShell.setAttribute('aria-expanded', 'false');
-                  hamburger.setAttribute('aria-expanded', 'false');
-                  overlay.classList.remove('active');
-                  document.body.classList.remove('no-scroll');
-                }
-              }, { capture: true });
-
-              /* ---- Активно подчертаване ---- */
-              const navLinks = Array.from(document.querySelectorAll('.desktop-menu a, #side-menu a'));
-              const sectionsMap = [
-                { id: 'hero',         href: '#hero' },
-                { id: 'intro',        href: '#hero' },
-                { id: 'benefits',     href: '#benefits' },
-                { id: 'not-included', href: '#not-included' },
-                { id: 'suitability',  href: '#suitability' },
-                { id: 'partners',     href: '#partners' },
-                { id: 'founders',     href: '#founders' },
-                { id: 'faq',          href: '#faq' },
-                { id: 'contact',      href: '#contact' }
-              ];
-
-              function setActiveLink() {
-                const y = window.scrollY + header.offsetHeight + 48;
-                let currentHref = '#hero';
-                let bestTop = -Infinity;
-                sectionsMap.forEach((s) => {
-                  const el = document.getElementById(s.id);
-                  if (!el) return;
-                  const top = el.offsetTop;
-                  if (top <= y && top > bestTop) { bestTop = top; currentHref = s.href; }
-                });
-                navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === currentHref));
-              }
-
-              setActiveLink();
-              window.addEventListener('scroll', setActiveLink, { passive: true });
-              window.addEventListener('resize', setActiveLink);
-
-              /* ---- Фон на хедъра при скрол ---- */
-              const onHeaderScroll = () => {
-                const y = window.scrollY || document.documentElement.scrollTop;
-                if (y > 24) {
-                  header.classList.add('is-scrolled');
-                } else {
-                  header.classList.remove('is-scrolled');
-                }
-              };
-              onHeaderScroll();
-              window.addEventListener('scroll', onHeaderScroll, { passive: true });
-
-             const toggleHeader = () => {
-               const y = window.scrollY || document.documentElement.scrollTop;
-               header.classList.toggle('is-scrolled', y > 20);
-             };
-             toggleHeader();
-             window.addEventListener('scroll', toggleHeader, { passive: true });
-             window.addEventListener('resize', toggleHeader, { passive: true });
-
-              /* ---- Back-to-top ---- */
-              window.addEventListener('scroll', () => {
-                scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-              }, { passive: true });
-              scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-              /* последна защита за AOS */
-              forceShowAOS();
-            
-                    /* ===== Partners: динамично скалиране според близост до краищата ===== */
-        function startPartnersEdgeScale(){
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          /* AOS + твърд fallback */
+          try { AOS.init({ duration: 400 }); } catch (e) {}
+          const forceShowAOS = () => {
+            document.querySelectorAll('[data-aos]').forEach(el => {
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+            });
+          };
+        
+          /* Елементи */
+          const header       = document.getElementById('site-header');
+          const menuShell    = document.getElementById('menu-shell');
+          const hamburger    = document.getElementById('hamburger');
+          const sideMenu     = document.getElementById('side-menu');
+          const overlay      = document.getElementById('menu-overlay');
+          const scrollTopBtn = document.getElementById('scrollTopBtn');
+        
+          if (!header || !hamburger || !sideMenu || !overlay) { forceShowAOS(); return; }
+        
+          /* Синхронизиране височината на хедъра към CSS променлива */
+          const setHeaderHeightVar = () => {
+            document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+          };
+          setHeaderHeightVar();
+          window.addEventListener('resize', setHeaderHeightVar, { passive: true });
+        
+          /* Сянка/фон на хедъра при скрол */
+          (function(){
+            const onScroll = () => {
+              const y = window.scrollY || document.documentElement.scrollTop;
+              header.classList.toggle('is-scrolled', y > 20);
+            };
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive:true });
+            window.addEventListener('resize', onScroll, { passive:true });
+          })();
+        
+          /* Меню */
+          function toggleMenu(e){
+            if (e) e.preventDefault();
+            const isOpen = menuShell.getAttribute('aria-expanded') === 'true';
+            if (!isOpen) {
+              menuShell.setAttribute('aria-expanded','true');
+              hamburger.setAttribute('aria-expanded','true');
+              hamburger.setAttribute('aria-label','Затвори меню');
+              sideMenu.setAttribute('aria-hidden','false');
+              overlay.classList.add('active');
+              document.body.classList.add('no-scroll');
+            } else {
+              menuShell.setAttribute('aria-expanded','false');
+              hamburger.setAttribute('aria-expanded','false');
+              hamburger.setAttribute('aria-label','Отвори меню');
+              sideMenu.setAttribute('aria-hidden','true');
+              overlay.classList.remove('active');
+              document.body.classList.remove('no-scroll');
+            }
+          }
+          hamburger.addEventListener('click', toggleMenu, { passive:false });
+          overlay.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
+          }, { passive:false });
+        
+          /* Затваряне при клик на линк в сайдменюто */
+          document.querySelectorAll('#side-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+              if (menuShell.getAttribute('aria-expanded') === 'true') toggleMenu();
+            });
+          });
+        
+          /* Плавен скрол */
+          function smoothTo(target){
+            const el = document.querySelector(target);
+            if (!el) return;
+            const top = el.getBoundingClientRect().top + window.pageYOffset - (header.offsetHeight + 8);
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+          document.addEventListener('click', (e) => {
+            const a = e.target.closest('a[href^="#"]');
+            if (!a) return;
+            const href = a.getAttribute('href');
+            if (href.length > 1) {
+              e.preventDefault();
+              smoothTo(href);
+              menuShell.setAttribute('aria-expanded','false');
+              hamburger.setAttribute('aria-expanded','false');
+              overlay.classList.remove('active');
+              document.body.classList.remove('no-scroll');
+            }
+          }, { capture:true });
+        
+          /* Активно подчертаване в менюто */
+          const navLinks = Array.from(document.querySelectorAll('.desktop-menu a, #side-menu a'));
+          const sectionsMap = [
+            { id:'hero',         href:'#hero' },
+            { id:'intro',        href:'#intro' },       /* <-- поправено да сочи към #intro */
+            { id:'benefits',     href:'#benefits' },
+            { id:'not-included', href:'#not-included' },
+            { id:'suitability',  href:'#suitability' },
+            { id:'partners',     href:'#partners' },
+            { id:'founders',     href:'#founders' },
+            { id:'faq',          href:'#faq' },
+            { id:'contact',      href:'#contact' }
+          ];
+          function setActiveLink(){
+            const y = window.scrollY + header.offsetHeight + 48;
+            let currentHref = '#hero';
+            let bestTop = -Infinity;
+            sectionsMap.forEach(s => {
+              const el = document.getElementById(s.id);
+              if (!el) return;
+              const top = el.offsetTop;
+              if (top <= y && top > bestTop) { bestTop = top; currentHref = s.href; }
+            });
+            navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === currentHref));
+          }
+          setActiveLink();
+          window.addEventListener('scroll', setActiveLink, { passive:true });
+          window.addEventListener('resize', setActiveLink);
+        
+          /* Back-to-top */
+          window.addEventListener('scroll', () => {
+            scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+          }, { passive:true });
+          scrollTopBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+        
+          /* Partners: динамично скалиране към краищата */
+          function startPartnersEdgeScale(){
             const marquee = document.querySelector('#partners .marquee');
             if (!marquee) return;
-
             const items = marquee.querySelectorAll('.marquee__inner a');
-            let lastW = 0;
-
             function tick(){
-                const rect = marquee.getBoundingClientRect();
-                const w = rect.width;
-                const fadeW = Math.min(Math.max(w * 0.09, 28), 120); // 28–120px
-
-                // обновявай само ако размерът се е променил чувствително
-                if (Math.abs(w - lastW) > 1) { lastW = w; }
-
-                const leftEdge  = rect.left;
-                const rightEdge = rect.right;
-
-                items.forEach(a => {
-                    const r  = a.getBoundingClientRect();
-                    const cx = (r.left + r.right) / 2;
-
-                    // скала по краищата: ~0.94 на самия ръб → 1.00 навътре
-                    let edge = 1;
-                    if (cx < leftEdge + fadeW){
-                        const t = Math.max(0, (cx - leftEdge) / fadeW);
-                        edge = 0.94 + 0.06 * t;
-                    } else if (cx > rightEdge - fadeW){
-                        const t = Math.max(0, (rightEdge - cx) / fadeW);
-                        edge = 0.94 + 0.06 * t;
-                    } else {
-                        edge = 1;
-                    }
-                    a.style.setProperty('--edge', edge.toFixed(3));
-                });
-
-                requestAnimationFrame(tick);
+              const rect = marquee.getBoundingClientRect();
+              const w = rect.width;
+              const fadeW = Math.min(Math.max(w * 0.09, 28), 120); // 28–120px
+              const leftEdge  = rect.left;
+              const rightEdge = rect.right;
+              items.forEach(a => {
+                const r  = a.getBoundingClientRect();
+                const cx = (r.left + r.right) / 2;
+                let edge = 1;
+                if (cx < leftEdge + fadeW){
+                  const t = Math.max(0, (cx - leftEdge) / fadeW);
+                  edge = 0.94 + 0.06 * t;
+                } else if (cx > rightEdge - fadeW){
+                  const t = Math.max(0, (rightEdge - cx) / fadeW);
+                  edge = 0.94 + 0.06 * t;
+                }
+                a.style.setProperty('--edge', edge.toFixed(3));
+              });
+              requestAnimationFrame(tick);
             }
             tick();
-        }
-        startPartnersEdgeScale()
-            });
-    </script>
+          }
+          startPartnersEdgeScale();
+        
+          /* последна защита за AOS */
+          forceShowAOS();
+        });
+        </script>
 
 </body>
 </html>
