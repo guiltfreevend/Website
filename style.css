@@ -752,3 +752,42 @@ form .consent-group a{
 /* Hover/Active – лека промяна в същия тон */
 .hero .cta-pill:hover{  background: var(--brand); }
 .hero .cta-pill:active{ background: #445d20; box-shadow: 0 8px 20px rgba(42,68,22,.28); }
+
+/* ===== MOBILE / PORTRAIT: hero да влиза под header и до ръбовете ===== */
+@media (max-aspect-ratio: 1/1){
+  .hero{
+    /* фонът за мобилен си остава */
+    background-image: image-set(
+      url("machineheromobile.webp") type("image/webp"),
+      url("machineheromobile.jpg")  type("image/jpeg")
+    );
+    background-size: cover;
+    background-position: center 24%;
+    background-repeat: no-repeat;
+
+    /* изтегляме секцията нагоре зад header + safe-area */
+    margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
+    /* компенсираме с вътрешен падинг, за да не се „смачка“ съдържанието */
+    padding-top: calc(
+      clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px)
+    );
+
+    /* пълна височина на екрана (без да „реже“ отгоре) */
+    min-height: calc(100svh + env(safe-area-inset-top, 0px));
+  }
+
+  /* CTA контейнерът остава фиксиран долу и центриран (както вече го имаш) */
+  .hero-cta-wrap{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(18px, 7vh, 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+  }
+
+  .hero .cta-pill{ margin: 0 !important; } /* нулира стари марджини */
+}
