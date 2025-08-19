@@ -332,20 +332,6 @@ body{
 
 .section{ padding:4rem 2rem; text-align:center; }
 
-/* ===== ФУЛСКРИЙН ФОН само за екрани >= квадрат (ширина >= височина) ===== */
-@media (min-aspect-ratio: 1/1) {
-  .hero {
-    /* JPEG fallback за по-стари браузъри */
-    background-image: url("machinehero2.jpg");
-    /* Предпочитан WebP + fallback чрез image-set */
-    background-image: image-set(
-      url("machinehero1.webp") type("image/webp"),
-      url("machinehero2.jpg") type("image/jpeg")
-    );
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
 
   /* Лек градиент за по-добра четимост на CTA/лого, без да убива снимката */
   .hero::before {
@@ -358,34 +344,35 @@ body{
   }
 }
 
-/* Фолбек ако някой браузър не поддържа aspect-ratio media feature */
-@media (min-width: 1024px) {
-  .hero {
-    background-image: url("machinehero2.jpg");
-    background-image: image-set(
-      url("machinehero1.webp") type("image/webp"),
-      url("machinehero2.jpg") type("image/jpeg")
-    );
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+/* ===== HERO: дефолт (>= квадрат, т.е. landscape/desktop) — ВИНАГИ има фон ===== */
+.hero{
+  /* desktop/landscape фон по подразбиране */
+  background-image: image-set(
+    url("machinehero1.webp") type("image/webp"),
+    url("machinehero2.jpg")  type("image/jpeg")
+  );
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-/* HERO: mobile/portrait → square (<= 1:1) */
-@media (max-aspect-ratio: 1/1) {
+
+/* ===== HERO: portrait (<= 1:1) — override с mobile фон ===== */
+@media (max-aspect-ratio: 1/1){
   .hero{
-    /* WebP + JPEG fallback */
     background-image: image-set(
       url("machineheromobile.webp") type("image/webp"),
       url("machineheromobile.jpg")  type("image/jpeg")
     );
     background-size: cover;
-    /* позициониране, което работи добре за мобилен */
-    background-position: center 28%;   /* пипни процента при нужда */
+    background-position: center 24%;
     background-repeat: no-repeat;
 
-    /* запазваме пълна височина на екрана под хедъра */
-    min-height: calc(100svh - var(--header-h, 64px));
+    /* да „влезе“ под header-а и да стига ръбовете */
+    margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
+    padding-top: calc(
+      clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px)
+    );
+    min-height: calc(100svh + env(safe-area-inset-top, 0px));
   }
 
   /* по желание лек градиент за четимост; ако не искаш – изтрий този блок */
@@ -790,4 +777,37 @@ form .consent-group a{
   }
 
   .hero .cta-pill{ margin: 0 !important; } /* нулира стари марджини */
+}
+/* ===== HERO: portrait (<= 1:1) — override с mobile фон ===== */
+@media (max-aspect-ratio: 1/1){
+  .hero{
+    background-image: image-set(
+      url("machineheromobile.webp") type("image/webp"),
+      url("machineheromobile.jpg")  type("image/jpeg")
+    );
+    background-size: cover;
+    background-position: center 24%;
+    background-repeat: no-repeat;
+
+    /* да „влезе“ под header-а и да стига ръбовете */
+    margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
+    padding-top: calc(
+      clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px)
+    );
+    min-height: calc(100svh + env(safe-area-inset-top, 0px));
+  }
+
+  /* CTA контейнерът остава центриран долу */
+  .hero-cta-wrap{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(18px, 7vh, 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+  }
+  .hero .cta-pill{ margin: 0 !important; }
 }
