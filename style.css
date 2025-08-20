@@ -36,7 +36,6 @@ body{
   font-family:'Segoe UI', sans-serif;
   background-color:#fdf6d9;
   color:var(--ink);
-  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
 }
 
 /* Utility */
@@ -340,7 +339,6 @@ body{
     background: none !important; 
     z-index: 0;
   }
-}
 
 /* ===== HERO: дефолт (>= квадрат, т.е. landscape/desktop) — ВИНАГИ има фон ===== */
 .hero{
