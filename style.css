@@ -27,6 +27,8 @@
   --bar-gap: 7px;
 }
 
+html, body { margin: 0; }
+
 *{ margin:0; padding:0; box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 
@@ -62,12 +64,8 @@ body{
   padding: 10px 18px;
 
   background:transparent;
-  backdrop-filter:saturate(120%) blur(4px);
-  -webkit-backdrop-filter:saturate(120%) blur(4px);
   transition: box-shadow .2s ease;
 }
-
-#site-header::after { content: none !important; }
 
 /* когато скролнем – става малко по-плътен за четимост */
 #site-header.is-scrolled{
@@ -824,7 +822,6 @@ form .consent-group a{
 
   /* махаме всички вътрешни градиенти/overlays */
   #site-header::before,
-  #site-header::after,
   #site-header.is-scrolled::before,
   #site-header.is-scrolled::after{
     content: none !important;
@@ -852,10 +849,6 @@ form .consent-group a{
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-  }
-  #site-header::before,
-  #site-header::after{
-    content: none !important;         /* махаме всякакви градиенти */
   }
 
   /* 3) Hero да пълни екрана и да започва от самия връх */
