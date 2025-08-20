@@ -69,20 +69,16 @@ body{
 /* когато скролнем – става малко по-плътен за четимост */
 #site-header.is-scrolled{
   box-shadow: 0 6px 24px rgba(0,0,0,.06);
+  backdrop-filter: none;            /* забраняваме blur */
+  -webkit-backdrop-filter: none;
 }
 
-/* Градиент САМО вътре в лентата (запълва я 100%) */
 #site-header::before{
   content: "";
   position: absolute;
-  inset: 0;                /* вътре в лентата, не извън нея */
+  inset: 0;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(253,246,217,0.14) 0%,
-    rgba(253,246,217,0.08) 60%,
-    rgba(253,246,217,0.00) 100%
-  );
+  background: transparent; /* хедърът е 100% прозрачен в началото */
 }
 
 /* При скрол – леко повечe „плътност“ за контраст, пак само вътре в header */
