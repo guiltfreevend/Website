@@ -916,3 +916,34 @@ form .consent-group a{
     min-height: calc(100svh + var(--header-h));
   }
 }
+/* 1) Градиентът на header-а СТОИ ЗАД съдържанието */
+#site-header::before{
+  z-index: 0;                 /* фонът е отдолу */
+}
+#site-header > *{
+  position: relative;
+  z-index: 1;                 /* менютата и CTA са отгоре */
+}
+
+/* 2) Кристално четими менюта, докато header-ът е прозрачен (на върха) */
+#site-header:not(.is-scrolled) .menu a{
+  /* Вариант A: „чипове“ със светъл фон, без да пипаме прозрачността на самия header */
+  background: rgba(255,255,255,.70);
+  color: var(--ink);
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+/* При скрол фонът на header-а става достатъчен → махаме чиповете */
+#site-header.is-scrolled .menu a{
+  background: transparent;
+  box-shadow: none;
+}
+
+/* (По-нежен вариант вместо чипове: текстов „ореол“ – ако го предпочетеш, 
+   замени горния блок за #site-header:not(.is-scrolled) с този:)
+#site-header:not(.is-scrolled) .menu a{
+  text-shadow: 0 1px 0 rgba(255,255,255,.9), 0 0 6px rgba(255,255,255,.45);
+}
+*/
