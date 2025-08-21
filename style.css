@@ -1373,3 +1373,125 @@ form .consent-group a{
   background: #445d20 !important;
   transform: none;
 }
+/* ========= Intro (text + natural still-life background) ========= */
+:root{
+  --gf-green:#2F5E2B;
+  --gf-ink:#0e0f0e;
+  --gf-paper:#f6fbf5;
+}
+
+.gf-intro{
+  position: relative;
+  isolation: isolate;
+  background: var(--gf-paper);
+  min-height: clamp(560px, 84vh, 860px);
+  display: grid;
+  align-items: center;
+}
+
+.gf-intro__media{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.gf-intro__media picture,
+.gf-intro__media img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.gf-intro__media img{
+  object-fit: cover;
+  /* Оставяме „въздух“ за текста отляво на десктоп, център на мобилен */
+  object-position: 65% center;
+}
+
+/* Много лека тинт-възглавница за четимост (без да личи, без „ефекти“) */
+.gf-intro__tint{
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(246,251,245,0.96) 0%,
+                           rgba(246,251,245,0.90) 28%,
+                           rgba(246,251,245,0.40) 56%,
+                           rgba(246,251,245,0.00) 86%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gf-intro__container{
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 56px);
+}
+
+.gf-intro__content{
+  max-width: 760px; /* удобна ширина за четене */
+  color: var(--gf-ink);
+}
+
+.gf-intro h2{
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--gf-green);
+  margin: 0 0 12px;
+}
+
+.gf-intro__lead{
+  font-size: clamp(16px, 1.9vw, 20px);
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
+.gf-intro__story p{
+  margin: 0 0 12px;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.gf-intro__drivers{
+  margin: 18px 0 14px;
+  padding: 14px 0 0;
+  border-top: 1px solid rgba(47,94,43,0.15); /* чист разделител */
+}
+.gf-intro__drivers .row{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 12px;
+  align-items: start;
+  padding: 8px 0;
+}
+.gf-intro__drivers dt{
+  font-weight: 700;
+  color: var(--gf-green);
+  white-space: nowrap;
+}
+.gf-intro__drivers dd{
+  margin: 0;
+  line-height: 1.6;
+}
+
+.gf-intro__closing{
+  margin-top: 10px;
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: #233422;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 992px){
+  .gf-intro__media img{ object-position: center; }
+  .gf-intro__tint{
+    /* на мобилен тинтът е малко по-равномерен */
+    background:
+      linear-gradient(180deg, rgba(246,251,245,0.92) 0%,
+                             rgba(246,251,245,0.78) 24%,
+                             rgba(246,251,245,0.20) 66%,
+                             rgba(246,251,245,0.00) 100%);
+  }
+  .gf-intro__content{ max-width: 680px; }
+}
