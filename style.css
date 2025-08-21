@@ -1043,3 +1043,96 @@ form .consent-group a{
 #site-header:not(.is-scrolled) .desktop-menu a{
   text-shadow: 0 1px 0 rgba(255,255,255,.85), 0 0 6px rgba(255,255,255,.35);
 }
+/* === Frosted header (gradient blur INSIDE the bar) – final === */
+
+/* слоят с blur е ЗАД текста */
+#site-header > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* базов прозрачен header (не променяме твоя sticky/размери) */
+#site-header{
+  background: transparent;
+}
+
+/* 1) НА ВЪРХА: плавно „вкарваме“ blur вътре в лентата */
+#site-header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+
+  /* лек воал е нужен, за да работи еднакво в Safari/Chrome */
+  background: rgba(255,255,255,.08);
+
+  /* самият blur – НЕ засяга текста в header-а */
+  backdrop-filter: blur(7px) saturate(120%);
+  -webkit-backdrop-filter: blur(7px) saturate(120%);
+
+  /* маска: отгоре няма blur (0), надолу плавно се засилва,
+     а в последните ~10% от височината плавно ИЗГАСВА,
+     така границата към hero не е рязка */
+  -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0)   0%,
+      rgba(0,0,0,.25) 30%,
+      rgba(0,0,0,.85) 70%,
+      rgba(0,0,0,1)   90%,
+      rgba(0,0,0,0)   100%
+  );
+          mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0)   0%,
+      rgba(0,0,0,.25) 30%,
+      rgba(0,0,0,.85) 70%,
+      rgba(0,0,0,1)   90%,
+      rgba(0,0,0,0)   100%
+  );
+
+  transition:
+    backdrop-filter .25s ease,
+    -webkit-backdrop-filter .25s ease,
+    background .25s ease,
+    opacity .25s ease;
+}
+
+/* 2) СКРОЛ: изключваме blur и ползваме твоя бежов фон във вътрешния слой */
+#site-header.is-scrolled{
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+#site-header.is-scrolled::before{
+  /* махаме blur */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  /* показваме лек бежов фон само ВЪТРЕ в лентата */
+  background: linear-gradient(
+    to bottom,
+    rgba(253,246,217,0.95) 0%,
+    rgba(253,246,217,0.90) 60%,
+    rgba(253,246,217,0.86) 100%
+  );
+
+  /* без маска в скрол състояние (равномерен фон) */
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+
+/* 3) Менютата – чисти, без „чипове“, но четими:
+      по-силен цвят и фин светъл кант за контраст върху светли зони.
+      (изключваме го при скрол, защото фонът вече помага) */
+#site-header .desktop-menu a{
+  color: #17391f;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+#site-header:not(.is-scrolled) .desktop-menu a{
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.85),
+    0 0 6px rgba(255,255,255,.30);
+}
+#site-header.is-scrolled .desktop-menu a{
+  text-shadow: none;
+}
