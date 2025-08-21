@@ -945,3 +945,45 @@ form .consent-group a{
   text-shadow: 0 1px 0 rgba(255,255,255,.9), 0 0 6px rgba(255,255,255,.45);
 }
 
+/* === NAV VISIBILITY – FINAL === */
+/* Фонът/градиентът на header-а е зад съдържанието */
+#site-header::before{ z-index: 0; }
+#site-header > *{ position: relative; z-index: 1; }
+
+/* 1) На върха: „чипове“ зад линковете за максимална четимост */
+#site-header:not(.is-scrolled) .menu a{
+  background: rgba(255,255,255,.72);     /* деликатен светъл фон */
+  color: #0e2b17;                        /* тъмнозелено за контраст */
+  padding: 6px 10px;                     /* лек „чип“ */
+  border-radius: 10px;
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  text-shadow: none;                     /* изключваме стария halo, ако го има */
+  transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+#site-header:not(.is-scrolled) .menu a:hover{
+  background: rgba(255,255,255,.85);
+  box-shadow: 0 4px 12px rgba(0,0,0,.10);
+  transform: translateY(-1px);
+}
+
+/* 2) При скрол: чиповете се махат (четимостта идва от фона на .is-scrolled::before) */
+#site-header.is-scrolled .menu a{
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 3) Паданщи подменюта – четими и на върха */
+#site-header:not(.is-scrolled) .menu li > ul{
+  background: rgba(253,246,217,.96);     /* стабилен светъл фон в dropdown */
+  box-shadow: 0 14px 40px rgba(0,0,0,.12);
+}
+
+/* 4) Малки екрани – по-компактни чипове */
+@media (max-width: 1024px){
+  #site-header:not(.is-scrolled) .menu a{
+    padding: 5px 8px;
+    border-radius: 8px;
+  }
+}
