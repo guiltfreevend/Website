@@ -1136,3 +1136,77 @@ form .consent-group a{
 #site-header.is-scrolled .desktop-menu a{
   text-shadow: none;
 }
+/* === Header: top->bottom gradient blur INSIDE bar; clean nav (no glow) === */
+
+/* слой с blur стои ЗАД съдържанието */
+#site-header > *{ position: relative; z-index: 1; }
+#site-header{ background: transparent; }
+
+/* НА ВЪРХА: blur започва силно отгоре и плавно изчезва към долния край */
+#site-header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+
+  /* нужен лек воал за Safari/Chrome */
+  background: rgba(255,255,255,.08);
+
+  /* самият blur е ВЪТРЕ в лентата */
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+
+  /* ВИДИМО ОТГОРЕ → ИЗБЛЕДНЯВА НАДОЛУ (никаква рязка граница) */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1)   0%,   /* силно видим горе */
+    rgba(0,0,0,.85) 45%,
+    rgba(0,0,0,.35) 75%,
+    rgba(0,0,0,0)  100%  /* напълно прозрачно долу */
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1)   0%,
+    rgba(0,0,0,.85) 45%,
+    rgba(0,0,0,.35) 75%,
+    rgba(0,0,0,0)  100%
+  );
+
+  transition:
+    backdrop-filter .25s ease,
+    -webkit-backdrop-filter .25s ease,
+    background .25s ease,
+    opacity .25s ease;
+}
+
+/* ПРИ СКРОЛ: изключваме blur и оставяме твоя бежов фон вътре в лентата */
+#site-header.is-scrolled::before{
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  -webkit-mask-image: none;
+          mask-image: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(253,246,217,.95) 0%,
+    rgba(253,246,217,.90) 60%,
+    rgba(253,246,217,.86) 100%
+  );
+}
+
+/* NAV ЛИНКОВЕ – без „светене“, чисти и четими */
+#site-header .desktop-menu a{
+  color: #0e2b17;
+  font-weight: 600;
+  text-shadow: none !important;     /* маха glow/halo */
+  background: transparent !important;
+  border-bottom-color: transparent;
+}
+#site-header .desktop-menu a:hover,
+#site-header .desktop-menu a:focus{
+  color: #3b6a3d;                   /* дискретен hover */
+  text-shadow: none;
+}
+#site-header.is-scrolled .desktop-menu a{
+  color: #17391f;                   /* малко по-тъмен върху светлия фон */
+}
