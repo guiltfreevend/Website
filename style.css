@@ -987,3 +987,59 @@ form .consent-group a{
     border-radius: 8px;
   }
 }
+/* === Frosted header only at top (crisp text, blur is inside header) === */
+#site-header{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+/* Слоят вътре в header-а, който прави blur на изображението отдолу */
+#site-header::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* Много лек бял воал е нужен, за да „запали“ backdrop-filter в Safari/Chrome */
+  background: rgba(255,255,255,.10);
+
+  /* Blur се прилага само върху фона ЗАД header-а, не върху текста вътре */
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+
+  opacity: 1;             /* видим на върха */
+  transition: opacity .2s ease, background .2s ease, backdrop-filter .2s ease;
+  z-index: 0;             /* стои зад менютата */
+}
+
+/* Менютата винаги над слоя с blur */
+#site-header > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* При скрол: махаме blur и показваме лек бежов фон, както ти харесва */
+#site-header.is-scrolled{
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* В скрол състояние слоят вътре сменя blur със светъл фон (без да излиза от header-а) */
+#site-header.is-scrolled::before{
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(253,246,217,0.95) 0%,
+    rgba(253,246,217,0.90) 60%,
+    rgba(253,246,217,0.86) 100%
+  );
+  opacity: 1;
+}
+
+/* Ако имаш други правила за .menu a/.desktop-menu a – не ги пипаме.
+   Ако още е нужна допълнителна четимост, можеш леко да подсилиш текста на върха: */
+#site-header:not(.is-scrolled) .desktop-menu a{
+  text-shadow: 0 1px 0 rgba(255,255,255,.85), 0 0 6px rgba(255,255,255,.35);
+}
