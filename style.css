@@ -904,3 +904,15 @@ form .consent-group a{
     width: max-content;
   }
 }
+
+/* Desktop / landscape: пускаме hero под прозрачния header */
+@media (min-width: 1025px) and (min-aspect-ratio: 1/1){
+  .hero{
+    /* издърпваме секцията под хедъра */
+    margin-top: calc(-1 * var(--header-h));
+    /* компенсираме отгоре, за да не се „скрие“ контентът */
+    padding-top: calc(var(--header-h) + clamp(48px, 6vh, 96px));
+    /* задържаме височината да пълни екрана */
+    min-height: calc(100svh + var(--header-h));
+  }
+}
