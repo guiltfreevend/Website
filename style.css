@@ -1350,3 +1350,26 @@ form .consent-group a{
     font-size:1.05rem;
   }
 }
+/* === Header CTA: turn GREEN when scrolled === */
+#site-header.is-scrolled .desktop-menu .cta--header,
+#site-header.is-scrolled .desktop-menu .btn-cta{
+  background: var(--brand) !important;      /* зелено */
+  color: #fff !important;
+  border-bottom: none !important;           /* без underline за бутона */
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: 0 10px 28px rgba(42,68,22,.35);
+  transform: none;
+}
+
+#site-header.is-scrolled .desktop-menu .cta--header:hover,
+#site-header.is-scrolled .desktop-menu .btn-cta:hover{
+  background: var(--brand-700) !important;  /* една идея по-тъмен при hover */
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 14px 34px rgba(42,68,22,.35);
+}
+
+#site-header.is-scrolled .desktop-menu .cta--header:active,
+#site-header.is-scrolled .desktop-menu .btn-cta:active{
+  background: #445d20 !important;
+  transform: none;
+}
