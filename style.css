@@ -1210,3 +1210,48 @@ form .consent-group a{
 #site-header.is-scrolled .desktop-menu a{
   color: #17391f;                   /* малко по-тъмен върху светлия фон */
 }
+/* === Nav underline (hover + active) — clean & subtle === */
+
+/* базов вид на линковете в десктоп менюто */
+#site-header .desktop-menu a{
+  position: relative;
+  color: #0e2b17;
+  font-weight: 600;
+  text-decoration: none;
+  text-shadow: none !important;
+  border-bottom: 2px solid transparent;        /* „подчертаването“ е долна рамка */
+  transition: color .18s ease, border-color .18s ease;
+}
+
+/* hover/focus: по-светъл тон от бранда (една идея по-светъл) */
+#site-header .desktop-menu a:hover,
+#site-header .desktop-menu a:focus-visible{
+  color: #3b6a3d;                               /* дискретно по-светло */
+  border-bottom-color: #6DAA24;                 /* по-светъл от var(--brand) */
+  outline: none;
+}
+
+/* активно меню (за JS клас .is-active или състояние, което вече ползваш) */
+#site-header .desktop-menu a.is-active{
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+}
+
+/* при скрол – цветът на текста е малко по-тъмен върху светлия фон */
+#site-header.is-scrolled .desktop-menu a{
+  color: #17391f;
+}
+
+/* ⚠️ изключение: „Начало“ да НЕ е подчертано, когато си най-горе
+   (header-ът е без .is-scrolled). Целим линка към hero секцията. */
+#site-header:not(.is-scrolled) .desktop-menu a[href="#hero"],
+#site-header:not(.is-scrolled) .desktop-menu a.nav-home{
+  border-bottom-color: transparent !important;
+  color: #0e2b17 !important;
+}
+
+/* ако искаш по-ясна активна секция, когато е скролнато: */
+#site-header.is-scrolled .desktop-menu a.is-active{
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+}
