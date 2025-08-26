@@ -1,5 +1,5 @@
 /* =========================================================
-   GuiltFreeVend – Clean CSS (18.08)
+   GuiltFreeVend – Clean CSS (26.08, deduped)
    ========================================================= */
 
 /* -------------------- Root & Reset -------------------- */
@@ -25,10 +25,20 @@
   --bar-w: 24px;
   --bar-h: 3px;
   --bar-gap: 7px;
+
+  /* CTA unified */
+  --cta-bg:       #3c551a;
+  --cta-bg-hover: var(--brand);
+  --cta-bg-active:#445d20;
+  --cta-text:     #fff;
+  --cta-shadow:   rgba(42,68,22,.35);
+
+  /* Icons (mask) */
+  --icon-color: var(--brand-700);
+  --icon-size: 46px;
 }
 
 html, body { margin: 0; }
-
 *{ margin:0; padding:0; box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 
@@ -46,100 +56,127 @@ body{
 }
 
 /* =========================================================
-   Header & Navigation
+   Header & Navigation (Frosted at top, beige on scroll)
    ========================================================= */
-/* ===== меко преливане (fading) върху снимката ===== */
 #site-header{
-  --beige:#fdf6d9;
-  position:sticky;
-  top:0;
-  z-index:1000;
-
-  /* ЛЕЙАУТ: правим самия header flex контейнер,
-     за да работи margin-left:auto върху .desktop-menu */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display:flex;
   align-items:center;
   gap:16px;
-  padding: 10px 18px;
-
-  background:transparent;
+  padding:10px 18px;
+  background: transparent;
   transition: box-shadow .2s ease;
 }
 
-/* когато скролнем – става малко по-плътен за четимост */
+/* Blur layer lives INSIDE the bar and behind content */
+#site-header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  /* slight veil to trigger backdrop-filter in Safari/Chrome */
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  /* top->bottom fade so edge to hero is soft */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,.85) 45%,
+    rgba(0,0,0,.35) 75%,
+    rgba(0,0,0,0) 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,.85) 45%,
+    rgba(0,0,0,.35) 75%,
+    rgba(0,0,0,0) 100%
+  );
+  transition: background .25s ease, opacity .25s ease,
+              backdrop-filter .25s ease, -webkit-backdrop-filter .25s ease;
+}
+
+#site-header > *{ position:relative; z-index:1; }
+
 #site-header.is-scrolled{
   box-shadow: 0 6px 24px rgba(0,0,0,.06);
-  backdrop-filter: none;            /* забраняваме blur */
-  -webkit-backdrop-filter: none;
 }
-
-#site-header::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: transparent; /* хедърът е 100% прозрачен в началото */
-}
-
-/* При скрол – леко повечe „плътност“ за контраст, пак само вътре в header */
 #site-header.is-scrolled::before{
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  -webkit-mask-image: none;
+          mask-image: none;
   background: linear-gradient(
     to bottom,
     rgba(253,246,217,0.95) 0%,
     rgba(253,246,217,0.90) 60%,
     rgba(253,246,217,0.86) 100%
   );
+  opacity: 1;
 }
 
 /* Desktop menu */
-.desktop-menu{ display:flex; align-items:center; gap:1.1rem;}
+.desktop-menu{ display:flex; align-items:center; gap: clamp(12px,1.6vw,24px); margin-left:auto; }
 .desktop-menu a{
-  display:inline-block; color:var(--ink); text-decoration:none;
-  padding:.35rem .25rem; font-weight:500;
+  position:relative;
+  display:inline-block;
+  color:#0e2b17;
+  text-decoration:none;
+  font-weight:600;
   border-bottom:2px solid transparent;
-  transition: color .2s ease, border-color .2s ease;
+  transition: color .18s ease, border-color .18s ease, transform .18s ease;
 }
 .desktop-menu a:hover,
-.desktop-menu a:focus,
+.desktop-menu a:focus-visible{
+  color:#3b6a3d;
+  border-bottom-color:#6DAA24;
+  outline:none;
+}
 .desktop-menu a.is-active{
   color:var(--brand);
   border-bottom-color:var(--brand);
 }
+#site-header.is-scrolled .desktop-menu a{ color:#17391f; }
 
-@media (min-width: 992px) {
-  #site-header .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  
-/* навигацията вдясно */
-.desktop-menu{ margin-left:auto; }
-.desktop-menu > ul,
-.desktop-menu{ display:flex; align-items:center; gap: clamp(12px,1.6vw,24px); }
-  
-  /* ако има паднали подменюта наляво – изрично ги държим вдясно */
-  .desktop-menu li { position: relative; }
-  .desktop-menu li > ul {
-    position:absolute;
-    top: calc(100% + 10px);
-    right:0; left:auto;          /* ключово: подравняване вдясно */
-    min-width: 200px;
-    text-align:left;
-    z-index: 1100;
+/* Dropdowns aligned to the right */
+@media (min-width: 992px){
+  #site-header .header-inner{ display:flex; align-items:center; gap:16px; }
+  .desktop-menu li{ position:relative; }
+  .desktop-menu li > ul{
+    position:absolute; top:calc(100% + 10px); right:0; left:auto;
+    min-width:200px; text-align:left; z-index:1100;
+    background: rgba(253,246,217,.96);
+    box-shadow: 0 14px 40px rgba(0,0,0,.12);
   }
 }
 
-/* Header CTA */
+/* Header CTA unified (shares CTA vars) */
 .cta--header{
   display:inline-flex; align-items:center; gap:.5rem;
-  padding:.9rem 1.8rem; background:var(--brand);
-  color:#fff !important; border-radius:.55rem;
-  box-shadow:0 3px 10px rgba(90,125,42,.25);
+  padding:10px 18px;
+  background: var(--cta-bg) !important;
+  color:#fff !important; border-radius:999px;
+  box-shadow:0 8px 22px var(--cta-shadow);
   font-weight:700; text-decoration:none;
-  transition: transform .2s ease, background .2s ease;
+  border:1px solid rgba(255,255,255,.22);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
-.cta--header:hover{ background:var(--brand-700); transform:translateY(-1px); }
+.cta--header:hover{ background:var(--cta-bg-hover) !important; transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
+.cta--header:active{ background:var(--cta-bg-active) !important; transform:none; box-shadow:0 8px 20px var(--cta-shadow); }
+.desktop-menu .cta--header{ border-bottom:none !important; }
+
+#site-header.is-scrolled .desktop-menu .cta--header{
+  background: var(--brand) !important; color:#fff !important;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 10px 28px rgba(42,68,22,.35);
+}
+#site-header.is-scrolled .desktop-menu .cta--header:hover{
+  background: var(--brand-700) !important; transform:translateY(-1px) scale(1.02);
+}
 
 /* Hide desktop menu on tablets/phones */
 @media (max-width:1024px){ .desktop-menu{ display:none; } }
@@ -147,7 +184,6 @@ body{
 /* =========================================================
    Mobile Menu: Shell + Hamburger + Panel
    ========================================================= */
-/* Shell (closed = only icon; open = full panel) */
 .menu-shell{
   position:fixed; top:var(--menu-top); right:var(--gap);
   width:var(--btn-size); height:var(--btn-size);
@@ -175,12 +211,12 @@ body{
   cursor:pointer; z-index:2; display:grid; place-items:center;
   -webkit-tap-highlight-color:transparent;
 }
-/* Bars */
 .menu-shell .hamburger .bar{
   position:absolute; top:50%; left:50%;
   width:var(--bar-w); height:var(--bar-h);
   border-radius:9999px; background-color:#356a2a;
-  transform-origin:center; transition:transform 420ms var(--ease-out), opacity 260ms var(--ease-out), background-color 240ms var(--ease-out);
+  transform-origin:center;
+  transition:transform 420ms var(--ease-out), opacity 260ms var(--ease-out), background-color 240ms var(--ease-out);
 }
 .menu-shell .hamburger .bar:nth-child(1){ transform:translate(-50%, calc(-50% - var(--bar-gap))); }
 .menu-shell .hamburger .bar:nth-child(2){ transform:translate(-50%, -50%); }
@@ -192,7 +228,7 @@ body{
 .menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(2){ opacity:0; }
 .menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(3){ transform:translate(-50%, -50%) rotate(-45deg); }
 
-/* Sliding panel inside the shell */
+/* Sliding panel */
 .menu-shell > .side-menu{
   position:absolute; inset:0; z-index:1;
   padding:22px 18px 24px; background:#fdf6d9; border-radius:16px;
@@ -200,11 +236,8 @@ body{
   transition:opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
   pointer-events:none;
 }
-.menu-shell[aria-expanded="true"] > .side-menu{
-  opacity:1; transform:translateY(0); pointer-events:auto;
-}
+.menu-shell[aria-expanded="true"] > .side-menu{ opacity:1; transform:translateY(0); pointer-events:auto; }
 
-/* Side-menu inner bits (kept minimal) */
 .side-menu .menu-head{
   display:flex; align-items:center; justify-content:space-between;
   padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.06);
@@ -217,12 +250,14 @@ body{
   transition:color .18s var(--ease-in), transform .18s var(--ease-in);
 }
 .side-menu .menu-list a:hover{ color:#6DAA24; transform:translateX(-2px); }
+
 .side-menu .cta-button{
   margin-top:auto; display:inline-block; text-align:center;
-  padding:12px 14px; background:var(--brand); color:#fff; border-radius:10px;
-  font-weight:700; text-decoration:none; transition:background .2s var(--ease-in), transform .2s var(--ease-in);
+  padding:14px 22px; background:var(--cta-bg) !important; color:#fff; border-radius:10px;
+  font-weight:700; text-decoration:none; border:1px solid rgba(255,255,255,.22);
+  transition:background .2s var(--ease-in), transform .2s var(--ease-in), box-shadow .2s var(--ease-in);
 }
-.side-menu .cta-button:hover{ background:var(--brand-700); transform:translateY(-1px); }
+.side-menu .cta-button:hover{ background:var(--cta-bg-hover) !important; transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
 
 /* Overlay */
 .overlay{
@@ -245,100 +280,16 @@ body{
 }
 
 /* =========================================================
-   Hero & Generic Sections
+   Hero
    ========================================================= */
 .hero{
-  flex-direction:column; align-items:center; justify-content:center;
-  text-align:center;
   position: relative;
   display: grid;
   place-items: center;
+  flex-direction:column; text-align:center;
   padding: clamp(48px, 6vh, 96px) 20px;
-  min-height: calc(100svh - var(--header-h, 64px)); /* 100% екран - височина на хедъра */
-  background-color: #fdf6d9; /* запазваме фон за мобилен/портрет */
-  overflow: hidden;
-}
-.hero > * { position: relative; z-index: 1; }
-
-/* ===== Съдържание и анимации ===== */
-.hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  max-width: min(980px, 92vw);
-  color: #ffffff;                    /* бяла типография */
-  text-shadow: 0 2px 16px rgba(0,0,0,.35); /* по-четимо върху светли зони */
-}
-
-/* Заглавие / Подзаглавие / Бутон – последователна поява */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.hero-title {
-  margin: 0;
-  font-weight: 800;
-  line-height: 1.05;
-  font-size: clamp(28px, 5.2vw, 56px);
-  opacity: 0;
-  animation: fadeUp .60s ease-out forwards;
-  animation-delay: .10s;
-  text-wrap: balance;
-}
-
-.hero-subtitle {
-  margin: 12px 0 0 0;
-  font-size: clamp(16px, 2.2vw, 22px);
-  opacity: 0;
-  animation: fadeUp .60s ease-out forwards;
-  animation-delay: .35s;
-}
-
-/* общо: махни подчертаването за CTA в hero */
-.hero .hero-btn,
-.hero .hero-btn:visited {
-  display: inline-block;
-  text-decoration: none;      /* без underline */
-  color: #fff;
-  background: #5C935F;        /* по-мек зелен */
-  border: 1px solid rgba(255,255,255,.22);
-  padding: 12px 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.12);
-  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
-  backdrop-filter: saturate(130%) blur(2px);
-  -webkit-backdrop-filter: saturate(130%) blur(2px);
-}
-
-.hero .hero-btn:hover{
-  background: #6AA86E;        /* една идея по-светъл при hover */
-  transform: translateY(-1px) scale(1.02); /* леко увеличение */
-  box-shadow: 0 10px 24px rgba(0,0,0,.16);
-}
-
-.hero .hero-btn:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255,255,255,.9), 0 0 0 6px rgba(106,168,110,.55);
-  transform: translateY(-1px) scale(1.02);
-}
-
-.section{ padding:4rem 2rem; text-align:center; }
-
-
-  /* Лек градиент за по-добра четимост на CTA/лого, без да убива снимката */
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: none !important; 
-    z-index: 0;
-  }
-
-/* ===== HERO: дефолт (>= квадрат, т.е. landscape/desktop) — ВИНАГИ има фон ===== */
-.hero{
-  /* desktop/landscape фон по подразбиране */
+  min-height: calc(100svh - var(--header-h));
+  background-color: #fdf6d9;
   background-image: image-set(
     url("machinehero1.webp") type("image/webp"),
     url("machinehero2.jpg")  type("image/jpeg")
@@ -346,9 +297,69 @@ body{
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  overflow: hidden;
+}
+.hero > * { position: relative; z-index: 1; }
+
+/* Light helper overlay (disabled by default; keep for future) */
+.hero::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:none !important;
 }
 
-/* ===== HERO: portrait (<= 1:1) — override с mobile фон ===== */
+/* Content & animations */
+@keyframes fadeUp { from {opacity:0; transform: translateY(12px);} to {opacity:1; transform:none;} }
+
+.hero-content{
+  position:relative; z-index:1; text-align:center;
+  max-width:min(980px, 92vw);
+  color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+.hero-title{
+  margin:0; font-weight:800; line-height:1.05;
+  font-size: clamp(28px, 5.2vw, 56px);
+  opacity:0; animation: fadeUp .60s ease-out .10s forwards;
+  text-wrap: balance;
+}
+.hero-subtitle{
+  margin:12px 0 0 0; font-size: clamp(16px, 2.2vw, 22px);
+  opacity:0; animation: fadeUp .60s ease-out .35s forwards;
+}
+
+/* Generic hero CTA (kept for backward compatibility) */
+.hero .hero-btn,
+.hero .hero-btn:visited{
+  display:inline-block; text-decoration:none; color:#fff;
+  background:#5C935F; border:1px solid rgba(255,255,255,.22);
+  padding:12px 20px; border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  backdrop-filter:saturate(130%) blur(2px);
+  -webkit-backdrop-filter:saturate(130%) blur(2px);
+}
+.hero .hero-btn:hover{ background:#6AA86E; transform:translateY(-1px) scale(1.02); box-shadow:0 10px 24px rgba(0,0,0,.16); }
+.hero .hero-btn:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(255,255,255,.9), 0 0 0 6px rgba(106,168,110,.55); transform:translateY(-1px) scale(1.02); }
+
+/* CTA pill (UNIFIED across hero/header/mobile) */
+.cta-pill{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:14px 22px; border-radius:999px;
+  background: var(--cta-bg) !important; color: var(--cta-text) !important;
+  text-decoration:none !important; border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 10px 28px var(--cta-shadow);
+  font-weight:800; letter-spacing:.2px;
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  -webkit-backdrop-filter:saturate(130%) blur(2px);
+          backdrop-filter:saturate(130%) blur(2px);
+}
+.cta-pill:hover{ background: var(--cta-bg-hover) !important; transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
+.cta-pill:active{ background: var(--cta-bg-active) !important; box-shadow:0 8px 20px var(--cta-shadow); transform:none; }
+.cta-pill:focus-visible{ outline:0; box-shadow:0 0 0 3px rgba(255,255,255,.9), 0 0 0 6px rgba(106,168,110,.55), 0 12px 30px var(--cta-shadow); }
+.hero .cta-pill .cta-icon{ display:none !important; }  /* hide stray SVG if left in HTML */
+.hero-cta-note{ display:block; margin-top:8px; color:#fff; opacity:.9; font-size:.9rem; text-shadow:0 1px 8px rgba(0,0,0,.35); }
+
+/* Mobile / portrait: swap background, tuck under header, center CTAs at bottom */
 @media (max-aspect-ratio: 1/1){
   .hero{
     background-image: image-set(
@@ -358,27 +369,45 @@ body{
     background-size: cover;
     background-position: center 24%;
     background-repeat: no-repeat;
-
-    /* да „влезе“ под header-а и да стига ръбовете */
     margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
-    padding-top: calc(
-      clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px)
-    );
+    padding-top: calc(clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px));
     min-height: calc(100svh + env(safe-area-inset-top, 0px));
   }
+  .hero-cta-wrap{
+    position:absolute; left:50%; transform:translateX(-50%);
+    bottom: clamp(18px, 7vh, 80px);
+    display:flex; flex-direction:column; align-items:center; gap:10px; width:max-content;
+  }
+  .hero .cta-pill{ margin:0 !important; }
+}
 
-  /* по желание лек градиент за четимост; ако не искаш – изтрий този блок */
-  .hero::before{
-    content:"";
-    position:absolute; inset:0; pointer-events:none; z-index:0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,.22) 0%,
-      rgba(0,0,0,.10) 30%,
-      rgba(0,0,0,0)  60%
-    );
+/* When using hamburger (mobile/tablet): hide header bar completely, hero fills screen */
+@media (max-width:1024px), (max-aspect-ratio: 1/1){
+  #site-header{ display:none !important; }
+  body{ padding-top:0 !important; }
+  .hero{
+    margin-top:0 !important;
+    min-height:100svh;
+    padding-top:clamp(48px, 6vh, 96px);
+    background-size:cover;
+    background-repeat:no-repeat;
   }
 }
+
+/* Desktop: let hero run under transparent header */
+@media (min-width: 1025px) and (min-aspect-ratio: 1/1){
+  .hero{
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: calc(var(--header-h) + clamp(48px, 6vh, 96px));
+    min-height: calc(100svh + var(--header-h));
+  }
+}
+
+/* =========================================================
+   Generic Sections
+   ========================================================= */
+.section{ padding:4rem 2rem; text-align:center; }
+
 /* =========================================================
    Benefits
    ========================================================= */
@@ -397,7 +426,7 @@ body{
 .benefit-item p{ font-size:1rem; color:#555; line-height:1.5; }
 
 /* =========================================================
-   Intro
+   Intro (legacy responsive)
    ========================================================= */
 @media (min-width:769px){
   #intro.section{ display:flex; flex-direction:column; align-items:center; padding:5rem 2rem; background-color:#fdf6d9; }
@@ -409,6 +438,50 @@ body{
 #intro .intro-image{ flex:1 1 300px; }
 #intro .intro-image img{ max-width:100%; border-radius:.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
 @media (max-width:768px){ #intro .intro-text{ text-align:center; } }
+
+/* ======================= Intro (new block) ======================= */
+.intro{
+  position: relative;
+  background: linear-gradient(180deg, rgba(253,246,217,0) 0%, rgba(253,246,217,0.65) 30%, rgba(253,246,217,1) 100%);
+  padding-block: clamp(36px, 6vw, 72px);
+}
+.intro-inner{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(20px, 4vw, 44px);
+  align-items: center;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (max-width: 980px){ .intro-inner{ grid-template-columns: 1fr; } }
+.intro-media{
+  position: relative;
+  border-radius: 18px;
+  overflow: clip;
+  box-shadow: 0 16px 46px rgba(0,0,0,.12);
+  background: #fff3c9;
+}
+.intro-img{
+  display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; transform:scale(1.001);
+}
+.intro-copy{ text-align:left; }
+.intro-title{
+  margin:0 0 8px; font-size:clamp(22px, 2.2vw + 12px, 34px);
+  color:var(--ink); font-weight:800; line-height:1.15;
+}
+.intro-lead{ margin:6px 0 8px; font-size:clamp(16px, 1.2vw + 10px, 19px); color:rgba(19,48,25,.85); line-height:1.65; }
+.intro-text{ margin:6px 0 0; color:rgba(19,48,25,.82); line-height:1.7; }
+.intro-cta{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:14px; }
+.link-more{
+  display:inline-block; text-decoration:none; color:var(--brand); font-weight:700;
+  border-bottom:2px solid transparent; padding:8px 0; transition:color .18s ease, border-color .18s ease;
+}
+.link-more:hover{ color:var(--brand-700); border-bottom-color:var(--brand-700); }
+@keyframes introFadeUp{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;} }
+.intro-media{ animation:introFadeUp .55s ease-out both .05s; }
+.intro-copy { animation:introFadeUp .55s ease-out both .15s; }
+@media (prefers-reduced-motion: reduce){ .intro-media, .intro-copy{ animation:none; } }
 
 /* =========================================================
    Partners – slow marquee + edge fade + size harmonisation
@@ -432,7 +505,7 @@ body{
 #partners .marquee__inner{
   display:inline-flex; align-items:center;
   gap:clamp(28px,4vw,56px);
-  animation:partners-slow 38s linear infinite; /* по-бавно и smooth */
+  animation:partners-slow 38s linear infinite;
   will-change:transform;
 }
 #partners .marquee__inner a{
@@ -447,7 +520,7 @@ body{
 }
 @media (hover:hover){ #partners .marquee__inner a:hover img{ transform:scale(1.04); } }
 
-/* фини корекции за дребни лога */
+/* fine tweaks for small logos */
 #partners .marquee__inner a[aria-label="Harmonica"] img    { transform:scale(1.25); }
 #partners .marquee__inner a[aria-label="Datecs"] img       { transform:scale(1.25); }
 #partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.10); }
@@ -455,22 +528,13 @@ body{
 @media (min-width:1024px){
   #partners .marquee__inner a{ height:96px; width:240px; }
 }
-
-/* достъпност */
 @media (prefers-reduced-motion: reduce){ #partners .marquee__inner{ animation-duration:60s; } }
-
-@keyframes partners-slow{
-  from{ transform:translateX(0); }
-  to  { transform:translateX(-50%); }
-}
+@keyframes partners-slow{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
 /* =========================================================
    Forms
    ========================================================= */
-.form-title{
-  font-size:1.8rem; color:var(--ink);
-  margin-bottom:1.5rem; font-weight:700;
-}
+.form-title{ font-size:1.8rem; color:var(--ink); margin-bottom:1.5rem; font-weight:700; }
 form{
   max-width:600px; margin:0 auto;
   display:flex; flex-wrap:wrap; gap:1rem;
@@ -569,7 +633,6 @@ form .consent-group a{
 .footer-follow{ font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:1rem; }
 .footer-text{ font-size:.95rem; color:var(--ink); }
 
-/* Footer icons – equal size + brand green */
 .footer-icons{ display:flex; justify-content:center; align-items:center; gap:16px; margin-bottom:1.5rem; flex-wrap:wrap; }
 .footer-icons a{ display:inline-flex; justify-content:center; align-items:center; width:46px; height:46px; text-decoration:none; }
 @media (max-width:768px){ .footer-icons a{ width:40px; height:40px; } }
@@ -603,873 +666,9 @@ form .consent-group a{
 #scrollTopBtn:hover{ background-color:var(--brand-700); transform:scale(1.05); }
 @media (max-width:768px){ #scrollTopBtn{ width:40px; height:40px; font-size:1.3rem; bottom:1.5rem; right:1.5rem; } }
 
-/* HERO – CTA „пилюла“ + състояния */
-.hero .cta-pill{
-  --cta-bg-top:#6AA86E;         /* лек градиент за „живост“ */
-  --cta-bg:#5A7D2A;
-  --cta-text:#fff;
-  --cta-shadow:rgba(42,68,22,.35);
-
-  display:inline-flex; align-items:center; gap:10px;
-  padding:14px 22px;
-  border-radius:999px;
-  background:linear-gradient(180deg,var(--cta-bg-top),var(--cta-bg));
-  color:var(--cta-text); text-decoration:none;
-  font-weight:800; letter-spacing:.2px;
-  border:1px solid rgba(255,255,255,.22);
-  box-shadow:0 10px 28px var(--cta-shadow), inset 0 -2px 0 rgba(255,255,255,.18);
-  transition:transform .18s ease, background-color .18s ease, box-shadow .18s ease;
-  -webkit-backdrop-filter:saturate(130%) blur(2px);
-  backdrop-filter:saturate(130%) blur(2px);
-}
-.hero .cta-pill .cta-icon{ width:20px; height:20px; flex:0 0 20px; transition:transform .18s ease; }
-.hero .cta-pill:hover{ transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
-.hero .cta-pill:hover .cta-icon{ transform:translateX(2px); }
-.hero .cta-pill:active{ transform:translateY(0); box-shadow:0 8px 20px var(--cta-shadow); }
-.hero .cta-pill:focus-visible{
-  outline:0;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,.9),
-    0 0 0 6px rgba(106,168,110,.55),
-    0 12px 30px var(--cta-shadow);
-}
-
-/* микро-копи под бутона */
-.hero-cta-note{
-  display:block;
-  margin-top:8px;
-  color:#fff; opacity:.9; font-size:.9rem;
-  text-shadow:0 1px 8px rgba(0,0,0,.35);
-}
-
-/* мобилен: бутонът малко по-надолу */
-@media (max-aspect-ratio: 1/1){
-  .hero .cta-pill{ margin-top: clamp(24px, 7vh, 48px); }
-}
-/* Позициониране долу вляво само за мобилен/портрет + „призрачен“ бутон */
-@media (max-aspect-ratio: 1/1){
-    .hero { position: relative; }
-
-    .hero-cta-wrap{
-        position: absolute;
-        left: clamp(18px, 6vw, 36px);      /* отстояние вляво */
-        bottom: clamp(36px, 12vh, 120px);  /* колко да е „надолу“ */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    /* нулираме стари марджини на бутона, ако има */
-    .hero .cta-pill{ margin: 0 !important; }
-}
-
-/* „Призрачен“ бутон */
-.hero .cta-ghost{
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 14px;
-    border-radius: 999px;
-    color: #fff;
-    text-decoration: none;
-    background: transparent;
-    border: 1.5px solid rgba(255,255,255,.88);
-    box-shadow: 0 4px 14px rgba(0,0,0,.10);
-    -webkit-backdrop-filter: blur(1px) saturate(120%);
-    backdrop-filter: blur(1px) saturate(120%);
-    font-weight: 700;
-    transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
-}
-.hero .cta-ghost:hover{
-    transform: translateY(-1px);
-    background: rgba(255,255,255,.08);
-    border-color: rgba(255,255,255,.95);
-}
-.hero .cta-ghost:focus-visible{
-    outline: none;
-    box-shadow:
-        0 0 0 3px rgba(255,255,255,.9),
-        0 0 0 6px rgba(106,168,110,.55);
-}
-/* По-тъмен зелен за основния CTA */
-.hero .cta-pill{
-  --cta-bg-top: var(--brand-700);  /* #4E6A22 */
-  --cta-bg: #3c551a;               /* една идея по-тъмен долу */
-}
-
-/* Центриране долу на мобилен/портрет и малко „по-надолу“ */
-@media (max-aspect-ratio: 1/1){
-  .hero{ position: relative; }
-
-  .hero-cta-wrap{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(18px, 7vh, 80px); /* сваля по-надолу */
-    display: flex;
-    flex-direction: column;
-    align-items: center;            /* центриране по хоризонтала */
-    gap: 10px;
-    width: max-content;
-  }
-
-  /* нулира стари марджини, ако има */
-  .hero .cta-pill{ margin: 0 !important; }
-}
-
-/* Ако по невнимание SVG стрелката остане в HTML, я скрий: */
-.hero .cta-pill .cta-icon{ display:none !important; }
-
-/* HERO CTA – плътен (без градиент) */
-.hero .cta-pill{
-  background: var(--brand-700) !important;  /* тъмно зелено от бранда */
-  background-image: none !important;        /* сигурно маха градиента */
-  box-shadow: 0 10px 28px rgba(42,68,22,.35);/* външна сянка, без inset */
-  border: 1px solid rgba(255,255,255,.22);   /* тънък контур; махни ако не искаш */
-}
-
-/* Hover/Active – лека промяна в същия тон */
-.hero .cta-pill:hover{  background: var(--brand); }
-.hero .cta-pill:active{ background: #445d20; box-shadow: 0 8px 20px rgba(42,68,22,.28); }
-
-/* ===== MOBILE / PORTRAIT: hero да влиза под header и до ръбовете ===== */
-@media (max-aspect-ratio: 1/1){
-  .hero{
-    /* фонът за мобилен си остава */
-    background-image: image-set(
-      url("machineheromobile.webp") type("image/webp"),
-      url("machineheromobile.jpg")  type("image/jpeg")
-    );
-    background-size: cover;
-    background-position: center 24%;
-    background-repeat: no-repeat;
-
-    /* изтегляме секцията нагоре зад header + safe-area */
-    margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
-    /* компенсираме с вътрешен падинг, за да не се „смачка“ съдържанието */
-    padding-top: calc(
-      clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px)
-    );
-
-    /* пълна височина на екрана (без да „реже“ отгоре) */
-    min-height: calc(100svh + env(safe-area-inset-top, 0px));
-  }
-
-  /* CTA контейнерът остава фиксиран долу и центриран (както вече го имаш) */
-  .hero-cta-wrap{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(18px, 7vh, 80px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: max-content;
-  }
-
-  .hero .cta-pill{ margin: 0 !important; } /* нулира стари марджини */
-}
-/* ===== HERO: portrait (<= 1:1) — override с mobile фон ===== */
-@media (max-aspect-ratio: 1/1){
-  .hero{
-    background-image: image-set(
-      url("machineheromobile.webp") type("image/webp"),
-      url("machineheromobile.jpg")  type("image/jpeg")
-    );
-    background-size: cover;
-    background-position: center 24%;
-    background-repeat: no-repeat;
-
-    /* да „влезе“ под header-а и да стига ръбовете */
-    margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
-    padding-top: calc(
-      clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px)
-    );
-    min-height: calc(100svh + env(safe-area-inset-top, 0px));
-  }
-
-  /* CTA контейнерът остава центриран долу */
-  .hero-cta-wrap{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(18px, 7vh, 80px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: max-content;
-  }
-  .hero .cta-pill{ margin: 0 !important; }
-}
-/* ===== Mobile portrait: без каквато и да е „лента“ отгоре ===== */
-@media (max-aspect-ratio: 1/1){
-  /* самият header винаги прозрачен */
-  #site-header,
-  #site-header.is-scrolled{
-    background: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  /* махаме всички вътрешни градиенти/overlays */
-  #site-header::before,
-  #site-header.is-scrolled::before,
-  #site-header.is-scrolled::after{
-    content: none !important;
-  }
-}
-
-/* ===== MOBILE (когато сме с hamburger) — НИКАКЪВ видим header ===== */
-/* Target: ширини за моб./таблет И/ИЛИ портретни екрани */
-@media (max-width:1024px), (max-aspect-ratio: 1/1){
-
-  /* 1) Нулираме отстоянието, което тялото оставя за хедъра */
-  body{
-    padding-top: 0 !important;
-  }
-
-  /* 2) Самият header става „невидим“ и без височина */
-  #site-header,
-  #site-header.is-scrolled{
-    position: static !important;      /* без sticky поведение */
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-
-    background: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  /* 3) Hero да пълни екрана и да започва от самия връх */
-  .hero{
-    margin-top: 0 !important;         /* отменя по-старите -margin трикове */
-    padding-top: clamp(48px, 6vh, 96px);
-    min-height: 100svh;                /* точно колкото екрана */
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-  /* 4) CTA контейнерът остава центриран долу */
-  .hero-cta-wrap{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(18px, 7vh, 80px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: max-content;
-  }
-}
-/* ==== MOBILE / PORTRAIT: без никаква „лента“ + една мобилна версия на hero ==== */
-@media (max-width:1024px), (max-aspect-ratio: 1/1){
-
-  /* 0) Скрий напълно header-а на мобилно (хамбургерът е отделен елемент) */
-  #site-header{ display: none !important; }
-  body{ padding-top: 0 !important; }
-
-  /* 1) Hero – да пълни целия екран и да започва от самия връх */
-  .hero{
-    margin-top: 0 !important;
-    min-height: 100svh;
-    padding-top: clamp(48px, 6vh, 96px);
-    background-image: image-set(
-      url("machineheromobile.webp") type("image/webp"),
-      url("machineheromobile.jpg")  type("image/jpeg")
-    );
-    background-size: cover;
-    background-position: center 24%;
-    background-repeat: no-repeat;
-  }
-
-  /* махаме всякакви оувърлеи/градиенти върху hero */
-  .hero::before{ content: none !important; }
-
-  /* 2) CTA – центрирани долу */
-  .hero-cta-wrap{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(18px, 7vh, 80px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: max-content;
-  }
-}
-
-/* Desktop / landscape: пускаме hero под прозрачния header */
-@media (min-width: 1025px) and (min-aspect-ratio: 1/1){
-  .hero{
-    /* издърпваме секцията под хедъра */
-    margin-top: calc(-1 * var(--header-h));
-    /* компенсираме отгоре, за да не се „скрие“ контентът */
-    padding-top: calc(var(--header-h) + clamp(48px, 6vh, 96px));
-    /* задържаме височината да пълни екрана */
-    min-height: calc(100svh + var(--header-h));
-  }
-}
-/* 1) Градиентът на header-а СТОИ ЗАД съдържанието */
-#site-header::before{
-  z-index: 0;                 /* фонът е отдолу */
-}
-#site-header > *{
-  position: relative;
-  z-index: 1;                 /* менютата и CTA са отгоре */
-}
-
-/* 2) Кристално четими менюта, докато header-ът е прозрачен (на върха) */
-#site-header:not(.is-scrolled) .menu a{
-  /* Вариант A: „чипове“ със светъл фон, без да пипаме прозрачността на самия header */
-  background: rgba(255,255,255,.70);
-  color: var(--ink);
-  padding: 8px 10px;
-  border-radius: 10px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.06);
-  transition: background .2s ease, box-shadow .2s ease;
-}
-/* При скрол фонът на header-а става достатъчен → махаме чиповете */
-#site-header.is-scrolled .menu a{
-  background: transparent;
-  box-shadow: none;
-}
-
-#site-header:not(.is-scrolled) .menu a{
-  text-shadow: 0 1px 0 rgba(255,255,255,.9), 0 0 6px rgba(255,255,255,.45);
-}
-
-/* === NAV VISIBILITY – FINAL === */
-/* Фонът/градиентът на header-а е зад съдържанието */
-#site-header::before{ z-index: 0; }
-#site-header > *{ position: relative; z-index: 1; }
-
-/* 1) На върха: „чипове“ зад линковете за максимална четимост */
-#site-header:not(.is-scrolled) .menu a{
-  background: rgba(255,255,255,.72);     /* деликатен светъл фон */
-  color: #0e2b17;                        /* тъмнозелено за контраст */
-  padding: 6px 10px;                     /* лек „чип“ */
-  border-radius: 10px;
-  line-height: 1.2;
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-  text-shadow: none;                     /* изключваме стария halo, ако го има */
-  transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
-}
-#site-header:not(.is-scrolled) .menu a:hover{
-  background: rgba(255,255,255,.85);
-  box-shadow: 0 4px 12px rgba(0,0,0,.10);
-  transform: translateY(-1px);
-}
-
-/* 2) При скрол: чиповете се махат (четимостта идва от фона на .is-scrolled::before) */
-#site-header.is-scrolled .menu a{
-  background: transparent;
-  box-shadow: none;
-  transform: none;
-}
-
-/* 3) Паданщи подменюта – четими и на върха */
-#site-header:not(.is-scrolled) .menu li > ul{
-  background: rgba(253,246,217,.96);     /* стабилен светъл фон в dropdown */
-  box-shadow: 0 14px 40px rgba(0,0,0,.12);
-}
-
-/* 4) Малки екрани – по-компактни чипове */
-@media (max-width: 1024px){
-  #site-header:not(.is-scrolled) .menu a{
-    padding: 5px 8px;
-    border-radius: 8px;
-  }
-}
-/* === Frosted header only at top (crisp text, blur is inside header) === */
-#site-header{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: transparent;
-}
-
-/* Слоят вътре в header-а, който прави blur на изображението отдолу */
-#site-header::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  /* Много лек бял воал е нужен, за да „запали“ backdrop-filter в Safari/Chrome */
-  background: rgba(255,255,255,.10);
-
-  /* Blur се прилага само върху фона ЗАД header-а, не върху текста вътре */
-  backdrop-filter: blur(6px) saturate(120%);
-  -webkit-backdrop-filter: blur(6px) saturate(120%);
-
-  opacity: 1;             /* видим на върха */
-  transition: opacity .2s ease, background .2s ease, backdrop-filter .2s ease;
-  z-index: 0;             /* стои зад менютата */
-}
-
-/* Менютата винаги над слоя с blur */
-#site-header > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* При скрол: махаме blur и показваме лек бежов фон, както ти харесва */
-#site-header.is-scrolled{
-  box-shadow: 0 6px 24px rgba(0,0,0,.06);
-}
-
-/* В скрол състояние слоят вътре сменя blur със светъл фон (без да излиза от header-а) */
-#site-header.is-scrolled::before{
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(253,246,217,0.95) 0%,
-    rgba(253,246,217,0.90) 60%,
-    rgba(253,246,217,0.86) 100%
-  );
-  opacity: 1;
-}
-
-/* Ако имаш други правила за .menu a/.desktop-menu a – не ги пипаме.
-   Ако още е нужна допълнителна четимост, можеш леко да подсилиш текста на върха: */
-#site-header:not(.is-scrolled) .desktop-menu a{
-  text-shadow: 0 1px 0 rgba(255,255,255,.85), 0 0 6px rgba(255,255,255,.35);
-}
-/* === Frosted header (gradient blur INSIDE the bar) – final === */
-
-/* слоят с blur е ЗАД текста */
-#site-header > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* базов прозрачен header (не променяме твоя sticky/размери) */
-#site-header{
-  background: transparent;
-}
-
-/* 1) НА ВЪРХА: плавно „вкарваме“ blur вътре в лентата */
-#site-header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-
-  /* лек воал е нужен, за да работи еднакво в Safari/Chrome */
-  background: rgba(255,255,255,.08);
-
-  /* самият blur – НЕ засяга текста в header-а */
-  backdrop-filter: blur(7px) saturate(120%);
-  -webkit-backdrop-filter: blur(7px) saturate(120%);
-
-  /* маска: отгоре няма blur (0), надолу плавно се засилва,
-     а в последните ~10% от височината плавно ИЗГАСВА,
-     така границата към hero не е рязка */
-  -webkit-mask-image: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0)   0%,
-      rgba(0,0,0,.25) 30%,
-      rgba(0,0,0,.85) 70%,
-      rgba(0,0,0,1)   90%,
-      rgba(0,0,0,0)   100%
-  );
-          mask-image: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0)   0%,
-      rgba(0,0,0,.25) 30%,
-      rgba(0,0,0,.85) 70%,
-      rgba(0,0,0,1)   90%,
-      rgba(0,0,0,0)   100%
-  );
-
-  transition:
-    backdrop-filter .25s ease,
-    -webkit-backdrop-filter .25s ease,
-    background .25s ease,
-    opacity .25s ease;
-}
-
-/* 2) СКРОЛ: изключваме blur и ползваме твоя бежов фон във вътрешния слой */
-#site-header.is-scrolled{
-  box-shadow: 0 6px 24px rgba(0,0,0,.06);
-}
-#site-header.is-scrolled::before{
-  /* махаме blur */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
-  /* показваме лек бежов фон само ВЪТРЕ в лентата */
-  background: linear-gradient(
-    to bottom,
-    rgba(253,246,217,0.95) 0%,
-    rgba(253,246,217,0.90) 60%,
-    rgba(253,246,217,0.86) 100%
-  );
-
-  /* без маска в скрол състояние (равномерен фон) */
-  -webkit-mask-image: none;
-          mask-image: none;
-}
-
-/* 3) Менютата – чисти, без „чипове“, но четими:
-      по-силен цвят и фин светъл кант за контраст върху светли зони.
-      (изключваме го при скрол, защото фонът вече помага) */
-#site-header .desktop-menu a{
-  color: #17391f;
-  font-weight: 600;
-  letter-spacing: .01em;
-}
-#site-header:not(.is-scrolled) .desktop-menu a{
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.85),
-    0 0 6px rgba(255,255,255,.30);
-}
-#site-header.is-scrolled .desktop-menu a{
-  text-shadow: none;
-}
-/* === Header: top->bottom gradient blur INSIDE bar; clean nav (no glow) === */
-
-/* слой с blur стои ЗАД съдържанието */
-#site-header > *{ position: relative; z-index: 1; }
-#site-header{ background: transparent; }
-
-/* НА ВЪРХА: blur започва силно отгоре и плавно изчезва към долния край */
-#site-header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-
-  /* нужен лек воал за Safari/Chrome */
-  background: rgba(255,255,255,.08);
-
-  /* самият blur е ВЪТРЕ в лентата */
-  backdrop-filter: blur(6px) saturate(120%);
-  -webkit-backdrop-filter: blur(6px) saturate(120%);
-
-  /* ВИДИМО ОТГОРЕ → ИЗБЛЕДНЯВА НАДОЛУ (никаква рязка граница) */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0,0,0,1)   0%,   /* силно видим горе */
-    rgba(0,0,0,.85) 45%,
-    rgba(0,0,0,.35) 75%,
-    rgba(0,0,0,0)  100%  /* напълно прозрачно долу */
-  );
-          mask-image: linear-gradient(
-    to bottom,
-    rgba(0,0,0,1)   0%,
-    rgba(0,0,0,.85) 45%,
-    rgba(0,0,0,.35) 75%,
-    rgba(0,0,0,0)  100%
-  );
-
-  transition:
-    backdrop-filter .25s ease,
-    -webkit-backdrop-filter .25s ease,
-    background .25s ease,
-    opacity .25s ease;
-}
-
-/* ПРИ СКРОЛ: изключваме blur и оставяме твоя бежов фон вътре в лентата */
-#site-header.is-scrolled::before{
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  -webkit-mask-image: none;
-          mask-image: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(253,246,217,.95) 0%,
-    rgba(253,246,217,.90) 60%,
-    rgba(253,246,217,.86) 100%
-  );
-}
-
-/* NAV ЛИНКОВЕ – без „светене“, чисти и четими */
-#site-header .desktop-menu a{
-  color: #0e2b17;
-  font-weight: 600;
-  text-shadow: none !important;     /* маха glow/halo */
-  background: transparent !important;
-  border-bottom-color: transparent;
-}
-#site-header .desktop-menu a:hover,
-#site-header .desktop-menu a:focus{
-  color: #3b6a3d;                   /* дискретен hover */
-  text-shadow: none;
-}
-#site-header.is-scrolled .desktop-menu a{
-  color: #17391f;                   /* малко по-тъмен върху светлия фон */
-}
-/* === Nav underline (hover + active) — clean & subtle === */
-
-/* базов вид на линковете в десктоп менюто */
-#site-header .desktop-menu a{
-  position: relative;
-  color: #0e2b17;
-  font-weight: 600;
-  text-decoration: none;
-  text-shadow: none !important;
-  border-bottom: 2px solid transparent;        /* „подчертаването“ е долна рамка */
-  transition: color .18s ease, border-color .18s ease;
-}
-
-/* hover/focus: по-светъл тон от бранда (една идея по-светъл) */
-#site-header .desktop-menu a:hover,
-#site-header .desktop-menu a:focus-visible{
-  color: #3b6a3d;                               /* дискретно по-светло */
-  border-bottom-color: #6DAA24;                 /* по-светъл от var(--brand) */
-  outline: none;
-}
-
-/* активно меню (за JS клас .is-active или състояние, което вече ползваш) */
-#site-header .desktop-menu a.is-active{
-  color: var(--brand);
-  border-bottom-color: var(--brand);
-}
-
-/* при скрол – цветът на текста е малко по-тъмен върху светлия фон */
-#site-header.is-scrolled .desktop-menu a{
-  color: #17391f;
-}
-
-/* ⚠️ изключение: „Начало“ да НЕ е подчертано, когато си най-горе
-   (header-ът е без .is-scrolled). Целим линка към hero секцията. */
-#site-header:not(.is-scrolled) .desktop-menu a[href="#hero"],
-#site-header:not(.is-scrolled) .desktop-menu a.nav-home{
-  border-bottom-color: transparent !important;
-  color: #0e2b17 !important;
-}
-
-/* ако искаш по-ясна активна секция, когато е скролнато: */
-#site-header.is-scrolled .desktop-menu a.is-active{
-  color: var(--brand);
-  border-bottom-color: var(--brand);
-}
-/* === CTA pill: unify hero / header / mobile side-menu (1:1) === */
-
-/* Бранд CTА променливи (ползва твоите brand цветове) */
-:root{
-  --cta-bg:       #3c551a;       /* тъмен зелен (дъно) */
-  --cta-bg-hover: var(--brand);  /* по-светъл при hover */
-  --cta-bg-active:#445d20;       /* натиснат */
-  --cta-text:     #fff;
-  --cta-shadow:   rgba(42,68,22,.35);
-}
-
-/* Базов стил за пилюла — копие на hero бутона, но универсално */
-.cta-pill,
-#site-header .cta--header,
-#site-header .btn-cta,
-.menu-shell .side-menu .cta-button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  padding:12px 22px;
-  border-radius:999px;
-
-  background: var(--cta-bg) !important;      /* плътен, без градиент */
-  color: var(--cta-text) !important;
-  text-decoration:none !important;
-
-  border:1px solid rgba(255,255,255,.22);
-  box-shadow: 0 10px 28px var(--cta-shadow);
-
-  font-weight:800;
-  letter-spacing:.2px;
-
-  transition: transform .18s ease,
-              background-color .18s ease,
-              box-shadow .18s ease;
-
-  /* лека „стъкленост“ като в hero */
-  -webkit-backdrop-filter: saturate(130%) blur(2px);
-          backdrop-filter: saturate(130%) blur(2px);
-}
-
-/* Hover / Active / Focus – същите състояния като в hero */
-.cta-pill:hover,
-#site-header .cta--header:hover,
-#site-header .btn-cta:hover,
-.menu-shell .side-menu .cta-button:hover{
-  background: var(--cta-bg-hover) !important;
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 14px 34px var(--cta-shadow);
-}
-
-.cta-pill:active,
-#site-header .cta--header:active,
-#site-header .btn-cta:active,
-.menu-shell .side-menu .cta-button:active{
-  background: var(--cta-bg-active) !important;
-  box-shadow: 0 8px 20px var(--cta-shadow);
-  transform: none;
-}
-
-.cta-pill:focus-visible,
-#site-header .cta--header:focus-visible,
-#site-header .btn-cta:focus-visible,
-.menu-shell .side-menu .cta-button:focus-visible{
-  outline: 0;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,.9),
-    0 0 0 6px rgba(106,168,110,.55),
-    0 12px 30px var(--cta-shadow);
-}
-
-/* Размер в хедъра – една идея по-компактен, да пасне на лентата */
-#site-header .cta--header,
-#site-header .btn-cta{
-  padding:10px 18px;
-  box-shadow: 0 8px 22px var(--cta-shadow);
-  font-weight:700;
-}
-
-/* В десктоп менюто не искаме underline от нашето правило за линковете */
-.desktop-menu .cta--header,
-.desktop-menu .btn-cta{
-  border-bottom: none !important;
-}
-
-/* Мобилен side-menu – пълна ширина и центриране */
-@media (max-width:1024px){
-  .menu-shell .side-menu .cta-button{
-    width:100%;
-    padding:14px 22px;
-    font-size:1.05rem;
-  }
-}
-/* === Header CTA: turn GREEN when scrolled === */
-#site-header.is-scrolled .desktop-menu .cta--header,
-#site-header.is-scrolled .desktop-menu .btn-cta{
-  background: var(--brand) !important;      /* зелено */
-  color: #fff !important;
-  border-bottom: none !important;           /* без underline за бутона */
-  border: 1px solid rgba(255,255,255,.22);
-  box-shadow: 0 10px 28px rgba(42,68,22,.35);
-  transform: none;
-}
-
-#site-header.is-scrolled .desktop-menu .cta--header:hover,
-#site-header.is-scrolled .desktop-menu .btn-cta:hover{
-  background: var(--brand-700) !important;  /* една идея по-тъмен при hover */
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 14px 34px rgba(42,68,22,.35);
-}
-
-#site-header.is-scrolled .desktop-menu .cta--header:active,
-#site-header.is-scrolled .desktop-menu .btn-cta:active{
-  background: #445d20 !important;
-  transform: none;
-}
-/* ======================= Intro (new) ======================= */
-.intro{
-  position: relative;
-  background: linear-gradient(180deg, rgba(253,246,217,0) 0%, rgba(253,246,217,0.65) 30%, rgba(253,246,217,1) 100%);
-  padding-block: clamp(36px, 6vw, 72px);
-}
-
-.intro-inner{
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;     /* медия + копи */
-  gap: clamp(20px, 4vw, 44px);
-  align-items: center;
-  max-width: 1140px;
-  margin-inline: auto;
-  padding-inline: 16px;
-}
-
-@media (max-width: 980px){
-  .intro-inner{
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Медията да „диша“ и да държи форма още преди да се зареди */
-.intro-media{
-  position: relative;
-  border-radius: 18px;
-  overflow: clip;
-  box-shadow: 0 16px 46px rgba(0,0,0,.12);
-  background: #fff3c9;
-}
-.intro-img{
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  transform: scale(1.001); /* избягва hairline артефакти */
-}
-
-/* Копито */
-.intro-copy{ text-align: left; }
-.intro-title{
-  margin: 0 0 8px;
-  font-size: clamp(22px, 2.2vw + 12px, 34px);
-  color: var(--ink);
-  font-weight: 800;
-  line-height: 1.15;
-}
-.intro-lead{
-  margin: 6px 0 8px;
-  font-size: clamp(16px, 1.2vw + 10px, 19px);
-  color: rgba(19,48,25,.85);
-  line-height: 1.65;
-}
-.intro-text{
-  margin: 6px 0 0;
-  color: rgba(19,48,25,.82);
-  line-height: 1.7;
-}
-
-.intro-cta{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  margin-top: 14px;
-}
-
-/* вторична линк-CTA */
-.link-more{
-  display: inline-block;
-  text-decoration: none;
-  color: var(--brand);
-  font-weight: 700;
-  border-bottom: 2px solid transparent;
-  padding: 8px 0;
-  transition: color .18s ease, border-color .18s ease;
-}
-.link-more:hover{ color: var(--brand-700); border-bottom-color: var(--brand-700); }
-
-/* Леко оживяване при първо показване (без JS) */
-@keyframes introFadeUp{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;} }
-.intro-media{ animation: introFadeUp .55s ease-out both .05s; }
-.intro-copy { animation: introFadeUp .55s ease-out both .15s; }
-@media (prefers-reduced-motion: reduce){
-  .intro-media, .intro-copy{ animation: none; }
-}
-
-/* ======================= Universal SVG icons (mask) ======================= */
-/* Използваме маска, за да станат всички SVG еднакъв ЦВЯТ и РАЗМЕР,
-   независимо от fill/stroke вътре в самия файл. */
-:root{
-  --icon-color: var(--brand-700);
-  --icon-size: 46px;
-}
-
+/* =========================================================
+   Icons (mask utility) & Feature cards grid
+   ========================================================= */
 .icon{
   width: var(--icon-size);
   height: var(--icon-size);
@@ -1480,19 +679,20 @@ form .consent-group a{
   flex: 0 0 var(--icon-size);
 }
 
-/* Карта/картичка със икона и текст – унифицираме вида */
 .feature-card{
   background: #fff;
   border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 8px 28px rgba(0,0,0,.08);
-  text-align: left;
+  padding: clamp(18px, 2vw, 28px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.08);
+  text-align: center;
+  min-height: clamp(180px, 26vh, 240px);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
+.feature-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,.12); }
+
 .feature-head{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; margin-bottom: 8px;
 }
 .feature-title{
   margin: 0;
@@ -1500,87 +700,20 @@ form .consent-group a{
   color: var(--brand);
   font-size: clamp(16px, 1.2vw + 10px, 20px);
 }
-.feature-text{
-  margin: 0;
-  color: rgba(19,48,25,.78);
-  line-height: 1.55;
-}
+.feature-text{ margin:0; color: rgba(19,48,25,.82); line-height:1.6; }
 
-/* Грид за секциите „Защо…“ / „Какво няма…“ */
 .feature-grid{
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 18px);
 }
-@media (max-width: 1024px){
-  .feature-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 620px){
-  .feature-grid{ grid-template-columns: 1fr; }
-}
-/* === Feature cards: top icon + larger desktop + variant без заглавия === */
-
-/* И двете секции – иконките горе, център, по-големи */
-.feature-grid{
-  --icon-size: clamp(46px, 4.2vw, 64px);   /* desktop стават по-големи автоматично */
-}
-
-/* Картичките да „дишат“ повече на desktop */
-.feature-card{
-  text-align: center;
-  padding: clamp(18px, 2vw, 28px);
-  border-radius: 16px;
-  box-shadow: 0 10px 28px rgba(0,0,0,.08);
-  min-height: clamp(180px, 26vh, 240px);   /* по-високи и приятни за око */
-}
-
-/* header частта с иконата отива вертикално, центрирано */
-.feature-head{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-/* заглавието остава, но отива под иконата и е по-четимо */
-.feature-title{
-  font-size: clamp(16px, 1.2vw + 10px, 20px);
-  color: var(--brand);
-  margin: 0;
-}
-
-/* описанието по-четимо и центрирано */
-.feature-text{
-  margin: 0;
-  color: rgba(19,48,25,.82);
-  line-height: 1.6;
-}
-
-/* по-големи разстояния между картите на широк екран */
-@media (min-width: 1100px){
-  .feature-grid{ gap: 22px; }
-}
-
-/* Втората секция: без заглавия (само иконка + текст), но пазим достъпността */
+@media (max-width:1024px){ .feature-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width:620px){ .feature-grid{ grid-template-columns: 1fr; } }
+.feature-grid{ --icon-size: clamp(46px, 4.2vw, 64px); }
 .feature-grid.no-titles .feature-title{
   position: absolute !important;
   width: 1px; height: 1px;
   padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0);
   white-space: nowrap; border: 0;
-}
-
-/* Иконките най-отгоре, еднакъв размер/цвят – ползваш вече .icon маските */
-.icon{
-  width: var(--icon-size);
-  height: var(--icon-size);
-  background-color: var(--brand-700); /* по-тъмното зелено от бранда */
-  -webkit-mask: var(--icon-url) no-repeat center / contain;
-          mask: var(--icon-url) no-repeat center / contain;
-}
-.feature-card{ transition: transform .18s ease, box-shadow .18s ease; }
-.feature-card:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 16px 42px rgba(0,0,0,.12);
 }
