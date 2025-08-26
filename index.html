@@ -87,106 +87,142 @@
             </div>
         </section>
 
-        <!-- INTRO -->
-<section id="intro" class="gf-intro" aria-labelledby="intro-title">
-    <div class="gf-intro__media" aria-hidden="true">
-        <picture>
-            <source srcset="intro-mobile.webp" media="(max-width: 768px)">
-            <img src="intro-desktop.webp" alt="" loading="eager" decoding="async">
-        </picture>
-        <span class="gf-intro__tint" aria-hidden="true"></span>
-    </div>
+    <!-- ======================= Intro ======================= -->
+    <section id="intro" class="intro section pad">
+        <div class="intro-inner">
+            <div class="intro-media">
+                <picture>
+                    <!-- Desktop / landscape -->
+                    <source
+                        media="(min-aspect-ratio: 1/1)"
+                        type="image/webp"
+                        srcset="intro-desktop.webp"
+                        sizes="(min-width: 1024px) 560px, 100vw">
+                    <source
+                        media="(min-aspect-ratio: 1/1)"
+                        type="image/jpeg"
+                        srcset="intro-desktop.jpg"
+                        sizes="(min-width: 1024px) 560px, 100vw">
 
-    <div class="gf-intro__container">
-        <div class="gf-intro__content">
-            <h2 id="intro-title">Създадохме GuiltFreeVend, за да не четеш етикети</h2>
-            <p class="gf-intro__lead">
-                През <strong>2023</strong> започнахме от една проста нужда: да имаме любимите си <strong>чисти био храни и напитки</strong> навсякъде — без търсене на Е-та и ситен шрифт.
-            </p>
+                    <!-- Mobile / portrait -->
+                    <source
+                        media="(max-aspect-ratio: 1/1)"
+                        type="image/webp"
+                        srcset="intro-mobile.webp"
+                        sizes="100vw">
+                    <source
+                        media="(max-aspect-ratio: 1/1)"
+                        type="image/jpeg"
+                        srcset="intro-mobile.jpg"
+                        sizes="100vw">
 
-            <div class="gf-intro__story">
-                <p>Обичаме здравословната храна. Но често около нас нямаше избор. Искахме повече места, където просто отиваш и <strong>знаеш</strong>, че всичко вътре е ок.</p>
-                <p>Затова създадохме <strong>GuiltFreeVend</strong> — машини, в които подбираме продукти с <strong>чист състав</strong> от <strong>български производители</strong> и се грижим те винаги да са близо, заредени и подредени.</p>
+                    <img
+                        src="intro-desktop.jpg"
+                        alt="Вендинг машина с био продукти и свежи плодове"
+                        loading="lazy"
+                        decoding="async"
+                        class="intro-img">
+                </picture>
             </div>
 
-            <dl class="gf-intro__drivers">
-                <div class="row">
-                    <dt>Грижа</dt>
-                    <dd>поставяме здравето и вкуса пред всичко.</dd>
-                </div>
-                <div class="row">
-                    <dt>Чистота</dt>
-                    <dd>без добавена захар, без палмово масло, без оцветители, без консерванти.</dd>
-                </div>
-                <div class="row">
-                    <dt>Близост</dt>
-                    <dd>да има „добър избор“ там, където живееш и работиш.</dd>
-                </div>
-                <div class="row">
-                    <dt>Честност</dt>
-                    <dd>ясен модел, <strong>0 лв.</strong> за локацията, ние поемаме поддръжката.</dd>
-                </div>
-            </dl>
+            <div class="intro-copy">
+                <h2 class="intro-title">GuiltFreeVend – повече от вендинг</h2>
 
-            <p class="gf-intro__closing">Искаме да ти е спокойно. Да вземеш нещо от нашата машина и да знаеш, че е <strong>добър избор</strong>. Това е причината да съществуваме.</p>
+                <p class="intro-lead">
+                    Ние правим здравословната храна достъпна, модерна и част от ежедневието —
+                    интелигентни вендинг машини, пълни с био продукти от доверени български производители.
+                </p>
+
+                <p class="intro-text">
+                    Избираме артикули без рафинирана захар, палмово масло и изкуствени консерванти.
+                    Работим с родни партньори и поддържаме висок стандарт на обслужване, логистика и прозрачност.
+                </p>
+
+                <div class="intro-cta">
+                    <a href="#contact" class="cta-pill">Заяви машина</a>
+                    <a href="#benefits" class="link-more">Научете повече</a>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
 
 
         <!-- ПОЛЗИ ОТ ПАРТНЬОРСТВО С НАС -->
-        <section id="benefits" class="section" data-aos="fade-up">
-            <h2>Защо да изберете нас?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <img src="icon-social.png" alt="Икона социална отговорност">
-                    <h3>Социална отговорност</h3>
-                    <p>Даряваме част от печалбата на смислени каузи – Вашата компания ще допринася за общественото благо.</p>
-                </div>
-                <div class="benefit-item">
-                    <img src="icon-healthy.png" alt="Икона здравословно">
-                    <h3>Здравословен избор</h3>
-                    <p>Предоставяте лесен достъп до чиста и полезна храна за Вашите служители и клиенти.</p>
-                </div>
-                <div class="benefit-item">
-                    <img src="icon-zero-cost.png" alt="Икона без разходи">
-                    <h3>Без разходи</h3>
-                    <p>Инсталирането и обслужването на машината е изцяло за наша сметка – без ангажименти от Ваша страна.</p>
-                </div>
-                <div class="benefit-item">
-                    <img src="icon-local.png" alt="Икона българско производство">
-                    <h3>Подкрепа за българското</h3>
-                    <p>Работим само с родни производители – партньорството с нас е подкрепа за местните производители.</p>
-                </div>
+<section id="benefits" class="section" data-aos="fade-up">
+    <h2>Защо да изберете нас?</h2>
+    <div class="feature-grid">
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('social-icon.svg')"></span>
+                <h3 class="feature-title">Социална отговорност</h3>
             </div>
-        </section>
+            <p class="feature-text">Даряваме част от печалбата на смислени каузи – Вашата компания ще допринася за общественото благо.</p>
+        </article>
+
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('healthy-choice-icon.svg')"></span>
+                <h3 class="feature-title">Здравословен избор</h3>
+            </div>
+            <p class="feature-text">Предоставяте лесен достъп до чиста и полезна храна за Вашите служители и клиенти</p>
+        </article>
+
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('no-cost-icon.svg')"></span>
+                <h3 class="feature-title">Без разходи</h3>
+            </div>
+            <p class="feature-text">Инсталирането и обслужването на машината е изцяло за наша сметка – без ангажименти от Ваша страна.</p>
+        </article>
+
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('bg-icon.svg')"></span>
+                <h3 class="feature-title">Подкрепа за българското</h3>
+            </div>
+            <p class="feature-text">Работим само с родни производители – партньорството с нас е подкрепа за българските брандове.</p>
+        </article>
+    </div>
+</section>
 
         <!-- КАКВО НЯМА ПРИ НАС -->
-        <section id="not-included" class="section" data-aos="fade-up">
-            <h2>Сигурно е, защото липсва вредното</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <img src="icons/no-sugar.png" alt="Без добавена захар">
-                    <h3>Без добавена захар</h3>
-                    <p>Внимателно избираме само продукти, които не съдържат рафинирана захар.</p>
-                </div>
-                <div class="benefit-item">
-                    <img src="icons/no-palm.png" alt="Без палмово масло">
-                    <h3>Без палмово масло</h3>
-                    <p>Подбираме артикули без палмово масло – заради по-добро качество и грижа за околната среда.</p>
-                </div>
-                <div class="benefit-item">
-                    <img src="icons/no-preservatives.png" alt="Без консерванти">
-                    <h3>Без консерванти</h3>
-                    <p>Нито един от продуктите в нашите машини не съдържа изкуствени консерванти.</p>
-                </div>
-                <div class="benefit-item">
-                    <img src="icons/no-colorants.png" alt="Без оцветители">
-                    <h3>Без оцветители</h3>
-                    <p>Подбираме продукти, които не разчитат на изкуствени оцветители.</p>
-                </div>
+<section id="not-included" class="section" data-aos="fade-up">
+    <h2>Сигурно е, защото липсва вредното</h2>
+    <div class="feature-grid">
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('no-sugar-icon.svg')"></span>
+                <h3 class="feature-title">Без добавена захар</h3>
             </div>
-        </section>
+            <p class="feature-text">Внимателно избираме само продукти, които не съдържат рафинирана захар.</p>
+        </article>
+
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('no-palmoil-icon.svg')"></span>
+                <h3 class="feature-title">Без палмово масло</h3>
+            </div>
+            <p class="feature-text">Подбираме артикули без палмово масло – заради по-добро качество и грижа за околната среда.</p>
+        </article>
+
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('no-preservatives-icon.svg')"></span>
+                <h3 class="feature-title">Без консерванти</h3>
+            </div>
+            <p class="feature-text">Нито един от продуктите в нашите машини не съдържа изкуствени консерванти.</p>
+        </article>
+
+        <article class="feature-card">
+            <div class="feature-head">
+                <span class="icon" style="--icon-url: url('no-colourants-icon.svg')"></span>
+                <h3 class="feature-title">Без оцветители</h3>
+            </div>
+            <p class="feature-text">Подбираме продукти, които не разчитат на изкуствени оцветители.</p>
+        </article>
+    </div>
+ </section>
 
         <!-- ПОДХОДЯЩА ЛИ Е ВАШАТА ЛОКАЦИЯ -->
         <section id="suitability" class="section suitability" data-aos="fade-up">
