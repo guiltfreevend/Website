@@ -1373,125 +1373,148 @@ form .consent-group a{
   background: #445d20 !important;
   transform: none;
 }
-/* ========= Intro (text + natural still-life background) ========= */
-:root{
-  --gf-green:#2F5E2B;
-  --gf-ink:#0e0f0e;
-  --gf-paper:#f6fbf5;
+/* ======================= Intro (new) ======================= */
+.intro{
+  position: relative;
+  background: linear-gradient(180deg, rgba(253,246,217,0) 0%, rgba(253,246,217,0.65) 30%, rgba(253,246,217,1) 100%);
+  padding-block: clamp(36px, 6vw, 72px);
 }
 
-.gf-intro{
-  position: relative;
-  isolation: isolate;
-  background: var(--gf-paper);
-  min-height: clamp(560px, 84vh, 860px);
+.intro-inner{
   display: grid;
+  grid-template-columns: 1.1fr 1fr;     /* медия + копи */
+  gap: clamp(20px, 4vw, 44px);
   align-items: center;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: 16px;
 }
 
-.gf-intro__media{
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-.gf-intro__media picture,
-.gf-intro__media img{
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.gf-intro__media img{
-  object-fit: cover;
-  /* Оставяме „въздух“ за текста отляво на десктоп, център на мобилен */
-  object-position: 65% center;
-}
-
-/* Много лека тинт-възглавница за четимост (без да личи, без „ефекти“) */
-.gf-intro__tint{
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(246,251,245,0.96) 0%,
-                           rgba(246,251,245,0.90) 28%,
-                           rgba(246,251,245,0.40) 56%,
-                           rgba(246,251,245,0.00) 86%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.gf-intro__container{
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: clamp(20px, 4vw, 56px);
-}
-
-.gf-intro__content{
-  max-width: 760px; /* удобна ширина за четене */
-  color: var(--gf-ink);
-}
-
-.gf-intro h2{
-  font-size: clamp(26px, 3.2vw, 40px);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--gf-green);
-  margin: 0 0 12px;
-}
-
-.gf-intro__lead{
-  font-size: clamp(16px, 1.9vw, 20px);
-  line-height: 1.6;
-  margin: 0 0 18px;
-}
-
-.gf-intro__story p{
-  margin: 0 0 12px;
-  font-size: 17px;
-  line-height: 1.7;
-}
-
-.gf-intro__drivers{
-  margin: 18px 0 14px;
-  padding: 14px 0 0;
-  border-top: 1px solid rgba(47,94,43,0.15); /* чист разделител */
-}
-.gf-intro__drivers .row{
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 12px;
-  align-items: start;
-  padding: 8px 0;
-}
-.gf-intro__drivers dt{
-  font-weight: 700;
-  color: var(--gf-green);
-  white-space: nowrap;
-}
-.gf-intro__drivers dd{
-  margin: 0;
-  line-height: 1.6;
-}
-
-.gf-intro__closing{
-  margin-top: 10px;
-  font-size: 16.5px;
-  line-height: 1.7;
-  color: #233422;
-}
-
-/* ====== Responsive ====== */
-@media (max-width: 992px){
-  .gf-intro__media img{ object-position: center; }
-  .gf-intro__tint{
-    /* на мобилен тинтът е малко по-равномерен */
-    background:
-      linear-gradient(180deg, rgba(246,251,245,0.92) 0%,
-                             rgba(246,251,245,0.78) 24%,
-                             rgba(246,251,245,0.20) 66%,
-                             rgba(246,251,245,0.00) 100%);
+@media (max-width: 980px){
+  .intro-inner{
+    grid-template-columns: 1fr;
   }
-  .gf-intro__content{ max-width: 680px; }
+}
+
+/* Медията да „диша“ и да държи форма още преди да се зареди */
+.intro-media{
+  position: relative;
+  border-radius: 18px;
+  overflow: clip;
+  box-shadow: 0 16px 46px rgba(0,0,0,.12);
+  background: #fff3c9;
+}
+.intro-img{
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transform: scale(1.001); /* избягва hairline артефакти */
+}
+
+/* Копито */
+.intro-copy{ text-align: left; }
+.intro-title{
+  margin: 0 0 8px;
+  font-size: clamp(22px, 2.2vw + 12px, 34px);
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.15;
+}
+.intro-lead{
+  margin: 6px 0 8px;
+  font-size: clamp(16px, 1.2vw + 10px, 19px);
+  color: rgba(19,48,25,.85);
+  line-height: 1.65;
+}
+.intro-text{
+  margin: 6px 0 0;
+  color: rgba(19,48,25,.82);
+  line-height: 1.7;
+}
+
+.intro-cta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 14px;
+}
+
+/* вторична линк-CTA */
+.link-more{
+  display: inline-block;
+  text-decoration: none;
+  color: var(--brand);
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  padding: 8px 0;
+  transition: color .18s ease, border-color .18s ease;
+}
+.link-more:hover{ color: var(--brand-700); border-bottom-color: var(--brand-700); }
+
+/* Леко оживяване при първо показване (без JS) */
+@keyframes introFadeUp{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;} }
+.intro-media{ animation: introFadeUp .55s ease-out both .05s; }
+.intro-copy { animation: introFadeUp .55s ease-out both .15s; }
+@media (prefers-reduced-motion: reduce){
+  .intro-media, .intro-copy{ animation: none; }
+}
+
+/* ======================= Universal SVG icons (mask) ======================= */
+/* Използваме маска, за да станат всички SVG еднакъв ЦВЯТ и РАЗМЕР,
+   независимо от fill/stroke вътре в самия файл. */
+:root{
+  --icon-color: var(--brand-700);
+  --icon-size: 46px;
+}
+
+.icon{
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: inline-block;
+  background-color: var(--icon-color);
+  -webkit-mask: var(--icon-url) no-repeat center / contain;
+          mask: var(--icon-url) no-repeat center / contain;
+  flex: 0 0 var(--icon-size);
+}
+
+/* Карта/картичка със икона и текст – унифицираме вида */
+.feature-card{
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.08);
+  text-align: left;
+}
+.feature-head{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.feature-title{
+  margin: 0;
+  font-weight: 700;
+  color: var(--brand);
+  font-size: clamp(16px, 1.2vw + 10px, 20px);
+}
+.feature-text{
+  margin: 0;
+  color: rgba(19,48,25,.78);
+  line-height: 1.55;
+}
+
+/* Грид за секциите „Защо…“ / „Какво няма…“ */
+.feature-grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+}
+@media (max-width: 1024px){
+  .feature-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px){
+  .feature-grid{ grid-template-columns: 1fr; }
 }
