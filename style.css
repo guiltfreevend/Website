@@ -36,6 +36,11 @@
   /* Icons (mask) */
   --icon-color: var(--brand-700);
   --icon-size: 46px;
+  
+  /* Intro */
+  --intro-gap: clamp(16px, 4vh, 64px);        /* отстояние от hero */
+  --intro-padX: clamp(16px, 6vw, 64px);       /* хоризонтален „въздух“ за текста */
+  --intro-padY: clamp(28px, 10vh, 140px);     /* вертикален „въздух“ за текста */
 }
 
 html, body { margin: 0; }
@@ -517,104 +522,99 @@ body{
   background: none;
 }
 
-/* ======================= Intro v2 (text over image) ======================= */
-.intro{
+/* ======================= Intro v3 — full-bleed, full-screen ======================= */
+
+.intro{                         /* отделяне от hero секцията */
   position: relative;
-  padding-block: 0;                 /* падингът идва от overlay-то */
-  background: none;                 /* махаме бежовия градиент от стария вариант */
+  margin-top: var(--intro-gap);
+  padding: 0;
+  background: none;
 }
+/* занулява глобалния padding, който идва от .section */
+.intro.section{ padding: 0 !important; }
 
-/* 1) Правим .intro-inner „стек“: и снимката, и текстът заемат една и съща област */
 .intro-inner{
+  position: relative;
+  max-width: none;             /* full-bleed */
+  min-height: 100svh;          /* запълва екрана и на мобилен */
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  max-width: 1140px;
-  margin-inline: auto;
-  padding-inline: 16px;
-  min-height: clamp(380px, 50vw, 640px);
-  border-radius: clamp(12px, 2vw, 22px);
-  overflow: clip;
-  box-shadow: 0 20px 48px rgba(0,0,0,.14);
+  place-items: center;
+  overflow: hidden;
 }
+
+/* картинката заема 100% от интрото */
 .intro-media,
-.intro-copy{ grid-area: 1 / 1; }    /* наслояване */
-
-/* 2) Снимката пълни изцяло контейнера */
-.intro-media{ position: relative; z-index: 0; }
+.intro-media picture,
 .intro-img{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.intro-img{
   object-fit: cover;
-  transform: scale(1.02);           /* лек „кинематичен“ zoom-in */
+  transform: scale(1.02);      /* лек „crop“, да няма бели ръбове */
 }
 
-/* Допълнителен общ градиент за контраст към текста */
+/* глобален воал за четимост (много деликатен) */
 .intro-inner::after{
-  content: "";
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  content:"";
+  position:absolute; inset:0; z-index:0; pointer-events:none;
   background: linear-gradient(180deg,
-    rgba(0,0,0,.25) 0%,
-    rgba(0,0,0,.05) 40%,
+    rgba(0,0,0,.28) 0%,
+    rgba(0,0,0,.12) 35%,
     rgba(0,0,0,.30) 100%);
 }
 
-/* 3) Текстовото „каре“ – стои върху снимката, с размазване ОТДОЛУ (backdrop-filter) */
+/* текст върху снимката */
 .intro-copy{
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   color: #fff;
-  padding: clamp(24px, 5vw, 52px);
-  text-shadow: 0 2px 16px rgba(0,0,0,.35);
+  text-align: center;
+  padding: var(--intro-padY) var(--intro-padX);
+  max-width: 980px;
+  margin-inline: auto;
+  text-shadow: 0 2px 16px rgba(0,0,0,.45);
 }
-
-/* прозрачен панел зад текста – дава лек blur само ПОД текста */
+/* локално подсилване зад текста – без „карта“, без ръбове */
 .intro-copy::before{
-  content: "";
-  position: absolute;
-  inset: clamp(12px, 3vw, 26px);
-  border-radius: clamp(10px, 1.2vw, 16px);
-  background: rgba(0,0,0,.22);                      /* лек воал */
-  backdrop-filter: blur(4px) saturate(125%);
-  -webkit-backdrop-filter: blur(4px) saturate(125%);
-  z-index: -1;
+  content:"";
+  position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(0,0,0,.45) 0%,
+      rgba(0,0,0,.30) 45%,
+      rgba(0,0,0,.10) 70%,
+      rgba(0,0,0,0) 100%);
+  filter: blur(12px);          /* леко „замъгляване“ под текста */
 }
 
-/* Типография + поява */
+/* плавна поява: заглавие → подзаглавие → текст */
 @keyframes introUp{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
-
 .intro-title{
-  margin: 0 0 8px;
-  font-weight: 800;
-  line-height: 1.12;
-  font-size: clamp(28px, 2.6vw + 10px, 44px);
+  margin: 0 0 10px;
+  font-weight: 800; line-height: 1.12;
+  font-size: clamp(28px, 4.2vw + 10px, 56px);
   opacity: 0; animation: introUp .55s ease-out .05s forwards;
 }
 .intro-lead{
-  margin: 8px 0 6px;
-  font-size: clamp(16px, 1.1vw + 12px, 22px);
+  margin: 8px 0 8px;
+  font-size: clamp(16px, 1.6vw + 12px, 22px);
   opacity: 0; animation: introUp .55s ease-out .18s forwards;
 }
 .intro-text{
-  margin: 6px 0 0;
-  max-width: min(820px, 92vw);
-  line-height: 1.7;
+  margin: 6px 0 0; line-height: 1.7;
   opacity: 0; animation: introUp .55s ease-out .30s forwards;
 }
 
-/* НЯМА бутон „Заяви машина“ в Intro */
-.intro-cta,
-.intro .cta-pill{ display: none !important; }
+/* махаме CTA-то в Intro */
+.intro-cta, .intro .cta-pill{ display:none !important; }
 
-/* Мобилен: без заобляне по краищата за „от край до край“ */
+/* мобилен: без радиуси/контейнери, edge-to-edge остава */
 @media (max-width: 980px){
-  .intro-inner{ min-height: 72svh; border-radius: 0; }
-  .intro-copy::before{ inset: clamp(10px, 4vw, 22px); }
+  .intro-inner{ min-height: 100svh; }
+}
 
 /* =========================================================
    Partners – slow marquee + edge fade + size harmonisation
