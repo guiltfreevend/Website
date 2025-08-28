@@ -471,6 +471,13 @@ body{
    ========================================================= */
 .section{ padding:4rem 2rem; text-align:center; }
 
+.section > h2{ 
+  margin: 0 0 clamp(20px, 3vw, 36px);      /* отстояние под заглавието */
+}
+.section h2 + .feature-grid{
+  margin-top: clamp(12px, 2vw, 22px);      /* допълнителен „въздух“ преди картите */
+}
+
 /* =========================================================
    Benefits
    ========================================================= */
@@ -744,11 +751,11 @@ form .consent-group a{
 
 .feature-card{
   background: #fff;
-  border-radius: 16px;
-  padding: clamp(18px, 2vw, 28px);
+  border-radius: 18px;
+  padding: clamp(22px, 2.4vw, 32px);
   box-shadow: 0 10px 28px rgba(0,0,0,.08);
   text-align: center;
-  min-height: clamp(180px, 26vh, 240px);
+  min-height: clamp(240px, 34vh, 320px); 
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .feature-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,.12); }
@@ -761,18 +768,17 @@ form .consent-group a{
   margin: 0;
   font-weight: 700;
   color: var(--brand);
-  font-size: clamp(16px, 1.2vw + 10px, 20px);
+  font-size: clamp(18px, 1.4vw + 10px, 22px);
 }
-.feature-text{ margin:0; color: rgba(19,48,25,.82); line-height:1.6; }
+.feature-text{ margin:0; color: rgba(19,48,25,.82); line-height:1.7; }
 
 .feature-grid{
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(12px, 2vw, 18px);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* широки карти, без тесни колонки */
+  gap: clamp(16px, 2.2vw, 24px);
 }
-@media (max-width:1024px){ .feature-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width:620px){ .feature-grid{ grid-template-columns: 1fr; } }
-.feature-grid{ --icon-size: clamp(46px, 4.2vw, 64px); }
+
+.feature-grid{ --icon-size: clamp(56px, 5vw, 88px); }  /* по-големи логота */
 .feature-grid.no-titles .feature-title{
   position: absolute !important;
   width: 1px; height: 1px;
