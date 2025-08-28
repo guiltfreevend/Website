@@ -479,6 +479,19 @@ body{
   margin-top: clamp(12px, 2vw, 22px);      /* допълнителен „въздух“ преди картите */
 }
 
+/* Визуален акцент за „долната“ секция – по-светъл тон + outline карти */
+.section--alt{
+  background: linear-gradient(180deg, rgba(253,246,217,.55), rgba(253,246,217,0) 18%) !important;
+}
+.section--alt .feature-card{
+  background: #fffef8;
+  border: 1px solid rgba(51,73,30,.10);
+  box-shadow: 0 6px 18px rgba(0,0,0,.06); /* една идея по-лека сянка от горната секция */
+}
+.section--alt .feature-card:hover{
+  box-shadow: 0 12px 26px rgba(0,0,0,.10);
+}
+
 /* =========================================================
    Benefits
    ========================================================= */
@@ -791,6 +804,13 @@ form .consent-group a{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* широки карти, без тесни колонки */
   gap: clamp(16px, 2.2vw, 24px);
+}
+
+/* Ако H2 е вътре в .feature-grid → да заеме цял ред и да е център */
+.feature-grid > h2{
+  grid-column: 1 / -1;                     /* прехвърля заглавието над картите */
+  text-align: center;
+  margin: 0 0 clamp(20px, 3vw, 36px);      /* въздух под заглавието */
 }
 
 @media (min-width: 1200px){
