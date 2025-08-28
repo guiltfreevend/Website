@@ -473,6 +473,7 @@ body{
 
 .section > h2{ 
   margin: 0 0 clamp(20px, 3vw, 36px);      /* отстояние под заглавието */
+  text-align: center;
 }
 .section h2 + .feature-grid{
   margin-top: clamp(12px, 2vw, 22px);      /* допълнителен „въздух“ преди картите */
@@ -750,14 +751,28 @@ form .consent-group a{
 }
 
 .feature-card{
-  background: #fff;
-  border-radius: 18px;
-  padding: clamp(22px, 2.4vw, 32px);
-  box-shadow: 0 10px 28px rgba(0,0,0,.08);
-  text-align: center;
-  min-height: clamp(240px, 34vh, 320px); 
+  background:#fff;
+  border-radius:18px;
+  padding:clamp(22px, 2.4vw, 32px);
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+  /* ново: центриране и равномерно „пълнене“ */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:clamp(240px, 34vh, 320px);
   transition: transform .18s ease, box-shadow .18s ease;
 }
+
+.feature-card p,
+.feature-card .feature-text{
+  margin:0;
+  width:100%;
+  max-width:none;      /* маха всякакви скрити ограничения */
+  line-height:1.7;
+}
+
 .feature-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,.12); }
 
 .feature-head{
@@ -776,6 +791,14 @@ form .consent-group a{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* широки карти, без тесни колонки */
   gap: clamp(16px, 2.2vw, 24px);
+}
+
+@media (min-width: 1200px){
+  .feature-grid{
+    grid-template-columns: repeat(4, minmax(260px, 1fr)); /* заключваме 4 на ред */
+    max-width: 1140px;    /* подравнява оптично с горната секция */
+    margin-inline: auto;  /* центрира грида */
+  }
 }
 
 .feature-grid{ --icon-size: clamp(56px, 5vw, 88px); }  /* по-големи логота */
