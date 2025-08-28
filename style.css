@@ -165,6 +165,21 @@ body{
   border:1px solid rgba(255,255,255,.22);
   transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
+
+/* Header CTA — GHOST на върха (прозрачен, с лек blur/контур) */
+#site-header:not(.is-scrolled) .desktop-menu .cta--header{
+  background: transparent !important;
+  color: #fff !important;
+  border: 1.5px solid rgba(255,255,255,.88) !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.10);
+  -webkit-backdrop-filter: blur(1px) saturate(120%);
+          backdrop-filter: blur(1px) saturate(120%);
+}
+#site-header:not(.is-scrolled) .desktop-menu .cta--header:hover{
+  background: rgba(255,255,255,.08) !important;
+  transform: translateY(-1px) scale(1.02);
+  border-color: rgba(255,255,255,.95) !important;
+}
 .cta--header:hover{ background:var(--cta-bg-hover) !important; transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
 .cta--header:active{ background:var(--cta-bg-active) !important; transform:none; box-shadow:0 8px 20px var(--cta-shadow); }
 .desktop-menu .cta--header{ border-bottom:none !important; }
