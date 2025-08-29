@@ -6,7 +6,7 @@
 :root{
   --pad: 2rem;
   --header-h: 56px;
-
+ 
   /* Brand */
   --brand: #5A7D2A;
   --brand-700: #4E6A22;
@@ -508,8 +508,8 @@ body{
   gap: 2rem;
   margin-top: 2rem;
 
-  align-items: start;   /* ключово: старт отгоре */
-  grid-auto-rows: 1fr;  /* равни височини на реда */
+  align-items: start;       /* картите се подравняват по горния ръб */
+  grid-auto-rows: 1fr;      /* равни височини по ред */
 }
 
 /* Карта – вертикална колона, съдържанието започва отгоре */
@@ -519,12 +519,13 @@ body{
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   transition: transform .3s ease, box-shadow .3s ease;
 
+  /* подредба: ред1=икона, ред2=заглавие, ред3=текст */
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  justify-items: center;    /* хор. центриране на всичко */
   text-align: center;
-  padding: 22px 18px;                         /* можеш да върнеш 1.5rem ако предпочиташ */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;                /* важно: старт отгоре */
+
+  padding: 22px 18px;
   gap: clamp(10px, 1.6vw, 14px);
   height: 100%;
 }
@@ -874,10 +875,9 @@ body{
   height: var(--badge);
   border-radius: 50%;
   display: grid;
-  place-items: center;            /* твърдо центриране по X и Y */
+  place-items: center;                 /* център по X и Y */
   margin: 0 auto 10px;
 
-  /* „крем“ бадж в стила на сайта */
   background: radial-gradient(70% 70% at 30% 30%, #fff 0, #f7f1d9 100%);
   border: 1px solid rgba(51,73,30,.12);
   box-shadow: 0 10px 22px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
@@ -890,7 +890,6 @@ body{
   width: 72%;
   height: 72%;
   display: block;                 /* премахва baseline offset */
-  margin: 0 auto;
   object-fit: contain;            /* еднакви пропорции при различни viewBox */
   align-self: center;
   justify-self: center;
@@ -904,6 +903,8 @@ body{
   gap: clamp(10px, 2vw, 14px);
   margin-top: 6px;
 }
+
+.feature-icon svg{ overflow: visible; }
 
 /* На много малки екрани значките стават още 1 идея по-едри */
 @media (max-width: 480px){
@@ -1084,9 +1085,13 @@ form .consent-group a{
 .feature-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,.12); }
 
 .feature-head{
-  display: flex; flex-direction: column; align-items: center;
-  gap: 10px; margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 2vw, 14px);
+  margin: 0;
 }
+
 .feature-title{
   margin: 0;
   font-weight: 700;
