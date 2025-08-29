@@ -38,9 +38,10 @@
   --icon-size: 46px;
   
   /* Intro */
-  --intro-gap: clamp(16px, 4vh, 64px);        /* отстояние от hero */
-  --intro-padX: clamp(16px, 6vw, 64px);       /* хоризонтален „въздух“ за текста */
-  --intro-padY: clamp(28px, 10vh, 140px);     /* вертикален „въздух“ за текста */
+  --intro-gap: clamp(18px, 4vh, 40px);
+  --intro-padX: clamp(16px, 6vw, 28px);
+  --intro-padY: clamp(42px, 12vh, 22vh);
+
 }
 
 html, body { margin: 0; }
