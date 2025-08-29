@@ -836,6 +836,39 @@ body{
   opacity: .98;
 }
 
+/* === Кръгла значка, която визуално уеднаквява всички икони === */
+.feature-icon{
+  /* Диаметър на значката: по-едра на мобилен, умерена на десктоп */
+  --badge: clamp(96px, 22vw, 128px);
+  width: var(--badge);
+  height: var(--badge);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 8px;
+
+  /* Светла, „крем“ значка в стила на сайта */
+  background: radial-gradient(70% 70% at 30% 30%, #fff 0, #f7f1d9 100%);
+  border: 1px solid rgba(51,73,30,.12);
+  box-shadow: 0 10px 22px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
+}
+
+/* Иконата вътре – винаги един и същ процент от значката */
+.feature-icon .icon{
+  width: 72%;
+  height: 72%;
+  transform: scale(var(--icon-scale, 1));   /* фин оптичен тунинг при нужда */
+  transform-origin: center;
+}
+
+/* Малко повече въздух под значката */
+.feature-head{ gap: clamp(10px, 2vw, 14px); }
+
+/* На много малки екрани значките стават още 1 идея по-едри */
+@media (max-width: 480px){
+  .feature-icon{ --badge: clamp(110px, 28vw, 140px); }
+}
+
 /* =========================================================
    Forms
    ========================================================= */
