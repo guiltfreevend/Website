@@ -658,6 +658,20 @@ body{
   .intro.is-inview .intro-img{ animation: none; transform: scale(1.02); }
 }
 
+.intro-tags{
+  display:flex; gap:8px; justify-content:center;
+  margin: clamp(6px,1.6vh,10px) 0 clamp(12px,2.8vh,22px);
+  list-style:none; padding:0;
+}
+.intro-tags li{
+  padding:6px 10px; border-radius:999px;
+  font-weight:700; font-size: .9rem;
+  color:#fff; border:1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.08);
+  -webkit-backdrop-filter: blur(2px) saturate(120%);
+          backdrop-filter: blur(2px) saturate(120%);
+}
+
 /* =========================================================
    Partners – slow marquee + edge fade + size harmonisation
    ========================================================= */
