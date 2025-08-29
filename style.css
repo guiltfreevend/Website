@@ -799,6 +799,43 @@ body{
   .intro-title, .intro-sep, .intro-tags, .intro-text{ animation-duration:.01ms; animation-delay:0s; }
 }
 
+/* ===== Intro title: линии отляво/отдясно + лозунг отдолу ===== */
+.intro-title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;                 /* център и в landscape */
+  gap: clamp(8px, 1.8vh, 14px);
+}
+
+/* Редът с логото и двете hairline черти */
+.intro-title .title-row{
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 16px);
+  flex-wrap: nowrap;
+}
+
+.intro-title .brand{
+  font: inherit;                        /* наследява размера/теглото от .intro-title */
+  white-space: nowrap;
+}
+
+.intro-title .title-bar{
+  width: min(140px, 28vw);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
+  border-radius: 999px;
+  opacity: .95;
+}
+
+/* Линия/лозунг под заглавието */
+.intro-title .tagline{
+  font-weight: 700;
+  font-size: clamp(18px, 2.6vw, 28px);
+  line-height: 1.22;
+  opacity: .98;
+}
+
 /* =========================================================
    Forms
    ========================================================= */
