@@ -501,14 +501,32 @@ body{
 /* =========================================================
    Benefits
    ========================================================= */
+/* Контейнер – картите „залепват“ за горния ръб и имат равни височини по ред */
 .benefits-grid{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-  gap:2rem; margin-top:2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+
+  align-items: start;   /* ключово: старт отгоре */
+  grid-auto-rows: 1fr;  /* равни височини на реда */
 }
+
+/* Карта – вертикална колона, съдържанието започва отгоре */
 .benefit-item{
-  background:#fffbe9; border-radius:.5rem; padding:1.5rem;
-  text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  background: #fffbe9;
+  border-radius: .5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   transition: transform .3s ease, box-shadow .3s ease;
+
+  text-align: center;
+  padding: 22px 18px;                         /* можеш да върнеш 1.5rem ако предпочиташ */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;                /* важно: старт отгоре */
+  gap: clamp(10px, 1.6vw, 14px);
+  height: 100%;
 }
 .benefit-item:hover{ transform:translateY(-5px); box-shadow:0 4px 15px rgba(0,0,0,0.1); }
 .benefit-item img{ width:64px; height:64px; margin-bottom:1rem; }
@@ -552,12 +570,21 @@ body{
     rgba(0,0,0,.30) 100%);
 }
 
-/* текст върху снимката */
+/* Текстовият блок в интро – център и удобна ширина */
 .intro-copy{
-  position: relative; z-index: 1; color:#fff; text-align:center;
+  position: relative; 
+  z-index: 1; 
+  color:#fff; 
+  text-align:center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   padding: var(--intro-padY) var(--intro-padX);
-  max-width: min(980px, 92vw);
+  max-width: min(1100px, 92vw);      /* малко по-широко от 980px */
   margin-inline: auto;
+
   text-shadow: 0 2px 16px rgba(0,0,0,.45);
   text-wrap: balance;
 }
@@ -590,8 +617,12 @@ body{
   font-size: clamp(16px, 1.6vw + 12px, 22px);
   animation: introUp .55s ease-out .18s forwards;
 }
+
+/* По-едър и комфортен текст в desktop/landscape */
 .intro.is-inview .intro-text{
-  margin: 10px 0 0; line-height:1.72;
+  margin: 10px 0 0;
+  font-size: clamp(18px, 1.15vw + 14px, 22px);  /* + ~2px спрямо преди */
+  line-height: 1.85;                            /* по-леко четене */
   animation: introUp .55s ease-out .30s forwards;
 }
 
@@ -624,10 +655,10 @@ body{
   opacity:.95;
 }
 
-/* нека абзацът не става твърде широк – по-лесно четим */
-.intro-copy p{
-  max-width: 46ch;            /* около 46 символа на ред */
+.intro-copy p{                       /* по-четим ред */
+  max-width: 64ch;                   /* ~64 символа – класическа четимост */
   margin-inline: auto;
+  letter-spacing: .01em;
 }
 
 /* на по-малки екрани – една идея по-силен локален ореол */
@@ -836,33 +867,43 @@ body{
   opacity: .98;
 }
 
-/* === Кръгла значка, която визуално уеднаквява всички икони === */
+/* === Кръгла значка + стабилно центриране на SVG/IMG === */
 .feature-icon{
-  /* Диаметър на значката: по-едра на мобилен, умерена на десктоп */
   --badge: clamp(96px, 22vw, 128px);
   width: var(--badge);
   height: var(--badge);
   border-radius: 50%;
   display: grid;
-  place-items: center;
-  margin: 0 auto 8px;
+  place-items: center;            /* твърдо центриране по X и Y */
+  margin: 0 auto 10px;
 
-  /* Светла, „крем“ значка в стила на сайта */
+  /* „крем“ бадж в стила на сайта */
   background: radial-gradient(70% 70% at 30% 30%, #fff 0, #f7f1d9 100%);
   border: 1px solid rgba(51,73,30,.12);
   box-shadow: 0 10px 22px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
 }
 
-/* Иконата вътре – винаги един и същ процент от значката */
-.feature-icon .icon{
+/* Иконата вътре – без baseline „дръпване“, винаги запълва еднакво */
+.feature-icon .icon,
+.feature-icon > svg,
+.feature-icon > img{
   width: 72%;
   height: 72%;
-  transform: scale(var(--icon-scale, 1));   /* фин оптичен тунинг при нужда */
-  transform-origin: center;
+  display: block;                 /* премахва baseline offset */
+  margin: 0 auto;
+  object-fit: contain;            /* еднакви пропорции при различни viewBox */
+  align-self: center;
+  justify-self: center;
 }
 
-/* Малко повече въздух под значката */
-.feature-head{ gap: clamp(10px, 2vw, 14px); }
+/* Групата заглавие/икона ако я имаш (не е задължително) */
+.feature-head{ 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: clamp(10px, 2vw, 14px);
+  margin-top: 6px;
+}
 
 /* На много малки екрани значките стават още 1 идея по-едри */
 @media (max-width: 480px){
