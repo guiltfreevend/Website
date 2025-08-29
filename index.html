@@ -657,5 +657,18 @@
           io.observe(section);
         });
         </script>
+        
+        <script>
+          const intro = document.querySelector('.intro');
+          if (intro){
+            const io = new IntersectionObserver(([e])=>{
+              if (e.isIntersecting){
+                intro.classList.add('is-inview');
+                io.unobserve(intro);
+              }
+            }, { threshold: 0.35 });
+            io.observe(intro);
+          }
+        </script>
 </body>
 </html>
