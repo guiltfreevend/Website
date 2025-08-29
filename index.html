@@ -99,64 +99,33 @@
             </div>
         </section>
 
-    <!-- ======================= Intro ======================= -->
-    <section id="intro" class="intro section">
-        <div class="intro-inner">
-            <div class="intro-media">
-                <picture>
-                    <!-- Desktop / landscape -->
-                    <source
-                        media="(min-aspect-ratio: 1/1)"
-                        type="image/webp"
-                        srcset="intro-desktop.webp"
-                        sizes="(min-width: 1024px) 560px, 100vw">
-                    <source
-                        media="(min-aspect-ratio: 1/1)"
-                        type="image/jpeg"
-                        srcset="intro-desktop.jpg"
-                        sizes="(min-width: 1024px) 560px, 100vw">
+<!-- ======================= Intro ======================= -->
+<section id="intro" class="intro intro--overlay section" aria-labelledby="intro-title">
+  <div class="intro-inner">
+    <div class="intro-media" aria-hidden="true">
+      <picture>
+        <!-- Desktop / landscape -->
+        <source media="(min-aspect-ratio: 1/1)" type="image/webp" srcset="intro-desktop.webp">
+        <source media="(min-aspect-ratio: 1/1)" type="image/jpeg" srcset="intro-desktop.jpg">
+        <!-- Mobile / portrait -->
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" srcset="intro-mobile.webp">
+        <source media="(max-aspect-ratio: 1/1)" type="image/jpeg" srcset="intro-mobile.jpg">
+        <img class="intro-img" src="intro-desktop.jpg" alt="" loading="lazy" decoding="async">
+      </picture>
+    </div>
 
-                    <!-- Mobile / portrait -->
-                    <source
-                        media="(max-aspect-ratio: 1/1)"
-                        type="image/webp"
-                        srcset="intro-mobile.webp"
-                        sizes="100vw">
-                    <source
-                        media="(max-aspect-ratio: 1/1)"
-                        type="image/jpeg"
-                        srcset="intro-mobile.jpg"
-                        sizes="100vw">
-
-                    <img
-                        src="intro-desktop.jpg"
-                        alt="Вендинг машина с био продукти и свежи плодове"
-                        loading="lazy"
-                        decoding="async"
-                        class="intro-img">
-                </picture>
-            </div>
-
-            <div class="intro-copy">
-                <h2 class="intro-title">GuiltFreeVend – повече от вендинг</h2>
-
-                <p class="intro-lead">
-                    Ние правим здравословната храна достъпна, модерна и част от ежедневието —
-                    интелигентни вендинг машини, пълни с био продукти от доверени български производители.
-                </p>
-
-                <p class="intro-text">
-                    Избираме артикули без рафинирана захар, палмово масло и изкуствени консерванти.
-                    Работим с родни партньори и поддържаме висок стандарт на обслужване, логистика и прозрачност.
-                </p>
-
-                <div class="intro-cta">
-                    <a href="#contact" class="cta-pill">Заяви машина</a>
-                    <a href="#benefits" class="link-more">Научете повече</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="intro-copy">
+      <h2 class="intro-title" id="intro-title">GuiltFreeVend — здравословният избор във вендинга</h2>
+      <p class="intro-text">
+        Създадохме GuiltFreeVend, за да не се ровиш в етикети и да не правиш компромиси заради липса на време.
+        Машината ни е компактна – побира се почти навсякъде – а всичко вътре е внимателно подбрано по ясни стандарти.
+        Проектът е роден от лична нужда и искрено желание: здравословният избор да е по-близо от всякога и достъпен за всеки.
+        Отиваш, взимаш и знаеш, че е добър избор — за тялото, за ежедневието и за общото благо.
+        Вярваме, че сме много хората, за които храната има значение; ние просто правим пътя до нея по-кратък.
+      </p>
+    </div>
+  </div>
+</section>
 
 
 
@@ -664,5 +633,24 @@
         });
         </script>
 
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const section = document.querySelector('#intro');
+          if(!section){ return; }
+        
+          // ако няма IntersectionObserver – покажи веднага
+          if(!('IntersectionObserver' in window)){
+            section.classList.add('is-inview');
+            return;
+          }
+          const io = new IntersectionObserver(([entry]) => {
+            if(entry.isIntersecting){
+              section.classList.add('is-inview');
+              io.disconnect();
+            }
+          }, { threshold: 0.35 });
+          io.observe(section);
+        });
+        </script>
 </body>
 </html>
