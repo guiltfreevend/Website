@@ -515,51 +515,36 @@ body{
 .benefit-item p{ font-size:1rem; color:#555; line-height:1.5; }
 
 /* ======================= Intro (overlay) ======================= */
-/* Секцията сама няма вътрешни падинги – рамкира я самото изображение */
-.intro.intro--overlay{
-  position: relative;
-  padding: 0;
-  background: none;
-}
-
-/* ======================= Intro v3 — full-bleed, full-screen ======================= */
-
-.intro{                         /* отделяне от hero секцията */
+.intro{                       /* отстояние от hero */
   position: relative;
   margin-top: var(--intro-gap);
-  padding: 0;
+  padding: 0 !important;      /* override на .section */
   background: none;
 }
-/* занулява глобалния padding, който идва от .section */
-.intro.section{ padding: 0 !important; }
-
 .intro-inner{
   position: relative;
-  max-width: none;             /* full-bleed */
-  min-height: 100svh;          /* запълва екрана и на мобилен */
+  max-width: none;
+  min-height: 100svh;         /* запълва екрана */
   display: grid;
   place-items: center;
   overflow: hidden;
 }
 
-/* картинката заема 100% от интрото */
+/* изображението запълва изцяло */
 .intro-media,
 .intro-media picture,
 .intro-img{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  position: absolute; inset: 0;
+  width:100%; height:100%;
 }
 .intro-img{
   object-fit: cover;
-  transform: scale(1.02);      /* лек „crop“, да няма бели ръбове */
+  transform: scale(1.02);     /* лек crop да няма ръбове */
 }
 
-/* глобален воал за четимост (много деликатен) */
+/* глобален воал за четимост */
 .intro-inner::after{
-  content:"";
-  position:absolute; inset:0; z-index:0; pointer-events:none;
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
   background: linear-gradient(180deg,
     rgba(0,0,0,.28) 0%,
     rgba(0,0,0,.12) 35%,
@@ -568,52 +553,55 @@ body{
 
 /* текст върху снимката */
 .intro-copy{
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  text-align: center;
+  position: relative; z-index: 1; color:#fff; text-align:center;
   padding: var(--intro-padY) var(--intro-padX);
-  max-width: 980px;
+  max-width: min(980px, 92vw);
   margin-inline: auto;
   text-shadow: 0 2px 16px rgba(0,0,0,.45);
+  text-wrap: balance;
 }
-/* локално подсилване зад текста – без „карта“, без ръбове */
+/* локално подсилване зад текста (без „карта“) */
 .intro-copy::before{
-  content:"";
-  position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:
-    radial-gradient(ellipse at center,
-      rgba(0,0,0,.45) 0%,
-      rgba(0,0,0,.30) 45%,
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background: radial-gradient(ellipse at center,
+      rgba(0,0,0,.42) 0%,
+      rgba(0,0,0,.28) 45%,
       rgba(0,0,0,.10) 70%,
       rgba(0,0,0,0) 100%);
-  filter: blur(12px);          /* леко „замъгляване“ под текста */
+  filter: blur(10px);
 }
 
-/* плавна поява: заглавие → подзаглавие → текст */
-@keyframes introUp{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:none;} }
-.intro-title{
-  margin: 0 0 10px;
-  font-weight: 800; line-height: 1.12;
+/* ефекти – поява само когато секцията влезе в обсега */
+@keyframes introUp { from{opacity:0; transform: translateY(12px);} to{opacity:1; transform:none;} }
+
+.intro-title,
+.intro-lead,
+.intro-text{ opacity:0; transform:translateY(12px); }
+
+.intro.is-inview .intro-title{
+  margin:0 0 10px;
+  font-weight:800; line-height:1.08;
   font-size: clamp(28px, 4.2vw + 10px, 56px);
-  opacity: 0; animation: introUp .55s ease-out .05s forwards;
+  animation: introUp .55s ease-out .05s forwards;
 }
-.intro-lead{
+.intro.is-inview .intro-lead{
   margin: 8px 0 8px;
   font-size: clamp(16px, 1.6vw + 12px, 22px);
-  opacity: 0; animation: introUp .55s ease-out .18s forwards;
+  animation: introUp .55s ease-out .18s forwards;
 }
-.intro-text{
-  margin: 6px 0 0; line-height: 1.7;
-  opacity: 0; animation: introUp .55s ease-out .30s forwards;
+.intro.is-inview .intro-text{
+  margin: 10px 0 0; line-height:1.72;
+  animation: introUp .55s ease-out .30s forwards;
 }
 
-/* махаме CTA-то в Intro */
+/* без CTA в Intro */
 .intro-cta, .intro .cta-pill{ display:none !important; }
 
-/* мобилен: без радиуси/контейнери, edge-to-edge остава */
 @media (max-width: 980px){
   .intro-inner{ min-height: 100svh; }
+}
+@media (prefers-reduced-motion: reduce){
+  .intro-title,.intro-lead,.intro-text{ opacity:1; transform:none; animation:none !important; }
 }
 
 /* =========================================================
