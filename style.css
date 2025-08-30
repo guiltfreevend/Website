@@ -535,6 +535,16 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,.10);
 }
 
+.section:not(.section--alt) .feature-card .feature-head{
+  margin-bottom: 10px;                 /* отделя заглавието от параграфа */
+}
+
+.section--alt .feature-card .feature-text{
+  font-size: clamp(16px, 1.05vw + 10px, 18px);  /* леко по-голям, само тук */
+  line-height: 1.7;                              /* малко повече четимост */
+  color: rgba(19,48,25,.92);                     /* една идея по-силен контраст */
+}
+
 /* =========================================================
    Benefits
    ========================================================= */
@@ -938,6 +948,55 @@ body{
   font-size: clamp(18px, 2.6vw, 28px);
   line-height: 1.22;
   opacity: .98;
+}
+
+/* === Intro — mobile-only refinements (≤520px) === */
+@media (max-width: 520px){
+  .intro{
+    padding-block: clamp(22px, 7vh, 40px);
+    overflow-x: hidden;                 /* гарантира 0 хор. скрол */
+  }
+
+  .intro-inner{
+    grid-template-columns: 1fr;         /* сигурно 1 колона */
+    gap: 14px;
+    padding-inline: 14px;               /* по-малки странични отстояния */
+    max-width: 100%;
+  }
+
+  .intro-copy{
+    max-width: 92vw;                    /* нищо да не „излиза“ вляво/дясно */
+    margin-inline: auto;
+  }
+  .intro-copy p{
+    overflow-wrap: anywhere;            /* чупи дълги думи/URL-и при нужда */
+    hyphens: auto;                      /* ако <html lang="bg"> – добавя сричкуване */
+  }
+
+  /* Оставяме заглавието както е – не го пипаме */
+
+  .intro-lead{
+    font-size: clamp(15px, 3.9vw, 17px);
+    line-height: 1.55;
+  }
+  .intro-text{
+    font-size: clamp(14px, 3.6vw, 16px);
+    line-height: 1.6;
+  }
+
+  .intro-cta{
+    gap: 10px;
+  }
+  /* по-компактни „чипове“/бутончета само в интрото */
+  .intro .cta-pill,
+  .intro .cta-ghost{
+    padding: 10px 16px;
+    font-size: .95rem;
+  }
+  .intro .link-more{
+    font-size: .95rem;
+    padding: 6px 0;
+  }
 }
 
 /* === Кръгла значка + стабилно центриране на SVG/IMG === */
