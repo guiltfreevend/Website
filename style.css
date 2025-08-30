@@ -981,6 +981,7 @@ body{
     overflow-wrap: anywhere;
     word-break: break-word;
     hyphens: auto;
+    width: min(100%, 100vw - 24px);
   }
 
   /* Заглавието в интро НЕ пипаме */
@@ -1020,8 +1021,30 @@ body{
     font-size: .82rem;
     padding: 6px 9px;
     white-space: nowrap;
+    .intro-tags{ gap: 6px; }
+    .intro-tags li{ font-size: 12px; padding: 5px 10px; }
   }
 }
+
+@media (max-width: 480px){
+  /* ГРУПАТА – на един ред (без пренасяне) и с флуидни междини */
+  .intro-tags{
+    flex-wrap: nowrap;                 /* <- задължително 1 ред */
+    gap: clamp(4px, 2vw, 8px);         /* флуидна междина, за да се събират */
+    max-width: 92vw;                   /* пазим рамките на екрана (iOS safe) */
+    margin-inline: auto;
+  }
+  /* ПИЛЮЛИТЕ – без пренасяне вътре, флуиден размер */
+  .intro-tags li{
+    white-space: nowrap;               /* текстът вътре остава на 1 ред */
+    font-size: clamp(12px, 3.4vw, 14px);
+    padding: clamp(5px, 1.2vh, 7px) clamp(10px, 3.4vw, 12px);
+    border-width: 1.3px;
+    border-radius: 999px;
+  }
+}
+
+
 /* === Кръгла значка + стабилно центриране на SVG/IMG === */
 .feature-icon{
   --badge: clamp(104px, 21vw, 124px);
