@@ -1,1 +1,175 @@
+    <!DOCTYPE html>
+    <html lang="bg">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="robots" content="noindex, nofollow">
+            <meta name="theme-color" content="#f4efe6">
+            <title>Меню – Машина 01 | GuiltFreeVend</title>
 
+            <!-- Google tag (gtag.js) – GuiltFreeVend -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-H6X0Z7FYFD', { anonymize_ip: true, transport_type: 'beacon' });
+            </script>
+
+            <style>
+                :root{
+                    --beige:#f4efe6;   /* бежов фон като на сайта */
+                    --ink:#0c1f17;
+                    --muted:#6c7a73;
+                    --brand:#0b5d4a;
+                    --card:#ffffff;
+                    --border:#e8ecea;
+                }
+                *{box-sizing:border-box}
+                html,body{margin:0;padding:0}
+                body{
+                    font-family:system-ui,-apple-system,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+                    color:var(--ink); background:var(--beige);
+                }
+
+                /* Header */
+                .head{
+                    max-width:960px;margin:0 auto; padding:18px 16px 10px;
+                    display:flex; align-items:center; gap:12px;
+                }
+                .logo{height:32px; width:auto; display:block}
+                .tag{
+                    margin-left:auto; font-weight:800; letter-spacing:.4px;
+                    color:#fff; background:var(--brand); border-radius:10px; padding:6px 10px;
+                }
+
+                /* Content */
+                .wrap{max-width:960px;margin:0 auto;padding:6px 16px 28px}
+                .hint{color:var(--muted); font-size:14px; margin:4px 2px 10px}
+
+                /* Gallery */
+                .gallery{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+                .gallery li{
+                    background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden;
+                    box-shadow:0 8px 24px rgba(0,0,0,.04);
+                }
+                .gallery img{
+                    display:block; width:100%; height:auto; user-select:none; -webkit-user-drag:none; cursor:zoom-in;
+                }
+                @media (min-width:1000px){
+                    .gallery{grid-template-columns:1fr 1fr}
+                }
+
+                /* Lightbox */
+                .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.95); display:none; align-items:center; justify-content:center; z-index:40}
+                .lightbox.open{display:flex}
+                .lightbox img{max-width:92vw; max-height:92vh}
+                .lb-close, .lb-prev, .lb-next{
+                    position:absolute; top:50%; transform:translateY(-50%);
+                    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+                    color:#fff; padding:10px 12px; border-radius:10px; cursor:pointer; user-select:none;
+                    backdrop-filter: blur(8px);
+                }
+                .lb-close{top:18px; right:18px; transform:none}
+                .lb-prev{left:18px}
+                .lb-next{right:18px}
+
+                /* Footer */
+                footer{padding:22px 16px 34px}
+                .foot{max-width:960px; margin:0 auto; border-top:1px dashed var(--border); padding-top:16px;
+                      display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+                .btn{
+                    background:var(--brand); color:#fff; text-decoration:none; font-weight:700; padding:10px 14px; border-radius:12px;
+                }
+                .social{display:flex; gap:12px}
+                .social a{display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center; border-radius:50%;
+                    background:#fff; border:1px solid var(--border)}
+                .social svg{width:18px; height:18px; fill:var(--brand)}
+            </style>
+        </head>
+        <body>
+            <!-- Header -->
+            <header class="head">
+                <!-- Лого: има fallback ако /assets/logo.svg не съществува -->
+                <img class="logo" src="/assets/logo.svg" alt="GuiltFreeVend" onerror="this.onerror=null;this.src='/logo.svg'">
+                <div class="tag">МАШИНА 01</div>
+            </header>
+
+            <!-- Info -->
+            <div class="wrap">
+                <p class="hint">Меню с позиции, в реда определен от GuiltFreeVend. Докосни изображение за уголемяване.</p>
+
+                <!-- ГАЛЕРИЯ: редът тук = редът при показване -->
+                <ul class="gallery" id="gallery">
+                    <li><img loading="lazy" src="cataloguepic1.webp" alt="Каталог – стр. 1"></li>
+                    <li><img loading="lazy" src="cataloguepic6.webp" alt="Каталог – стр. 6"></li>
+                    <li><img loading="lazy" src="cataloguepic4.webp" alt="Каталог – стр. 4"></li>
+                    <li><img loading="lazy" src="cataloguepic3.webp" alt="Каталог – стр. 3"></li>
+                    <li><img loading="lazy" src="cataloguepic2.webp" alt="Каталог – стр. 2"></li>
+                    <li><img loading="lazy" src="cataloguepic7.webp" alt="Каталог – стр. 7"></li>
+                    <li><img loading="lazy" src="cataloguepic5.webp" alt="Каталог – стр. 5"></li>
+                </ul>
+            </div>
+
+            <!-- Lightbox -->
+            <div class="lightbox" id="lightbox" aria-hidden="true">
+                <button class="lb-close" id="lbClose" aria-label="Затвори">✕</button>
+                <button class="lb-prev" id="lbPrev" aria-label="Назад">‹</button>
+                <img id="lbImg" alt="">
+                <button class="lb-next" id="lbNext" aria-label="Напред">›</button>
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="foot">
+                    <a class="btn" href="https://guiltfreevend.com" target="_self" rel="noopener">Към сайта</a>
+                    <div class="social" aria-label="Социални мрежи">
+                        <a href="https://instagram.com/guiltfreevend" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.8-.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2z"/></svg>
+                        </a>
+                        <a href="https://facebook.com/guiltfreevend" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M13.5 22V12.8H16l.4-3.1h-2.9V7.4c0-.9.3-1.5 1.5-1.5H16V3.1c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H7.6v3.1h2.5V22h3.4z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/guiltfreevend" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM4 9h2v12H4zM9 9h1.9v1.6h.1c.3-.6 1.2-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V21h-2v-6.3c0-1.5 0-3.5-2.1-3.5-2.1 0-2.4 1.6-2.4 3.4V21H9z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+
+            <script>
+                // Лек лайтбокс без зависимости
+                const galleryImgs = Array.from(document.querySelectorAll('.gallery img'));
+                const lb = document.getElementById('lightbox');
+                const lbImg = document.getElementById('lbImg');
+                const prevBtn = document.getElementById('lbPrev');
+                const nextBtn = document.getElementById('lbNext');
+                const closeBtn = document.getElementById('lbClose');
+                let idx = -1;
+
+                function openAt(i){
+                    idx = i; lbImg.src = galleryImgs[idx].src; lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+                }
+                function closeLb(){
+                    lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.removeAttribute('src');
+                }
+                function step(d){
+                    idx = (idx + d + galleryImgs.length) % galleryImgs.length;
+                    lbImg.src = galleryImgs[idx].src;
+                }
+
+                galleryImgs.forEach((img, i)=> img.addEventListener('click', ()=>openAt(i), {passive:true}));
+                closeBtn.addEventListener('click', closeLb);
+                prevBtn.addEventListener('click', ()=>step(-1));
+                nextBtn.addEventListener('click', ()=>step(1));
+                lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLb(); });
+                window.addEventListener('keydown', (e)=>{
+                    if(lb.classList.contains('open')){
+                        if(e.key==='Escape') closeLb();
+                        if(e.key==='ArrowLeft') step(-1);
+                        if(e.key==='ArrowRight') step(1);
+                    }
+                });
+            </script>
+        </body>
+    </html>
