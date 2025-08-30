@@ -477,18 +477,55 @@ body{
    ========================================================= */
 .section{ padding:4rem 2rem; text-align:center; }
 
-.section > h2{ 
-  margin: 0 0 clamp(20px, 3vw, 36px);      /* отстояние под заглавието */
+/* Премиум заглавия на секции (универсално) */
+.section > h2{
+  position: relative;
+  margin: 0 0 clamp(28px, 3.6vw, 48px);
   text-align: center;
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-size: clamp(26px, 1.6vw + 20px, 40px);
+  text-wrap: balance;
 }
+
+/* Деликатна „бренд“ линия под заглавието */
+.section > h2::after{
+  content: "";
+  display: block;
+  width: clamp(64px, 8vw, 120px);
+  height: 4px;
+  margin: clamp(10px, 1.4vw, 14px) auto 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(90,125,42,0) 0%,
+    var(--brand) 18%,
+    var(--brand-700) 82%,
+    rgba(90,125,42,0) 100%
+  );
+  box-shadow: 0 6px 14px rgba(90,125,42,.12);
+}
+
 .section h2 + .feature-grid{
   margin-top: clamp(12px, 2vw, 22px);      /* допълнителен „въздух“ преди картите */
 }
 
 /* Визуален акцент за „долната“ секция – по-светъл тон + outline карти */
-.section--alt{
-  background: linear-gradient(180deg, rgba(253,246,217,.55), rgba(253,246,217,0) 18%) !important;
+/* Една идея различен акцент за .section--alt */
+.section--alt > h2{ color: #1d3b18; } /* по-дълбок зелен нюанс, премиум */
+.section--alt > h2::after{
+  background: linear-gradient(
+    90deg,
+    rgba(78,106,34,0) 0%,
+    rgba(78,106,34,.95) 20%,
+    rgba(78,106,34,.95) 80%,
+    rgba(78,106,34,0) 100%
+  );
+  box-shadow: 0 8px 18px rgba(78,106,34,.14);
 }
+
 .section--alt .feature-card{
   background: #fffef8;
   border: 1px solid rgba(51,73,30,.10);
@@ -1143,9 +1180,32 @@ form .consent-group a{
 
 /* Ако H2 е вътре в .feature-grid → да заеме цял ред и да е център */
 .feature-grid > h2{
-  grid-column: 1 / -1;                     /* прехвърля заглавието над картите */
+  grid-column: 1 / -1;
   text-align: center;
-  margin: 0 0 clamp(20px, 3vw, 36px);      /* въздух под заглавието */
+  margin: 0 0 clamp(28px, 3.6vw, 48px);
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-size: clamp(26px, 1.6vw + 20px, 40px);
+  text-wrap: balance;
+}
+
+.feature-grid > h2::after{
+  content: "";
+  display: block;
+  width: clamp(64px, 8vw, 120px);
+  height: 4px;
+  margin: clamp(10px, 1.4vw, 14px) auto 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(90,125,42,0) 0%,
+    var(--brand) 18%,
+    var(--brand-700) 82%,
+    rgba(90,125,42,0) 100%
+  );
+  box-shadow: 0 6px 14px rgba(90,125,42,.12);
 }
 
 @media (min-width: 1200px){
