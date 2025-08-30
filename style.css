@@ -950,57 +950,60 @@ body{
   opacity: .98;
 }
 
-/* === Intro — tighter mobile (≤520px) === */
-@media (max-width: 520px){
+/* === Intro — compact mobile (≤480px) === */
+@media (max-width: 480px){
   .intro{
-    padding-block: clamp(16px, 6vh, 28px);
-    overflow-x: hidden;                      /* без хор. скрол */
-    -webkit-text-size-adjust: 100%;          /* стоп на iOS auto-zoom на текста */
+    padding-block: clamp(14px, 5.5vh, 24px);
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
   }
 
   .intro-inner{
     grid-template-columns: 1fr;
     gap: 12px;
-    padding-inline: clamp(10px, 4vw, 16px);  /* повече „въздух“ отстрани */
+    padding-inline: clamp(10px, 4vw, 14px);
     max-width: 100%;
   }
 
   .intro-copy{
-    max-width: 88vw;                         /* текстът никога не „опира“ ръбовете */
+    max-width: 94vw;                 /* по-широк текстов блок → по-малко редове */
     margin-inline: auto;
     overflow-wrap: anywhere;
     word-break: break-word;
-    hyphens: auto;                           /* работи ако <html lang="bg"> */
+    hyphens: auto;
   }
 
   /* Заглавието в интро НЕ пипаме */
 
   .intro-lead{
-    font-size: clamp(14px, 3.4vw, 16px);     /* ↓ още малко */
-    line-height: 1.55;
+    font-size: clamp(13px, 3.0vw, 15px);
+    line-height: 1.48;
     margin: 6px 0 8px;
   }
   .intro-text{
-    font-size: clamp(13px, 3.2vw, 15px);     /* ↓ още малко */
-    line-height: 1.58;
+    font-size: clamp(12px, 2.9vw, 14px);
+    line-height: 1.48;
   }
 
-  /* по-компактни pill/ghost бутони, ако са в интро */
-  .intro .cta-pill,
-  .intro .cta-ghost{
-    padding: 9px 14px;
-    font-size: .92rem;
-  }
-
-  /* ако имаш „чипове“ (Подбрано/Българско/Достъпно) като линкове/спанове */
+  /* Чипове/пилюли – винаги на ЕДИН ред, по-компактни */
   .intro .chip,
   .intro .tag,
   .intro .badge{
-    padding: 8px 12px;
-    font-size: .92rem;
+    white-space: nowrap;             /* спира пренасянето на „Подбрано“ и т.н. */
+    padding: 7px 10px;
+    font-size: .90rem;
     border-radius: 999px;
   }
+
+  .intro .cta-pill,
+  .intro .cta-ghost{
+    white-space: nowrap;             /* и бутоните да не се чупят */
+    padding: 8px 12px;
+    font-size: .90rem;
+  }
+
+  .intro-cta{ gap: 8px; }
 }
 
 /* === Кръгла значка + стабилно центриране на SVG/IMG === */
