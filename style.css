@@ -623,6 +623,11 @@ body{
   padding: 0 !important;      /* override на .section */
   background: none;
 }
+/* Когато пристигнем по котва #intro → без горния отстъп, за да „залепи“ full-screen */
+.intro:target{
+  margin-top: 0 !important;
+  scroll-margin-top: 0;           /* отменя всякакви глобални scroll-padding-и */
+}
 .intro-inner{
   position: relative;
   max-width: none;
@@ -1006,6 +1011,13 @@ body{
   .intro-cta{ gap: 8px; }
 }
 
+@media (max-width: 360px){
+  .intro .chip, .intro .tag, .intro .badge{
+    font-size: .82rem;
+    padding: 6px 9px;
+    white-space: nowrap;
+  }
+}
 /* === Кръгла значка + стабилно центриране на SVG/IMG === */
 .feature-icon{
   --badge: clamp(104px, 21vw, 124px);
