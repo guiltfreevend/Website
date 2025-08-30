@@ -1216,7 +1216,7 @@ form .consent-group a{
   }
 }
 
-.feature-grid{ --icon-size: clamp(56px, 5vw, 88px); }  /* по-големи логота */
+.feature-grid{ --icon-size: clamp(50px, 4.4vw, 78px); }
 .feature-grid.no-titles .feature-title{
   position: absolute !important;
   width: 1px; height: 1px;
