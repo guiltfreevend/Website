@@ -34,18 +34,20 @@
                 /* Header */
                 .header{
                     display:flex; align-items:center; justify-content:center;
-                    padding:20px 16px 10px;
+                    /* преди беше padding:20px 16px 10px; */
+                    padding: 6px 16px 2px;                           /* по-малко място над/под */
+                    padding-top: calc(env(safe-area-inset-top, 0px) + 4px); /* уважава iOS notch */
                 }
                 .logo{
-                    height:84px; width:auto; display:block;  /* ⇐ по-голямо лого */
+                    height:94px; width:auto; display:block;  /* ⇐ по-голямо лого */
                 }
                 @media (min-width:768px){
-                    .logo{ height:102px; }                    /* леко по-голямо на десктоп */
+                    .logo{ height:120px; }                    /* леко по-голямо на десктоп */
                 }
 
                 /* Stage (една снимка) */
                 .stage{
-                    max-width:1100px; margin:0 auto; padding:6px 16px 18px;
+                    max-width:1100px; margin:0 auto; padding:2px 16px 18px;  
                     position:relative;
                 }
                 .slide{
