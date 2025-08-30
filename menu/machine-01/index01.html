@@ -17,13 +17,26 @@
             </script>
 
             <script>
-                (function(){
-                    const p = new URLSearchParams(location.search);
-                    if (p.get('utm_source') === 'qr' && typeof gtag === 'function') {
-                        gtag('event', 'qr_view', { machine: p.get('utm_content') || 'unknown' });
-                    }
+                // Изпраща събитие "qr_view" САМО ако посещението идва от QR (utm_source=qr).
+                // machine се чете от utm_content; ако липсва – вади "machine-01" от URL пътя.
+                (function () {
+                    try {
+                        const p = new URLSearchParams(location.search);
+                        const src = (p.get('utm_source') || '').toLowerCase();
+                        // извлечи machine-XX от /menu/machine-01/...
+                        const mFromPath = (location.pathname.match(/machine-([A-Za-z0-9_-]+)/) || [])[1];
+                        const machine = (p.get('utm_content') || (mFromPath ? `machine-${mFromPath}` : 'unknown')).toLowerCase();
+        
+                        if (src === 'qr' && typeof gtag === 'function') {
+                            gtag('event', 'qr_view', { machine });
+                        }
+        
+                        // За тестове можеш временно да форсираш изпращане (махни коментара):
+                        // if (typeof gtag === 'function') { gtag('event', 'qr_view', { machine, debug: 'forced' }); }
+                    } catch (e) {}
                 })();
             </script>
+
             
             <style>
                 :root{
