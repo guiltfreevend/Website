@@ -16,6 +16,15 @@
                 gtag('config', 'G-H6X0Z7FYFD', { anonymize_ip: true, transport_type: 'beacon' });
             </script>
 
+            <script>
+                (function(){
+                    const p = new URLSearchParams(location.search);
+                    if (p.get('utm_source') === 'qr' && typeof gtag === 'function') {
+                        gtag('event', 'qr_view', { machine: p.get('utm_content') || 'unknown' });
+                    }
+                })();
+            </script>
+            
             <style>
                 :root{
                     --beige:#f4efe6;     /* фон */
