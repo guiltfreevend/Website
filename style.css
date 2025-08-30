@@ -515,6 +515,10 @@ body{
 
 /* Карта – вертикална колона, съдържанието започва отгоре */
 .benefit-item{
+  --padT: 26px;          /* еднакъв топ падинг за всички карти */
+  --padX: clamp(16px, 2vw, 22px);
+  --padB: clamp(16px, 2vw, 22px);
+   
   background:#fffbe9;
   border-radius:12px;
   box-shadow:0 8px 22px rgba(0,0,0,.06);
@@ -527,7 +531,7 @@ body{
   text-align:center;
   gap: clamp(8px, 1.2vw, 12px);
 
-  padding: clamp(18px, 2.2vw, 24px) clamp(16px, 2vw, 22px);
+  padding: var(--padT) var(--padX) var(--padB);
   height:100%;
 }
 .benefit-item > *{ margin:0; }
@@ -775,7 +779,7 @@ body{
 /* fine tweaks for small logos */
 #partners .marquee__inner a[aria-label="Harmonica"] img    { transform:scale(2.10); }
 #partners .marquee__inner a[aria-label="Datecs"] img       { transform:scale(2.10); }
-#partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.50); }
+#partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.42); }
 
 @media (min-width:1024px){
   #partners .marquee__inner a{ height:96px; width:240px; }
@@ -918,8 +922,8 @@ body{
 .feature-icon .icon,
 .feature-icon > svg,
 .feature-icon > img{
-  width: 72%;
-  height: 72%;
+  width: 62%;
+  height: 62%;
   display: block;                  /* маха baseline offset */
   object-fit: contain;
   align-self: center;
