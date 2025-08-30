@@ -39,10 +39,10 @@
                     padding-top: calc(env(safe-area-inset-top, 0px) + 4px); /* уважава iOS notch */
                 }
                 .logo{
-                    height:94px; width:auto; display:block;  /* ⇐ по-голямо лого */
+                    height:108px; width:auto; display:block;  /* ⇐ по-голямо лого */
                 }
                 @media (min-width:768px){
-                    .logo{ height:120px; }                    /* леко по-голямо на десктоп */
+                    .logo{ height:140px; }                    /* леко по-голямо на десктоп */
                 }
 
                 /* Stage (една снимка) */
@@ -108,6 +108,37 @@
                 .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.96); display:none; align-items:center; justify-content:center; z-index:40}
                 .lightbox.open{display:flex}
                 .lightbox img{max-width:96vw; max-height:96vh}
+
+                /* === По-малки изображения на десктоп и при landscape === */
+
+
+                /* Десктопи и големи екрани */
+                @media (min-width: 1024px) {
+                    .slide{
+                        width: 78%;          /* вместо 100% от контейнера */
+                        max-height: 82vh;    /* допълнителна гаранция да не „прелива“ по височина */
+                    }
+                    /* по желание – стрелките по-близо до изображението */
+                    .nav .prev, .nav .next{
+                        position: absolute; top: 50%; transform: translateY(-50%);
+                    }
+                    .nav .prev{ left: 4%; }
+                    .nav .next{ right: 4%; }
+                }
+                
+                /* Малки устройства в landscape (телефон/таблет обърнат хоризонтално) */
+                @media (orientation: landscape) and (max-width: 1023px) {
+                    .slide{
+                        width: 88%;
+                        max-height: 80vh;
+                    }
+                    .nav .prev, .nav .next{
+                        position: absolute; top: 50%; transform: translateY(-50%);
+                    }
+                    .nav .prev{ left: 3%; }
+                    .nav .next{ right: 3%; }
+                }
+
             </style>
         </head>
         <body>
@@ -214,5 +245,5 @@
                 show(0);
             </script>
         </body>
-    </html>
+    </html>    
 
