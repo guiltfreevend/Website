@@ -18,8 +18,8 @@
 
             <style>
                 :root{
-                    --beige:#f4efe6;     /* бежов фон като на сайта */
-                    --brand:#0b5d4a;
+                    --beige:#f4efe6;     /* фон */
+                    --brand:#0b5d4a;     /* тъмно зелено от логото */
                     --ink:#0c1f17;
                     --muted:#6c7a73;
                 }
@@ -34,9 +34,14 @@
                 /* Header */
                 .header{
                     display:flex; align-items:center; justify-content:center;
-                    padding:18px 16px 8px;
+                    padding:20px 16px 10px;
                 }
-                .logo{height:36px; width:auto; display:block}
+                .logo{
+                    height:64px; width:auto; display:block;  /* ⇐ по-голямо лого */
+                }
+                @media (min-width:768px){
+                    .logo{ height:72px; }                    /* леко по-голямо на десктоп */
+                }
 
                 /* Stage (една снимка) */
                 .stage{
@@ -44,7 +49,7 @@
                     position:relative;
                 }
                 .slide{
-                    display:block; margin:0 auto; width:100%; height:auto; 
+                    display:block; margin:0 auto; width:100%; height:auto;
                     background:transparent; box-shadow:none; user-select:none; -webkit-user-drag:none;
                     cursor:zoom-in;
                 }
@@ -52,13 +57,13 @@
                 /* Навигация със стрелки */
                 .nav{
                     position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between;
-                    pointer-events:none; /* за да не пречат върху снимката; вътре активираме */
+                    pointer-events:none;
                 }
                 .nav button{
                     pointer-events:auto;
-                    border:none; border-radius:12px; cursor:pointer;
-                    padding:12px 14px; font-size:22px; line-height:1; font-weight:700;
-                    background:rgba(255,255,255,.7);
+                    border:none; border-radius:14px; cursor:pointer;
+                    padding:14px 16px; font-size:22px; line-height:1; font-weight:800;
+                    background:rgba(255,255,255,.75);
                     backdrop-filter:saturate(140%) blur(6px);
                     color:var(--brand);
                 }
@@ -66,25 +71,31 @@
                 .nav .next{margin-right:6px}
                 .counter{
                     position:absolute; bottom:6px; right:10px;
-                    background:rgba(255,255,255,.65);
+                    background:rgba(255,255,255,.7);
                     padding:6px 10px; border-radius:10px; font-weight:700; font-size:12px; color:var(--brand);
                 }
 
                 /* Footer */
-                footer{padding:20px 16px 34px}
+                footer{padding:22px 16px 36px}
                 .foot{
                     max-width:1100px; margin:0 auto; border-top:1px dashed rgba(0,0,0,.08);
                     padding-top:16px; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
                 }
                 .btn{
-                    background:var(--brand); color:#fff; text-decoration:none; font-weight:700;
-                    padding:10px 14px; border-radius:12px;
+                    background:var(--brand); color:#fff; text-decoration:none; font-weight:800;
+                    padding:12px 18px; border-radius:14px;
+                    box-shadow:0 4px 14px rgba(11,93,74,.15);
                 }
-                .social{display:flex; gap:12px}
-                .social a{display:inline-flex; width:36px; height:36px; align-items:center; justify-content:center; border-radius:50%;
-                    background:#fff; border:1px solid rgba(0,0,0,.06)}
-                .social img{width:18px; height:18px; display:block}
 
+                .social{display:flex; gap:12px}
+                /* кръгчетата вече са тъмно зелени */
+                .social a{
+                    display:inline-flex; width:40px; height:40px; align-items:center; justify-content:center; border-radius:50%;
+                    background:var(--brand); border:0; box-shadow:0 4px 12px rgba(11,93,74,.12);
+                }
+                /* правим svg-иконите бели (ако са черни) */
+                .social img{width:20px; height:20px; display:block; filter:invert(1) brightness(200%);}
+                
                 /* Лайтбокс (zoom) */
                 .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.96); display:none; align-items:center; justify-content:center; z-index:40}
                 .lightbox.open{display:flex}
@@ -114,7 +125,7 @@
                 <img id="lbimg" alt="Преглед">
             </div>
 
-            <!-- Футър: бутон + социалки от репото -->
+            <!-- Футър: бутон + социалки в тъмно зелено -->
             <footer>
                 <div class="foot">
                     <a class="btn" href="https://guiltfreevend.com" target="_self" rel="noopener">Към сайта</a>
@@ -136,7 +147,7 @@
             </footer>
 
             <script>
-                // Редът на изображенията (точно както го искаш)
+                // Редът на изображенията
                 const order = [1, 6, 4, 3, 2, 7, 5];
                 const sources = order.map(n => `/cataloguepic${n}.webp`);
 
@@ -155,8 +166,8 @@
                     img.alt = `Каталог – изображение ${i+1}`;
                     counter.textContent = `${i+1} / ${sources.length}`;
                     // preload съседни
-                    const ahead = new Image(); ahead.src = sources[(i+1) % sources.length];
-                    const back  = new Image(); back.src  = sources[(i-1+sources.length) % sources.length];
+                    new Image().src = sources[(i+1) % sources.length];
+                    new Image().src = sources[(i-1+sources.length) % sources.length];
                 }
 
                 // Стрелки
@@ -196,3 +207,4 @@
             </script>
         </body>
     </html>
+
