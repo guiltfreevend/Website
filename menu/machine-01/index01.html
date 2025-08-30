@@ -42,7 +42,7 @@
                     height:108px; width:auto; display:block;  /* ⇐ по-голямо лого */
                 }
                 @media (min-width:768px){
-                    .logo{ height:140px; }                    /* леко по-голямо на десктоп */
+                    .logo{ height:150px; }                    /* леко по-голямо на десктоп */
                 }
 
                 /* Stage (една снимка) */
@@ -109,34 +109,22 @@
                 .lightbox.open{display:flex}
                 .lightbox img{max-width:96vw; max-height:96vh}
 
-                /* === По-малки изображения на десктоп и при landscape === */
-
-
+                /* === По-малки (по-тесни) изображения на десктоп и при landscape === */
+                
                 /* Десктопи и големи екрани */
                 @media (min-width: 1024px) {
                     .slide{
-                        width: 78%;          /* вместо 100% от контейнера */
-                        max-height: 82vh;    /* допълнителна гаранция да не „прелива“ по височина */
+                        width: min(56vw, 820px);   /* по-тясно от преди (55–60% от екрана, макс 820px) */
+                        max-height: 84vh;
                     }
-                    /* по желание – стрелките по-близо до изображението */
-                    .nav .prev, .nav .next{
-                        position: absolute; top: 50%; transform: translateY(-50%);
-                    }
-                    .nav .prev{ left: 4%; }
-                    .nav .next{ right: 4%; }
                 }
                 
-                /* Малки устройства в landscape (телефон/таблет обърнат хоризонтално) */
+                /* Телефони/таблети в хоризонтален (landscape) режим */
                 @media (orientation: landscape) and (max-width: 1023px) {
                     .slide{
-                        width: 88%;
-                        max-height: 80vh;
+                        width: min(84vw, 700px);   /* по-тясно и в landscape */
+                        max-height: 82vh;
                     }
-                    .nav .prev, .nav .next{
-                        position: absolute; top: 50%; transform: translateY(-50%);
-                    }
-                    .nav .prev{ left: 3%; }
-                    .nav .next{ right: 3%; }
                 }
 
             </style>
