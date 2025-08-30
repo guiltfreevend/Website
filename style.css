@@ -947,12 +947,24 @@ body{
   opacity: .95;
 }
 
-/* Линия/лозунг под заглавието */
+/* Линия/лозунг под заглавието – по-тясна и безопасна по ширина */
 .intro-title .tagline{
   font-weight: 700;
-  font-size: clamp(18px, 2.6vw, 28px);
+  font-size: clamp(16px, 2.1vw + 8px, 24px); /* една идея по-малко */
   line-height: 1.22;
+  max-width: min(92vw, 680px);               /* никога да не „излиза“ от екрана */
+  margin-inline: auto;
+  padding-inline: clamp(8px, 3vw, 16px);     /* малко въздух отстрани на мобилни */
+  text-align: center;
+  text-wrap: balance;
   opacity: .98;
+}
+
+/* още една идея по-компактно за много тесни телефони */
+@media (max-width: 480px){
+  .intro-title .tagline{
+    font-size: clamp(14px, 4vw, 18px);
+  }
 }
 
 /* === Intro — compact mobile (≤480px) === */
