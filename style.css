@@ -962,6 +962,10 @@ body{
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+    /* При скок към #intro на мобилен: зануляваме и padding-а отгоре */
+    .intro:target{
+      padding-top: 0 !important;
+    }
   }
 
   .intro-inner{
