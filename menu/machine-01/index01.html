@@ -236,12 +236,21 @@
                 
                 // --- Забраняваме смяна със swipe/тап върху изображението ---
                 // (Запазваме само отварянето на лайтбокса при натискане.)
+                // Лайтбокс функции (ако вече ги имаш, не ги дублирай)
+                function openLb(){ lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); syncLb(); }
+                function closeLb(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); }
+                function syncLb(){ lbimg.src = sources[i]; lbimg.alt = img.alt; }
+                
                 let sx = 0;
                 img.addEventListener('touchstart', (e)=>{ /* disabled swipe */ }, {passive:true});
                 img.addEventListener('touchend',   (e)=>{ /* disabled swipe */ }, {passive:true});
         
                 // Уверяваме се, че клик върху снимката само отваря zoom (не сменя кадъра)
                 img.addEventListener('click', (e)=>{ e.preventDefault(); openLb(); });
+
+                // Затваряне на лайтбокса при клик извън снимката или Escape
+                lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLb(); });
+                window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLb(); });
 
                 // Старт
                 show(0);
