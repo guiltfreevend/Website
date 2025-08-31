@@ -8,9 +8,9 @@
   --header-h: 56px;
  
   /* Brand */
-  --brand:    #3c5c2c;
-  --brand-700:#2f4a21; /* една идея по-тъмен; може да коригираш */
-  --cta-bg:   #3c5c2c;
+  --brand:    #446c34;
+  --brand-700:#3c5c2c; /* една идея по-тъмен; може да коригираш */
+  --cta-bg:   #446c34;
 
   /* Mobile menu */
   --menu-top: calc(env(safe-area-inset-top, 0px) + 6px);
