@@ -1,4 +1,4 @@
-w/* =========================================================
+/* =========================================================
    GuiltFreeVend – Clean CSS (26.08, deduped)
    ========================================================= */
 
@@ -8,9 +8,9 @@ w/* =========================================================
   --header-h: 56px;
  
   /* Brand */
-  --brand: #5A7D2A;
-  --brand-700: #4E6A22;
-  --ink: #33491E;
+  --brand:    #3c5c2c;
+  --brand-700:#2f4a21; /* една идея по-тъмен; може да коригираш */
+  --cta-bg:   #3c5c2c;
 
   /* Mobile menu */
   --menu-top: calc(env(safe-area-inset-top, 0px) + 6px);
@@ -974,6 +974,7 @@ body{
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+   }
     /* При скок към #intro на мобилен: зануляваме и padding-а отгоре */
     .intro:target{
       padding-top: 0 !important;
@@ -1375,11 +1376,12 @@ form .consent-group a{
 }
 .case:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(60,92,44,.12); }
 
-.icon{
+.use-cases .icon{
     display:inline-flex; align-items:center; justify-content:center;
     width:56px; height:56px; border-radius:14px;
-    background:#f4efe6; color:#3c5c2c; 
+    background:#f4efe6; color:#3c5c2c;
 }
+
 .icon .ico-svg{ width:28px; height:28px; display:block; fill:#3c5c2c; }
 
 .case h3{ margin:6px 0 6px; font-size:20px; color:#3c5c2c; line-height:1.25; }
