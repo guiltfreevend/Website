@@ -1341,3 +1341,44 @@ form .consent-group a{
   overflow: hidden; clip: rect(0,0,0,0);
   white-space: nowrap; border: 0;
 }
+
+/* === Use-cases (Подходяща ли е вашата локация?) === */
+.use-cases{padding:24px 0}
+.use-cases .footnote{margin:18px auto 0; text-align:center; font-size:12px; color:#6c7a73}
+
+.cases-grid{
+    display:grid;
+    gap:16px;
+    grid-template-columns:repeat(1,minmax(0,1fr));
+    max-width:1100px; margin:0 auto;
+}
+
+/* tablet → 3 колони; desktop → 5 колони */
+@media (min-width:700px){ .cases-grid{ grid-template-columns:repeat(3,1fr); } }
+@media (min-width:1100px){ .cases-grid{ grid-template-columns:repeat(5,1fr); } }
+
+.case{
+    background:#fff;
+    border:1px solid rgba(60,92,44,.12);
+    border-radius:16px;
+    padding:16px;
+    box-shadow:0 8px 20px rgba(60,92,44,.06);
+    transition:transform .18s ease, box-shadow .18s ease;
+}
+.case:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(60,92,44,.10); }
+
+.case .icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:12px;
+    background:#f4efe6; color:#3c5c2c; font-size:20px; margin-bottom:10px;
+}
+.case h3{ margin:2px 0 8px; font-size:16px; color:#3c5c2c; line-height:1.2; }
+
+.case .bullets{ margin:0; padding-left:18px; font-size:14px; color:#0c1f17; line-height:1.45; }
+.case .bullets li{ margin:4px 0; }
+
+/* Mobile – хоризонтален скрол с snap (ако е нужно) */
+@media (max-width:699px){
+    .cases-grid{ grid-auto-flow:column; grid-auto-columns:80%; overflow-x:auto; padding-bottom:4px; scroll-snap-type:x mandatory; }
+    .case{ scroll-snap-align:start; }
+}
