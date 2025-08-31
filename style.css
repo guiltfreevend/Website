@@ -831,7 +831,7 @@ body{
 /* fine tweaks for small logos */
 #partners .marquee__inner a[aria-label="Harmonica"] img    { transform:scale(2.10); }
 #partners .marquee__inner a[aria-label="Datecs"] img       { transform:scale(2.10); }
-#partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.42); }
+#partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.35); }
 
 @media (min-width:1024px){
   #partners .marquee__inner a{ height:96px; width:240px; }
