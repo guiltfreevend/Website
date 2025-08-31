@@ -30,7 +30,6 @@
                         if (src === 'qr' && typeof gtag === 'function') {
                             gtag('event', 'qr_view', { machine });
                         }
-        
                         // За тестове можеш временно да форсираш изпращане (махни коментара):
                         // if (typeof gtag === 'function') { gtag('event', 'qr_view', { machine, debug: 'forced' }); }
                     } catch (e) {}
