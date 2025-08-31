@@ -1221,6 +1221,25 @@ form .consent-group a{
   pointer-events: none;
 }
 
+/* затваряща кавичка (дясно-долу) */
+.person-quote{ padding-right: 12px; }  /* малко място за “)” */
+.person-quote::after{
+  content: "”";
+  position: absolute;
+  right: -6px;
+  bottom: -20px;
+  font-size: 48px;
+  line-height: 1;
+  color: rgba(60,92,44,.25);
+  pointer-events: none;
+}
+
+/* по-компактно на съвсем малки екрани */
+@media (max-width: 420px){
+  .person-quote::before,
+  .person-quote::after{ font-size: 38px; }
+}
+
 /* Размери на мобилен / таблет */
 @media (max-width: 1024px){
   .person{ grid-template-columns: 260px 1fr; }
