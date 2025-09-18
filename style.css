@@ -8,6 +8,7 @@
   --header-h: 56px;
  
   /* Brand */
+  --ink: #3c5c2c;
   --brand:    #446c34;
   --brand-700:#3c5c2c; /* една идея по-тъмен; може да коригираш */
   --cta-bg:   #446c34;
@@ -229,7 +230,7 @@ body{
   position:absolute; top:var(--btn-offset); right:var(--btn-offset);
   width:var(--btn-size); height:var(--btn-size);
   border:0; background:transparent; box-shadow:none;
-  cursor:pointer; z-index:2; display:grid; place-items:center;
+  cursor:pointer; z-index:9999; display:grid; place-items:center;
   -webkit-tap-highlight-color:transparent;
 }
 .menu-shell .hamburger .bar{
@@ -257,7 +258,11 @@ body{
   transition:opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
   pointer-events:none;
 }
-.menu-shell[aria-expanded="true"] > .side-menu{ opacity:1; transform:translateY(0); pointer-events:auto; }
+/*.menu-shell[aria-expanded="true"] > .side-menu{ opacity:1; transform:translateY(0); pointer-events:auto; }*/
+
+.menu-shell[aria-expanded="true"] > .side-menu{
+  padding-top: calc(22px + var(--btn-size) + var(--btn-offset));
+}
 
 .side-menu .menu-head{
   display:flex; align-items:center; justify-content:space-between;
