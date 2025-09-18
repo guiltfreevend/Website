@@ -258,11 +258,8 @@ body{
   transition:opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
   pointer-events:none;
 }
-/*.menu-shell[aria-expanded="true"] > .side-menu{ opacity:1; transform:translateY(0); pointer-events:auto; }*/
 
-.menu-shell[aria-expanded="true"] > .side-menu{
-  padding-top: calc(22px + var(--btn-size) + var(--btn-offset));
-}
+.menu-shell[aria-expanded="true"] > .side-menu{ opacity:1; transform:translateY(0); pointer-events:auto; }
 
 .side-menu .menu-head{
   display:flex; align-items:center; justify-content:space-between;
