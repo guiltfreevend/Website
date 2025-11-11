@@ -305,7 +305,7 @@ body{
   padding: clamp(48px, 6vh, 96px) 20px;
   min-height: calc(100svh - var(--header-h));
   background-color: #fdf6d9;
-  background-image: url("GFV-homepage-clear.png"); /* This path must be correct! */
+  background-image: url("GFV-homepage-clear.jpeg"); /* This path must be correct! */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
