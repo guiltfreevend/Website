@@ -319,8 +319,8 @@ body{
   gap: 1rem;                  /* 3. Space between buttons */
   
   /* 4. Position them right and down */
-  margin-top: 25vh;           /* Pushes them DOWN (try 20vh or 30vh) */
-  padding-left: 15%;          /* Pushes them RIGHT (try 10% or 20%) */
+  margin-top: 30vh;           /* Pushes them DOWN (try 20vh or 30vh) */
+  padding-left: 50%;          /* Pushes them RIGHT (try 10% or 20%) */
 }
 
 .hero > * { position: relative; z-index: 1; }
