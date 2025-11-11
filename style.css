@@ -305,10 +305,8 @@ body{
   padding: clamp(48px, 6vh, 96px) 20px;
   min-height: calc(100svh - var(--header-h));
   background-color: #fdf6d9;
-  background-image: image-set(
-    url("machinehero1.webp") type("image/webp"),
-    url("machinehero2.jpg")  type("image/jpeg")
-  );
+   background-image: url("GFV-homepage-clear.jpg");
+   
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
