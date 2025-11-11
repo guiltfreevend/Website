@@ -173,11 +173,11 @@ body{
   transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
 
-/* Header CTA — GHOST на върха (прозрачен, с лек blur/контур) */
+/* Header CTA — Light style for new hero */
 #site-header:not(.is-scrolled) .desktop-menu .cta--header{
-  background: transparent !important;
-  color: #fff !important;
-  border: 1.5px solid rgba(255,255,255,.88) !important;
+  background: rgba(255, 255, 255, 0.7) !important; /* Light background */
+  color: var(--brand-700) !important;             /* Green text */
+  border: 1.5px solid rgba(60, 92, 44, 0.3) !important; /* Faint green border */
   box-shadow: 0 4px 14px rgba(0,0,0,.10);
   -webkit-backdrop-filter: blur(1px) saturate(120%);
           backdrop-filter: blur(1px) saturate(120%);
@@ -312,13 +312,15 @@ body{
   overflow: hidden;
 }
 
-/* ADD THIS ENTIRE NEW RULE */
 .hero-cta-wrap {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem; /* Adds space between your buttons */
-  flex-wrap: wrap; /* Helps if the screen gets a bit narrow */
+  flex-direction: column;    /* 1. Stack them vertically */
+  align-items: flex-start;   /* 2. Align them to the left */
+  gap: 1rem;                 /* 3. Space between buttons */
+  
+  /* 4. Adjust position */
+  padding-left: 18%;         /* Nudges them right, from the column's left edge */
+  margin-top: 10vh;          /* Pushes them down from the vertical center */
 }
 
 .hero > * { position: relative; z-index: 1; }
