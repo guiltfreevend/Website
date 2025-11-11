@@ -299,8 +299,10 @@ body{
    ========================================================= */
 .hero{
   position: relative;
+   /* --- WITH THESE THREE LINES --- */
   display: grid;
-  place-items: center;
+  grid-template-columns: 1fr 1fr; /* Creates the 2-column layout */
+  align-items: center;           /* Vertically centers the content */
   flex-direction:column; text-align:center;
   padding: clamp(48px, 6vh, 96px) 20px;
   min-height: calc(100svh - var(--header-h));
