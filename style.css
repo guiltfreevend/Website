@@ -173,19 +173,19 @@ body{
   transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
 
-/* Header CTA — Light style for new hero */
+/* Header CTA — Transparent 'ghost' style for new hero */
 #site-header:not(.is-scrolled) .desktop-menu .cta--header{
-  background: rgba(255, 255, 255, 0.7) !important; /* Light background */
-  color: var(--brand-700) !important;             /* Green text */
-  border: 1.5px solid rgba(60, 92, 44, 0.3) !important; /* Faint green border */
+  background: transparent !important;               /* 1. Transparent filling */
+  color: var(--brand-700) !important;             /* 2. Green text */
+  border: 1.5px solid var(--brand-700) !important; /* 3. Green border */
   box-shadow: 0 4px 14px rgba(0,0,0,.10);
   -webkit-backdrop-filter: blur(1px) saturate(120%);
           backdrop-filter: blur(1px) saturate(120%);
 }
 #site-header:not(.is-scrolled) .desktop-menu .cta--header:hover{
-  background: rgba(255,255,255,.08) !important;
+  background: rgba(68, 108, 52, 0.1) !important; /* Faint green bg on hover */
   transform: translateY(-1px) scale(1.02);
-  border-color: rgba(255,255,255,.95) !important;
+  border-color: var(--ink) !important; /* Darker green border on hover */
 }
 .cta--header:hover{ background:var(--cta-bg-hover) !important; transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
 .cta--header:active{ background:var(--cta-bg-active) !important; transform:none; box-shadow:0 8px 20px var(--cta-shadow); }
@@ -314,13 +314,13 @@ body{
 
 .hero-cta-wrap {
   display: flex;
-  flex-direction: column;    /* 1. Stack them vertically */
-  align-items: flex-start;   /* 2. Align them to the left */
-  gap: 1rem;                 /* 3. Space between buttons */
+  flex-direction: row;        /* 1. Set side-by-side */
+  justify-content: flex-start;  /* 2. Align to the left of their column */
+  gap: 1rem;                  /* 3. Space between buttons */
   
-  /* 4. Adjust position */
-  padding-left: 18%;         /* Nudges them right, from the column's left edge */
-  margin-top: 10vh;          /* Pushes them down from the vertical center */
+  /* 4. Position them right and down */
+  margin-top: 25vh;           /* Pushes them DOWN (try 20vh or 30vh) */
+  padding-left: 15%;          /* Pushes them RIGHT (try 10% or 20%) */
 }
 
 .hero > * { position: relative; z-index: 1; }
