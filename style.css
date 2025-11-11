@@ -449,6 +449,32 @@ body{
     background-size:cover;
     background-repeat:no-repeat;
   }
+  
+  /* === In style.css (inside the media query at line ~558) === */
+
+@media (max-width:1024px), (max-aspect-ratio: 1/1){
+  /* ... (your existing #site-header and .hero rules are here) ... */
+
+  /* ADD THIS NEW RULE FOR MOBILE BUTTONS */
+  .hero-cta-wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(18px, 6vh, 60px); /* Lowered position */
+    display: flex;
+    flex-direction: row; /* Side-by-side on mobile landscape */
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+  }
+
+  /* ADD THIS NEW RULE TO SHRINK THE BUTTONS ON MOBILE */
+  .hero .cta-pill,
+  .hero .cta-ghost {
+    padding: 8px 16px; /* Smaller padding */
+    font-size: 0.9rem; /* Smaller font */
+    font-weight: 700;
+  }
 }
 
 /* Desktop: let hero run under transparent header */
