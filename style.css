@@ -127,21 +127,13 @@ body{
 }
 
 /* Desktop menu */
-.desktop-menu{ 
-  display:flex; 
-  align-items:center; 
-  gap: clamp(14px,1.8vw,26px); 
-  margin-left:auto; 
-}
+.desktop-menu{ display:flex; align-items:center; gap: clamp(12px,1.6vw,24px); margin-left:auto; }
 .desktop-menu a{
   position:relative;
-  display:inline-flex;
-  align-items:center;
+  display:inline-block;
   color:#0e2b17;
   text-decoration:none;
   font-weight:600;
-  font-size: 0.95rem;
-  padding: 8px 0;
   border-bottom:2px solid transparent;
   transition: color .18s ease, border-color .18s ease, transform .18s ease;
 }
@@ -171,18 +163,12 @@ body{
 
 /* Header CTA unified (shares CTA vars) */
 .cta--header{
-  display:inline-flex; 
-  align-items:center; 
-  justify-content: center;
-  gap:.5rem;
-  padding:10px 20px;
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:10px 18px;
   background: var(--cta-bg) !important;
-  color:#fff !important; 
-  border-radius:999px;
+  color:#fff !important; border-radius:999px;
   box-shadow:0 8px 22px var(--cta-shadow);
-  font-weight:700; 
-  font-size: 0.95rem;
-  text-decoration:none;
+  font-weight:700; text-decoration:none;
   border:1px solid rgba(255,255,255,.22);
   transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
 }
@@ -196,7 +182,6 @@ body{
   -webkit-backdrop-filter: blur(1px) saturate(120%);
           backdrop-filter: blur(1px) saturate(120%);
 }
-
 #site-header:not(.is-scrolled) .desktop-menu .cta--header:hover{
   background: rgba(68, 108, 52, 0.1) !important; /* Faint green bg on hover */
   transform: translateY(-1px) scale(1.02);
@@ -327,19 +312,15 @@ body{
   overflow: hidden;
 }
 
-/* This media query wrapper is the most important part! */
-/* It stops these styles from breaking your mobile layout. */
-@media (min-width: 1025px) {
-  .hero-cta-wrap {
-    display: flex;
-    flex-direction: row;        /* 1. Set side-by-side */
-    justify-content: flex-start;  /* 2. Align left in their column */
-    gap: 1rem;                  /* 3. Space between buttons */
-    
-    /* 4. New position to match mockup */
-    margin-top: 30vh;           /* Pushes them DOWN */
-    padding-left: 20%;          /* Pushes them RIGHT */
-  }
+.hero-cta-wrap {
+  display: flex;
+  flex-direction: row;        /* 1. Set side-by-side */
+  justify-content: flex-start;  /* 2. Align to the left of their column */
+  gap: 1rem;                  /* 3. Space between buttons */
+  
+  /* 4. Position them right and down */
+  margin-top: 30vh;           /* Pushes them DOWN (try 20vh or 30vh) */
+  padding-left: 50%;          /* Pushes them RIGHT (try 10% or 20%) */
 }
 
 .hero > * { position: relative; z-index: 1; }
@@ -463,32 +444,6 @@ body{
     background-size:cover;
     background-repeat:no-repeat;
   }
-  
-  /* === In style.css (inside the media query at line ~558) === */
-
-@media (max-width:1024px), (max-aspect-ratio: 1/1){
-  /* ... (your existing #site-header and .hero rules are here) ... */
-
-  /* ADD THIS NEW RULE FOR MOBILE BUTTONS */
-  .hero-cta-wrap {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(18px, 6vh, 60px); /* Lowered position */
-    display: flex;
-    flex-direction: row; /* Side-by-side on mobile landscape */
-    align-items: center;
-    gap: 10px;
-    width: max-content;
-  }
-
-  /* ADD THIS NEW RULE TO SHRINK THE BUTTONS ON MOBILE */
-  .hero .cta-pill,
-  .hero .cta-ghost {
-    padding: 8px 16px; /* Smaller padding */
-    font-size: 0.9rem; /* Smaller font */
-    font-weight: 700;
-  }
 }
 
 /* Desktop: let hero run under transparent header */
@@ -504,12 +459,12 @@ body{
 .hero .cta-ghost{
     display: inline-flex;
     align-items: center;
-    padding: 10px 18px;
+    padding: 10px 14px;
     border-radius: 999px;
-    color: var(--brand-700) !important;
+    color: #fff;
     text-decoration: none;
-    background: transparent !important;
-    border: 1.5px solid var(--brand-700) !important;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,.88);
     box-shadow: 0 4px 14px rgba(0,0,0,.10);
     -webkit-backdrop-filter: blur(1px) saturate(120%);
     backdrop-filter: blur(1px) saturate(120%);
@@ -518,8 +473,8 @@ body{
 }
 .hero .cta-ghost:hover{
     transform: translateY(-1px);
-    background: rgba(68, 108, 52, 0.1) !important;
-    border-color: var(--ink) !important;
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.95);
 }
 .hero .cta-ghost:focus-visible{
     outline: none;
@@ -1553,4 +1508,5 @@ form .consent-group a{
 }
 .bullets li::before{ content:"•"; position:absolute; left:0; top:0; color:#3c5c2c; font-size:18px; line-height:1; }
 
+.footnote{ margin:18px 0 0; text-align:center; font-size:13px; color:#6c7a73; }
 .footnote{ margin:18px 0 0; text-align:center; font-size:13px; color:#6c7a73; }
