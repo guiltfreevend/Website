@@ -414,10 +414,8 @@ body{
 /* Mobile / portrait: swap background, tuck under header, center CTAs at bottom */
 @media (max-aspect-ratio: 1/1){
   .hero{
-    background-image: image-set(
-      url("machineheromobile.webp") type("image/webp"),
-      url("machineheromobile.jpg")  type("image/jpeg")
-    );
+    /* === CHANGE 1: Updated background image === */
+    background-image: url("GFV-homepage-mobile-clear.jpeg");
     background-size: cover;
     background-position: center 24%;
     background-repeat: no-repeat;
@@ -425,10 +423,27 @@ body{
     padding-top: calc(clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px));
     min-height: calc(100svh + env(safe-area-inset-top, 0px));
   }
+/* === CHANGE 2: Updated button positioning === */
   .hero-cta-wrap{
-    position:absolute; left:50%; transform:translateX(-50%);
-    bottom: clamp(18px, 7vh, 80px);
-    display:flex; flex-direction:column; align-items:center; gap:10px; width:max-content;
+    /* Resets from absolute positioning */
+    position: relative;
+    left: auto;
+    transform: none;
+    bottom: auto;
+
+    /* Resets from desktop layout */
+    margin-top: 0;
+    padding-left: 0; /* This was 50% on desktop, needs reset */
+
+    /* Desired mobile layout (from mockup) */
+    display: flex;
+    flex-direction: column;  /* Stack buttons vertically */
+    align-items: flex-start; /* Align them to the left of their grid column */
+    gap: 1rem;               /* Keep the original gap */
+    width: auto;             /* Allow to fill space */
+    
+    /* Add a bit of padding for breathing room, as in mockup */
+    padding-inline: 1rem; 
   }
   .hero .cta-pill{ margin:0 !important; }
 }
