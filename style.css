@@ -127,6 +127,1499 @@ body{
 }
 
 /* Desktop menu */
+.desktop-menu{ 
+  display:flex; 
+  align-items:center; 
+  gap: clamp(14px,1.8vw,26px); 
+  margin-left:auto; 
+}
+.desktop-menu a{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  color:#0e2b17;
+  text-decoration:none;
+  font-weight:600;
+  font-size: 0.95rem;
+  padding: 8px 0;
+  border-bottom:2px solid transparent;
+  transition: color .18s ease, border-color .18s ease, transform .18s ease;
+}
+.desktop-menu a:hover,
+.desktop-menu a:focus-visible{
+  color:#3b6a3d;
+  border-bottom-color:#6DAA24;
+  outline:none;
+}
+.desktop-menu a.is-active{
+  color:var(--brand);
+  border-bottom-color:var(--brand);
+}
+#site-header.is-scrolled .desktop-menu a{ color:#17391f; }
+
+/* Dropdowns aligned to the right */
+@media (min-width: 992px){
+  #site-header .header-inner{ display:flex; align-items:center; gap:16px; }
+  .desktop-menu li{ position:relative; }
+  .desktop-menu li > ul{
+    position:absolute; top:calc(100% + 10px); right:0; left:auto;
+    min-width:200px; text-align:left; z-index:1100;
+    background: rgba(253,246,217,.96);
+    box-shadow: 0 14px 40px rgba(0,0,0,.12);
+  }
+}
+
+/* Header CTA unified (shares CTA vars) */
+.cta--header{
+  display:inline-flex; 
+  align-items:center; 
+  justify-content: center;
+  gap:.5rem;
+  padding:10px 20px;
+  background: var(--cta-bg) !important;
+  color:#fff !important; 
+  border-radius:999px;
+  box-shadow:0 8px 22px var(--cta-shadow);
+  font-weight:700; 
+  font-size: 0.95rem;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.22);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+/* Header CTA — Transparent 'ghost' style for new hero */
+#site-header:not(.is-scrolled) .desktop-menu .cta--header{
+  background: transparent !important;               /* 1. Transparent filling */
+  color: var(--brand-700) !important;             /* 2. Green text */
+  border: 1.5px solid var(--brand-700) !important; /* 3. Green border */
+  box-shadow: 0 4px 14px rgba(0,0,0,.10);
+  -webkit-backdrop-filter: blur(1px) saturate(120%);
+          backdrop-filter: blur(1px) saturate(120%);
+}
+
+#site-header:not(.is-scrolled) .desktop-menu .cta--header:hover{
+  background: rgba(68, 108, 52, 0.1) !important; /* Faint green bg on hover */
+  transform: translateY(-1px) scale(1.02);
+  border-color: var(--ink) !important; /* Darker green border on hover */
+}
+.cta--header:hover{ background:var(--cta-bg-hover) !important; transform:translateY(-1px) scale(1.02); box-shadow:0 14px 34px var(--cta-shadow); }
+.cta--header:active{ background:var(--cta-bg-active) !important; transform:none; box-shadow:0 8px 20px var(--cta-shadow); }
+.desktop-menu .cta--header{ border-bottom:none !important; }
+
+#site-header.is-scrolled .desktop-menu .cta--header{
+  background: var(--brand) !important; color:#fff !important;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 10px 28px rgba(42,68,22,.35);
+}
+#site-header.is-scrolled .desktop-menu .cta--header:hover{
+  background: var(--brand-700) !important; transform:translateY(-1px) scale(1.02);
+}
+
+/* Hide desktop menu on tablets/phones */
+@media (max-width:1024px){ .desktop-menu{ display:none; } }
+
+/* =========================================================
+   Mobile Menu: Shell + Hamburger + Panel
+   ========================================================= */
+.menu-shell{
+  position:fixed; top:var(--menu-top); right:var(--gap);
+  width:var(--btn-size); height:var(--btn-size);
+  border-radius:var(--btn-radius);
+  background:transparent; box-shadow:none;
+  overflow:hidden; z-index:7000;
+  transition:
+    width 520ms var(--ease-out),
+    height 520ms var(--ease-out),
+    border-radius 420ms var(--ease-out),
+    box-shadow 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
+}
+.menu-shell[aria-expanded="true"]{
+  width:300px; height:calc(100dvh - 16px);
+  border-radius:16px; background:#fdf6d9;
+  box-shadow:-10px 12px 28px rgba(0,0,0,.18), -2px 0 8px rgba(0,0,0,.10);
+}
+
+/* Icon button */
+.menu-shell .hamburger{
+  position:absolute; top:var(--btn-offset); right:var(--btn-offset);
+  width:var(--btn-size); height:var(--btn-size);
+  border:0; background:transparent; box-shadow:none;
+  cursor:pointer; z-index:9999; display:grid; place-items:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.menu-shell .hamburger .bar{
+  position:absolute; top:50%; left:50%;
+  width:var(--bar-w); height:var(--bar-h);
+  border-radius:9999px; background-color:#356a2a;
+  transform-origin:center;
+  transition:transform 420ms var(--ease-out), opacity 260ms var(--ease-out), background-color 240ms var(--ease-out);
+}
+.menu-shell .hamburger .bar:nth-child(1){ transform:translate(-50%, calc(-50% - var(--bar-gap))); }
+.menu-shell .hamburger .bar:nth-child(2){ transform:translate(-50%, -50%); }
+.menu-shell .hamburger .bar:nth-child(3){ transform:translate(-50%, calc(-50% + var(--bar-gap))); }
+
+/* Burger → X */
+.menu-shell .hamburger[aria-expanded="true"] .bar{ background-color:var(--ink); }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(1){ transform:translate(-50%, -50%) rotate(45deg); }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(2){ opacity:0; }
+.menu-shell .hamburger[aria-expanded="true"] .bar:nth-child(3){ transform:translate(-50%, -50%) rotate(-45deg); }
+
+/* Sliding panel */
+.menu-shell > .side-menu{
+  position:absolute; inset:0; z-index:1;
+  padding:22px 18px 24px; background:#fdf6d9; border-radius:16px;
+  overflow:auto; opacity:0; transform:translateY(6px);
+  transition:opacity 260ms 160ms var(--ease-out), transform 260ms 160ms var(--ease-out);
+  pointer-events:none;
+}
+
+.menu-shell[aria-expanded="true"] > .side-menu{ opacity:1; transform:translateY(0); pointer-events:auto; }
+
+.side-menu .menu-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,.06);
+}
+.side-menu .menu-title{ font-weight:700; color:var(--ink); font-size:1.15rem; }
+.side-menu .menu-list{ list-style:none; display:flex; flex-direction:column; gap:14px; margin:6px 0; padding:0; }
+.side-menu .menu-list a{
+  display:inline-block; text-decoration:none; color:var(--ink);
+  font-size:1rem; line-height:1.3; padding:6px 2px;
+  transition:color .18s var(--ease-in), transform .18s var(--ease-in);
+}
+.side-menu .menu-list a:hover{ color:#6DAA24; transform:translateX(-2px); }
+
+/* Overlay */
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.38); backdrop-filter:blur(2px);
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .32s var(--ease-in), visibility .32s var(--ease-in);
+  z-index:4500;
+}
+.overlay.active{ opacity:1; visibility:visible; pointer-events:auto; }
+
+/* Desktop: hide mobile shell/overlay */
+@media (min-width:1025px){
+  .menu-shell, .overlay{ display:none !important; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hamburger, .overlay, .side-menu{ transition:none !important; animation:none !important; }
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates the 2-column layout */
+  align-items: center;           /* Vertically centers the content */
+  padding: clamp(48px, 6vh, 96px) 20px;
+  min-height: calc(100svh - var(--header-h));
+  background-color: #fdf6d9;
+  background-image: url("GFV-homepage-clear.jpeg"); /* This path must be correct! */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* This media query wrapper is the most important part! */
+/* It stops these styles from breaking your mobile layout. */
+@media (min-width: 1025px) {
+  .hero-cta-wrap {
+    display: flex;
+    flex-direction: row;        /* 1. Set side-by-side */
+    justify-content: flex-start;  /* 2. Align left in their column */
+    gap: 1rem;                  /* 3. Space between buttons */
+    
+    /* 4. New position to match mockup */
+    margin-top: 30vh;           /* Pushes them DOWN */
+    padding-left: 20%;          /* Pushes them RIGHT */
+  }
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+/* Light helper overlay (disabled by default; keep for future) */
+.hero::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:none !important;
+}
+
+/* Content & animations */
+@keyframes fadeUp { from {opacity:0; transform: translateY(12px);} to {opacity:1; transform:none;} }
+
+.hero-content{
+  position:relative; z-index:1; text-align:center;
+  max-width:min(980px, 92vw);
+  color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+.hero-title{
+  margin:0; font-weight:800; line-height:1.05;
+  font-size: clamp(28px, 5.2vw, 56px);
+  opacity:0; animation: fadeUp .60s ease-out .10s forwards;
+  text-wrap: balance;
+}
+.hero-subtitle{
+  margin:12px 0 0 0; font-size: clamp(16px, 2.2vw, 22px);
+  opacity:0; animation: fadeUp .60s ease-out .35s forwards;
+}
+
+/* Generic hero CTA (kept for backward compatibility) */
+.hero .hero-btn,
+.hero .hero-btn:visited{
+  display:inline-block; text-decoration:none; color:#fff;
+  background:#5C935F; border:1px solid rgba(255,255,255,.22);
+  padding:12px 20px; border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  backdrop-filter:saturate(130%) blur(2px);
+  -webkit-backdrop-filter:saturate(130%) blur(2px);
+}
+.hero .hero-btn:hover{ background:#6AA86E; transform:translateY(-1px) scale(1.02); box-shadow:0 10px 24px rgba(0,0,0,.16); }
+.hero .hero-btn:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(255,255,255,.9), 0 0 0 6px rgba(106,168,110,.55); transform:translateY(-1px) scale(1.02); }
+
+/* === CTA pill: unify hero / header / mobile side-menu (1:1) === */
+.cta-pill,
+#site-header .cta--header,
+#site-header .btn-cta,
+.menu-shell .side-menu .cta-button{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:12px 22px; border-radius:999px;
+  background: var(--cta-bg) !important; color: var(--cta-text) !important;
+  text-decoration:none !important;
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow: 0 10px 28px var(--cta-shadow);
+  font-weight:800; letter-spacing:.2px;
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+  -webkit-backdrop-filter: saturate(130%) blur(2px);
+          backdrop-filter: saturate(130%) blur(2px);
+}
+
+.cta-pill:hover,
+#site-header .cta--header:hover,
+#site-header .btn-cta:hover,
+.menu-shell .side-menu .cta-button:hover{
+  background: var(--cta-bg-hover) !important;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 14px 34px var(--cta-shadow);
+}
+
+.cta-pill:active,
+#site-header .cta--header:active,
+#site-header .btn-cta:active,
+.menu-shell .side-menu .cta-button:active{
+  background: var(--cta-bg-active) !important;
+  box-shadow: 0 8px 20px var(--cta-shadow);
+  transform: none;
+}
+
+.cta-pill:focus-visible,
+#site-header .cta--header:focus-visible,
+#site-header .btn-cta:focus-visible,
+.menu-shell .side-menu .cta-button:focus-visible{
+  outline: 0;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.9),
+    0 0 0 6px rgba(106,168,110,.55),
+    0 12px 30px var(--cta-shadow);
+}
+
+/* Mobile / portrait: swap background, tuck under header, center CTAs at bottom */
+@media (max-aspect-ratio: 1/1){
+  .hero{
+    background-image: image-set(
+      url("machineheromobile.webp") type("image/webp"),
+      url("machineheromobile.jpg")  type("image/jpeg")
+    );
+    background-size: cover;
+    background-position: center 24%;
+    background-repeat: no-repeat;
+    margin-top: calc(-1 * (var(--header-h) + env(safe-area-inset-top, 0px)));
+    padding-top: calc(clamp(48px, 6vh, 96px) + var(--header-h) + env(safe-area-inset-top, 0px));
+    min-height: calc(100svh + env(safe-area-inset-top, 0px));
+  }
+  .hero-cta-wrap{
+    position:absolute; left:50%; transform:translateX(-50%);
+    bottom: clamp(18px, 7vh, 80px);
+    display:flex; flex-direction:column; align-items:center; gap:10px; width:max-content;
+  }
+  .hero .cta-pill{ margin:0 !important; }
+}
+
+/* When using hamburger (mobile/tablet): hide header bar completely, hero fills screen */
+@media (max-width:1024px), (max-aspect-ratio: 1/1){
+  #site-header{ display:none !important; }
+  body{ padding-top:0 !important; }
+  .hero{
+    margin-top:0 !important;
+    min-height:100svh;
+    padding-top:clamp(48px, 6vh, 96px);
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+  
+  /* === In style.css (inside the media query at line ~558) === */
+
+@media (max-width:1024px), (max-aspect-ratio: 1/1){
+  /* ... (your existing #site-header and .hero rules are here) ... */
+
+  /* ADD THIS NEW RULE FOR MOBILE BUTTONS */
+  .hero-cta-wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(18px, 6vh, 60px); /* Lowered position */
+    display: flex;
+    flex-direction: row; /* Side-by-side on mobile landscape */
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+  }
+
+  /* ADD THIS NEW RULE TO SHRINK THE BUTTONS ON MOBILE */
+  .hero .cta-pill,
+  .hero .cta-ghost {
+    padding: 8px 16px; /* Smaller padding */
+    font-size: 0.9rem; /* Smaller font */
+    font-weight: 700;
+  }
+}
+
+/* Desktop: let hero run under transparent header */
+@media (min-width: 1025px) and (min-aspect-ratio: 1/1){
+  .hero{
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: calc(var(--header-h) + clamp(48px, 6vh, 96px));
+    min-height: calc(100svh + var(--header-h));
+  }
+}
+
+/* „Призрачен“ бутон (ghost pill) за вторичната CTA */
+.hero .cta-ghost{
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 18px;
+    border-radius: 999px;
+    color: var(--brand-700) !important;
+    text-decoration: none;
+    background: transparent !important;
+    border: 1.5px solid var(--brand-700) !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,.10);
+    -webkit-backdrop-filter: blur(1px) saturate(120%);
+    backdrop-filter: blur(1px) saturate(120%);
+    font-weight: 700;
+    transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.hero .cta-ghost:hover{
+    transform: translateY(-1px);
+    background: rgba(68, 108, 52, 0.1) !important;
+    border-color: var(--ink) !important;
+}
+.hero .cta-ghost:focus-visible{
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(255,255,255,.9),
+        0 0 0 6px rgba(106,168,110,.55);
+}
+
+/* =========================================================
+   Generic Sections
+   ========================================================= */
+.section{ padding:4rem 2rem; text-align:center; }
+
+/* Премиум заглавия на секции (универсално) */
+.section > h2{
+  position: relative;
+  margin: 0 0 clamp(28px, 3.6vw, 48px);
+  text-align: center;
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-size: clamp(26px, 1.6vw + 20px, 40px);
+  text-wrap: balance;
+}
+
+/* Деликатна „бренд“ линия под заглавието */
+.section > h2::after{
+  content: "";
+  display: block;
+  width: clamp(64px, 8vw, 120px);
+  height: 4px;
+  margin: clamp(10px, 1.4vw, 14px) auto 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(90,125,42,0) 0%,
+    var(--brand) 18%,
+    var(--brand-700) 82%,
+    rgba(90,125,42,0) 100%
+  );
+  box-shadow: 0 6px 14px rgba(90,125,42,.12);
+}
+
+.section h2 + .feature-grid{
+  margin-top: clamp(12px, 2vw, 22px);      /* допълнителен „въздух“ преди картите */
+}
+
+/* Визуален акцент за „долната“ секция – по-светъл тон + outline карти */
+/* Една идея различен акцент за .section--alt */
+.section--alt > h2{ color: #1d3b18; } /* по-дълбок зелен нюанс, премиум */
+.section--alt > h2::after{
+  background: linear-gradient(
+    90deg,
+    rgba(78,106,34,0) 0%,
+    rgba(78,106,34,.95) 20%,
+    rgba(78,106,34,.95) 80%,
+    rgba(78,106,34,0) 100%
+  );
+  box-shadow: 0 8px 18px rgba(78,106,34,.14);
+}
+
+.section--alt .feature-card{
+  background: #fffef8;
+  border: 1px solid rgba(51,73,30,.10);
+  box-shadow: 0 6px 18px rgba(0,0,0,.06); /* една идея по-лека сянка от горната секция */
+}
+.section--alt .feature-card:hover{
+  box-shadow: 0 12px 26px rgba(0,0,0,.10);
+}
+
+.section:not(.section--alt) .feature-card .feature-head{
+  margin-bottom: 10px;                 /* отделя заглавието от параграфа */
+}
+
+.section--alt .feature-card .feature-text{
+  font-size: clamp(16px, 1.05vw + 10px, 18px);  /* леко по-голям, само тук */
+  line-height: 1.7;                              /* малко повече четимост */
+  color: rgba(19,48,25,.92);                     /* една идея по-силен контраст */
+}
+
+/* =========================================================
+   Benefits
+   ========================================================= */
+/* Контейнер – картите „залепват“ за горния ръб и имат равни височини по ред */
+.benefits-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(18px, 2.4vw, 26px);
+  margin-top: clamp(18px, 2.6vw, 28px);
+
+  align-items:start;     /* всички карти се подравняват по ГОРЕ */
+  justify-items:stretch;
+  grid-auto-rows:1fr;    /* равни височини на картите в реда */
+}
+
+/* Карта – вертикална колона, съдържанието започва отгоре */
+.benefit-item{
+  --padT: 26px;          /* еднакъв топ падинг за всички карти */
+  --padX: clamp(16px, 2vw, 22px);
+  --padB: clamp(16px, 2vw, 22px);
+   
+  background:#fffbe9;
+  border-radius:12px;
+  box-shadow:0 8px 22px rgba(0,0,0,.06);
+  transition:transform .25s ease, box-shadow .25s ease;
+
+  /* ключово: вертикална колона отгоре надолу */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap: clamp(8px, 1.2vw, 12px);
+
+  padding: var(--padT) var(--padX) var(--padB);
+  height:100%;
+}
+.benefit-item > *{ margin:0; }
+.benefit-item:hover{ transform:translateY(-5px); box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+.benefit-item img{ width:64px; height:64px; margin-bottom:1rem; }
+.benefit-item h3{ margin-bottom:.5rem; color:var(--brand); }
+.benefit-item p{ font-size:1rem; color:#555; line-height:1.5; }
+
+/* заглавие: отчетливо и с ясна дистанция до текста */
+.benefit-item h3{
+  color: var(--brand-700);
+  font-weight: 800;
+  font-size: clamp(1.02rem, .9rem + .5vw, 1.22rem);
+  line-height: 1.25;
+  letter-spacing: .15px;
+  margin: 2px 0 clamp(6px, .9vw, 10px);   /* <-- разстоянието към текста */
+}
+
+/* абзац: една идея по-тъмен/едър за по-добра четимост */
+.benefit-item p{
+  color:#2a3f15;
+  opacity:.95;
+  font-size: clamp(.98rem, .92rem + .25vw, 1.06rem);
+  line-height: 1.65;
+}
+
+/* при hover – по-жива, но деликатна реакция */
+.benefit-item:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.10);
+}
+
+@media (min-width: 1100px){
+  .benefits-grid{ gap: 28px; }
+  .benefit-item{ padding: 26px 24px; }
+}
+
+/* ======================= Intro (overlay) ======================= */
+.intro{                       /* отстояние от hero */
+  position: relative;
+  margin-top: var(--intro-gap);
+  padding: 0 !important;      /* override на .section */
+  background: none;
+}
+/* Когато пристигнем по котва #intro → без горния отстъп, за да „залепи“ full-screen */
+.intro:target{
+  margin-top: 0 !important;
+  scroll-margin-top: 0;           /* отменя всякакви глобални scroll-padding-и */
+}
+.intro-inner{
+  position: relative;
+  max-width: none;
+  min-height: 100svh;         /* запълва екрана */
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* изображението запълва изцяло */
+.intro-media,
+.intro-media picture,
+.intro-img{
+  position: absolute; inset: 0;
+  width:100%; height:100%;
+}
+.intro-img{
+  object-fit: cover;
+  transform: scale(1.02);     /* лек crop да няма ръбове */
+}
+
+/* глобален воал за четимост */
+.intro-inner::after{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,.28) 0%,
+    rgba(0,0,0,.12) 35%,
+    rgba(0,0,0,.30) 100%);
+}
+
+/* Текстовият блок в интро – център и удобна ширина */
+.intro-copy{
+  position: relative; 
+  z-index: 1; 
+  color:#fff; 
+  text-align:center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: var(--intro-padY) var(--intro-padX);
+  max-width: min(1100px, 92vw);      /* малко по-широко от 980px */
+  margin-inline: auto;
+
+  text-shadow: 0 2px 16px rgba(0,0,0,.45);
+  text-wrap: balance;
+}
+/* локално подсилване зад текста (без „карта“) */
+.intro-copy::before{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background: radial-gradient(ellipse at center,
+      rgba(0,0,0,.42) 0%,
+      rgba(0,0,0,.28) 45%,
+      rgba(0,0,0,.10) 70%,
+      rgba(0,0,0,0) 100%);
+  filter: blur(10px);
+}
+
+/* ефекти – поява само когато секцията влезе в обсега */
+@keyframes introUp { from{opacity:0; transform: translateY(12px);} to{opacity:1; transform:none;} }
+
+.intro-title,
+.intro-lead,
+.intro-text{ opacity:0; transform:translateY(12px); }
+
+.intro.is-inview .intro-title{
+  margin:0 0 10px;
+  font-weight:800; line-height:1.08;
+  font-size: clamp(28px, 4.2vw + 10px, 56px);
+  animation: introUp .55s ease-out .05s forwards;
+}
+.intro.is-inview .intro-lead{
+  margin: 8px 0 8px;
+  font-size: clamp(16px, 1.6vw + 12px, 22px);
+  animation: introUp .55s ease-out .18s forwards;
+}
+
+/* По-едър и комфортен текст в desktop/landscape */
+.intro.is-inview .intro-text{
+  margin: 10px 0 0;
+  font-size: clamp(18px, 1.15vw + 14px, 22px);  /* + ~2px спрямо преди */
+  line-height: 1.85;                            /* по-леко четене */
+  animation: introUp .55s ease-out .30s forwards;
+}
+
+/* без CTA в Intro */
+.intro-cta, .intro .cta-pill{ display:none !important; }
+
+@media (max-width: 980px){
+  .intro-inner{ min-height: 100svh; }
+}
+@media (prefers-reduced-motion: reduce){
+  .intro-title,.intro-lead,.intro-text{ opacity:1; transform:none; animation:none !important; }
+}
+
+/* повече въздух около заглавието */
+.intro.is-inview .intro-title{
+  margin-bottom: clamp(10px, 2.4vh, 20px);
+}
+
+/* нежна „hairline“ линия под заглавието */
+.intro-sep{
+  display:block;
+  width: min(140px, 28vw);
+  height: 3px;
+  margin: 0 auto clamp(12px, 2.8vh, 22px);
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.85) 50%,
+    rgba(255,255,255,0) 100%);
+  border-radius:999px;
+  opacity:.95;
+}
+
+.intro-copy p{                       /* по-четим ред */
+  max-width: 64ch;                   /* ~64 символа – класическа четимост */
+  margin-inline: auto;
+  letter-spacing: .01em;
+}
+
+/* на по-малки екрани – една идея по-силен локален ореол */
+@media (max-width: 480px){
+  .intro-copy::before{
+    background: radial-gradient(ellipse at center,
+      rgba(0,0,0,.50) 0%,
+      rgba(0,0,0,.34) 45%,
+      rgba(0,0,0,.12) 70%,
+      rgba(0,0,0,0) 100%);
+    filter: blur(12px);
+  }
+}
+
+/* първоначалното леко scale остава като „старт“ */
+.intro-img{ transform: scale(1.02); will-change: transform; }
+
+@keyframes kb-zoom {
+  from { transform: scale(1.02) translateY(0); }
+  to   { transform: scale(1.08) translateY(2%); }
+}
+.intro.is-inview .intro-img{
+  animation: kb-zoom 14s ease-out forwards;
+}
+
+/* достъпност: без движение при reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .intro.is-inview .intro-img{ animation: none; transform: scale(1.02); }
+}
+
+.intro-tags{
+  display:flex; gap:8px; justify-content:center;
+  margin: clamp(6px,1.6vh,10px) 0 clamp(12px,2.8vh,22px);
+  list-style:none; padding:0;
+}
+.intro-tags li{
+  padding:6px 10px; border-radius:999px;
+  font-weight:700; font-size: .9rem;
+  color:#fff; border:1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.08);
+  -webkit-backdrop-filter: blur(2px) saturate(120%);
+          backdrop-filter: blur(2px) saturate(120%);
+}
+
+/* =========================================================
+   Partners – slow marquee + edge fade + size harmonisation
+   ========================================================= */
+#partners .marquee{
+  --fadeW: clamp(28px, 9vw, 120px);
+  position:relative; overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right, transparent 0,
+    rgba(0,0,0,.15) calc(var(--fadeW)*.35),
+    #000 calc(var(--fadeW)*1.1),
+    #000 calc(100% - var(--fadeW)*1.1),
+    rgba(0,0,0,.15) calc(100% - var(--fadeW)*.35),
+    transparent 100%);
+          mask-image:linear-gradient(to right, transparent 0,
+    rgba(0,0,0,.15) calc(var(--fadeW)*.35),
+    #000 calc(var(--fadeW)*1.1),
+    #000 calc(100% - var(--fadeW)*1.1),
+    rgba(0,0,0,.15) calc(100% - var(--fadeW)*.35),
+    transparent 100%);
+}
+#partners .marquee__inner{
+  display:inline-flex; align-items:center;
+  gap:clamp(28px,4vw,56px);
+  animation:partners-slow 38s linear infinite;
+  will-change:transform;
+}
+#partners .marquee__inner a{
+  flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+  height:clamp(56px, 7.2vw, 88px);
+  width: clamp(140px, 22vw, 220px);
+  padding:6px 10px;
+}
+#partners .marquee__inner img{
+  max-height:100%; max-width:100%; object-fit:contain;
+  transition:transform .2s ease;
+}
+@media (hover:hover){ #partners .marquee__inner a:hover img{ transform:scale(1.04); } }
+
+/* fine tweaks for small logos */
+#partners .marquee__inner a[aria-label="Harmonica"] img    { transform:scale(2.10); }
+#partners .marquee__inner a[aria-label="Datecs"] img       { transform:scale(2.10); }
+#partners .marquee__inner a[aria-label="Smart Organic"] img{ transform:scale(1.35); }
+
+@media (min-width:1024px){
+  #partners .marquee__inner a{ height:96px; width:240px; }
+}
+@media (prefers-reduced-motion: reduce){ #partners .marquee__inner{ animation-duration:60s; } }
+@keyframes partners-slow{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* ——— Настройки за въздух и центриране ——— */
+.intro-inner{ place-items:center; }                 /* център и в landscape */
+.intro-copy{ text-align:center; margin-inline:auto; }
+.intro-copy p{ max-width:46ch; margin-inline:auto; }/* по-четим ред */
+
+/* повече въздух под заглавието */
+.intro-title{ margin-bottom: clamp(10px, 2.4vh, 20px); }
+
+/* нежна линия (ако я ползваш вместо пилюли) */
+.intro-sep{
+  display:block;
+  width:min(140px, 28vw);
+  height:3px;
+  margin:0 auto clamp(12px, 2.8vh, 22px);
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.85),rgba(255,255,255,0));
+  border-radius:999px;
+  opacity:0; transform:translateY(12px) scaleX(.8);
+}
+
+/* пилюлите – стил + начален state (скрити, за анимация) */
+.intro-tags{
+  display:flex; gap:8px; justify-content:center;
+  margin: clamp(6px,1.6vh,10px) 0 clamp(12px,2.8vh,22px);
+  list-style:none; padding:0;
+  opacity:0; transform: translateY(12px);           /* за появата */
+}
+.intro-tags li{
+  padding:6px 10px; border-radius:999px;
+  font-weight:700; font-size:.9rem; color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.08);
+  -webkit-backdrop-filter: blur(2px) saturate(120%);
+          backdrop-filter: blur(2px) saturate(120%);
+}
+
+/* ——— Анимации: по-бавни и синхронизирани ——— */
+@keyframes introUp{ 
+  from{opacity:0; transform:translateY(12px);} 
+  to  {opacity:1; transform:none;} 
+}
+
+/* всичко се задейства, когато .intro получи .is-inview */
+.intro-title,
+.intro-sep,
+.intro-tags,
+.intro-text{ opacity:0; } /* базово състояние */
+
+/* последователност: заглавие → пилюли/линия → текст */
+.intro.is-inview .intro-title{ animation:introUp .9s cubic-bezier(.16,1,.29,.99) .05s forwards; }
+.intro.is-inview .intro-sep   { animation:introUp .9s cubic-bezier(.16,1,.29,.99) .25s forwards; }
+.intro.is-inview .intro-tags  { animation:introUp .9s cubic-bezier(.16,1,.29,.99) .25s forwards; }
+.intro.is-inview .intro-text  { animation:introUp .9s cubic-bezier(.16,1,.29,.99) .45s forwards; }
+
+/* Ken Burns – по-бавен и плавен */
+@keyframes kb-zoom{
+  from{ transform: scale(1.02) translateY(0); }
+  to  { transform: scale(1.10) translateY(2.5%); }
+}
+.intro-img{ transform:scale(1.02); will-change:transform; }
+.intro.is-inview .intro-img{ animation: kb-zoom 24s ease-out forwards; }
+
+/* мобилен: по-силен ореол зад текста за контраст */
+@media (max-width:480px){
+  .intro-copy::before{
+    background: radial-gradient(ellipse at center,
+      rgba(0,0,0,.50) 0%,
+      rgba(0,0,0,.34) 45%,
+      rgba(0,0,0,.12) 70%,
+      rgba(0,0,0,0) 100%);
+    filter: blur(12px);
+  }
+}
+
+/* достъпност: без движение при Reduced Motion */
+@media (prefers-reduced-motion: reduce){
+  .intro.is-inview .intro-img{ animation:none; transform:scale(1.02); }
+  .intro-title, .intro-sep, .intro-tags, .intro-text{ animation-duration:.01ms; animation-delay:0s; }
+}
+
+/* ===== Intro title: линии отляво/отдясно + лозунг отдолу ===== */
+.intro-title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;                 /* център и в landscape */
+  gap: clamp(8px, 1.8vh, 14px);
+}
+
+/* Редът с логото и двете hairline черти */
+.intro-title .title-row{
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 16px);
+  flex-wrap: nowrap;
+}
+
+.intro-title .brand{
+  font: inherit;                        /* наследява размера/теглото от .intro-title */
+  white-space: nowrap;
+}
+
+.intro-title .title-bar{
+  width: min(140px, 28vw);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent);
+  border-radius: 999px;
+  opacity: .95;
+}
+
+/* Линия/лозунг под заглавието – по-тясна и безопасна по ширина */
+.intro-title .tagline{
+  font-weight: 700;
+  font-size: clamp(16px, 2.1vw + 8px, 24px); /* една идея по-малко */
+  line-height: 1.22;
+  max-width: min(92vw, 680px);               /* никога да не „излиза“ от екрана */
+  margin-inline: auto;
+  padding-inline: clamp(8px, 3vw, 16px);     /* малко въздух отстрани на мобилни */
+  text-align: center;
+  text-wrap: balance;
+  opacity: .98;
+}
+
+/* още една идея по-компактно за много тесни телефони */
+@media (max-width: 480px){
+  .intro-title .tagline{
+    font-size: clamp(14px, 4vw, 18px);
+  }
+}
+
+/* === Intro — compact mobile (≤480px) === */
+@media (max-width: 480px){
+  .intro{
+    padding-block: clamp(14px, 5.5vh, 24px);
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+   }
+    /* При скок към #intro на мобилен: зануляваме и padding-а отгоре */
+    .intro:target{
+      padding-top: 0 !important;
+    }
+  }
+
+  .intro-inner{
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-inline: clamp(10px, 4vw, 14px);
+    max-width: 100%;
+  }
+
+  .intro-copy{
+    max-width: 94vw;                 /* по-широк текстов блок → по-малко редове */
+    margin-inline: auto;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+    width: min(100%, 100vw - 24px);
+  }
+
+  /* Заглавието в интро НЕ пипаме */
+
+  .intro-lead{
+    font-size: clamp(13px, 3.0vw, 15px);
+    line-height: 1.48;
+    margin: 6px 0 8px;
+  }
+  .intro-text{
+    font-size: clamp(12px, 2.9vw, 14px);
+    line-height: 1.48;
+  }
+
+  /* Чипове/пилюли – винаги на ЕДИН ред, по-компактни */
+  .intro .chip,
+  .intro .tag,
+  .intro .badge{
+    white-space: nowrap;             /* спира пренасянето на „Подбрано“ и т.н. */
+    padding: 7px 10px;
+    font-size: .90rem;
+    border-radius: 999px;
+  }
+
+  .intro .cta-pill,
+  .intro .cta-ghost{
+    white-space: nowrap;             /* и бутоните да не се чупят */
+    padding: 8px 12px;
+    font-size: .90rem;
+  }
+
+  .intro-cta{ gap: 8px; }
+}
+
+@media (max-width: 360px){
+  .intro .chip, .intro .tag, .intro .badge{
+    font-size: .82rem;
+    padding: 6px 9px;
+    white-space: nowrap;
+    .intro-tags{ gap: 6px; }
+    .intro-tags li{ font-size: 12px; padding: 5px 10px; }
+  }
+}
+
+@media (max-width: 480px){
+  /* ГРУПАТА – на един ред (без пренасяне) и с флуидни междини */
+  .intro-tags{
+    flex-wrap: nowrap;                 /* <- задължително 1 ред */
+    gap: clamp(4px, 2vw, 8px);         /* флуидна междина, за да се събират */
+    max-width: 92vw;                   /* пазим рамките на екрана (iOS safe) */
+    margin-inline: auto;
+  }
+  /* ПИЛЮЛИТЕ – без пренасяне вътре, флуиден размер */
+  .intro-tags li{
+    white-space: nowrap;               /* текстът вътре остава на 1 ред */
+    font-size: clamp(12px, 3.4vw, 14px);
+    padding: clamp(5px, 1.2vh, 7px) clamp(10px, 3.4vw, 12px);
+    border-width: 1.3px;
+    border-radius: 999px;
+  }
+}
+
+
+/* === Кръгла значка + стабилно центриране на SVG/IMG === */
+.feature-icon{
+  --badge: clamp(104px, 21vw, 124px);
+  width: var(--badge);
+  height: var(--badge);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;             /* център по X и Y */
+  margin: 0 0 clamp(8px, 1.2vw, 12px);
+
+  background: radial-gradient(70% 70% at 30% 30%, #fff 0, #f7f1d9 100%);
+  border: 1px solid rgba(51,73,30,.12);
+  box-shadow: 0 10px 22px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
+}
+
+/* всичко вътре в баджа – еднакъв мащаб и реално центриране */
+.feature-icon .icon,
+.feature-icon > svg,
+.feature-icon > img{
+  width: 62%;
+  height: 62%;
+  display: block;                  /* маха baseline offset */
+  object-fit: contain;
+  align-self: center;
+  justify-self: center;
+}
+
+/* Групата заглавие/икона ако я имаш (не е задължително) */
+.feature-head{ 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: clamp(10px, 2vw, 14px);
+  margin-top: 6px;
+}
+
+.feature-icon svg{ overflow: visible; }
+
+/* На много малки екрани значките стават още 1 идея по-едри */
+@media (max-width: 480px){
+  .feature-icon{ --badge: clamp(110px, 28vw, 140px); }
+}
+
+/* =========================================================
+   Forms
+   ========================================================= */
+.form-title{ font-size:1.8rem; color:var(--ink); margin-bottom:1.5rem; font-weight:700; }
+form{
+  max-width:600px; margin:0 auto;
+  display:flex; flex-wrap:wrap; gap:1rem;
+}
+form input, form textarea{
+  flex:1 1 45%; padding:.75rem;
+  border:1px solid #ccc; border-radius:.25rem; font-size:1rem;
+}
+form textarea{ flex:1 1 100%; height:8rem; }
+
+/* Consent (grid) */
+form .consent-group{
+  display:grid; grid-template-columns:1.25em 1fr; column-gap:.6rem;
+  align-items:start; margin-top:1rem; text-align:left; max-width:100%; line-height:1.5;
+}
+form .consent-group input[type="checkbox"]{
+  flex:0 0 auto !important; width:1.25em; height:1.25em;
+  margin:.2em 0 0; border-radius:.3rem; accent-color:var(--brand);
+}
+form .consent-group label{ margin:0; font-size:1rem; line-height:1.55; color:var(--ink); }
+form .consent-group a{
+  color:var(--brand); text-decoration:underline;
+  text-underline-offset:.18em; text-decoration-thickness:.08em;
+}
+.consent-group .required{ color:#b00; margin-left:.2rem; }
+
+/* Submit */
+.submit-btn{
+  flex:1 1 100%; padding:.75rem; border:none; border-radius:.25rem;
+  background:var(--brand); color:#fff; font-size:1.1rem; font-weight:600;
+  cursor:pointer; transition:background .3s;
+}
+.submit-btn:hover{ background:#2a3f15; }
+/* =========================================================
+   People / About (responsive cards with safe portraits)
+   ========================================================= */
+.about .about-lead{
+  max-width: 980px;
+  margin: 0 auto 22px;
+  font-size: clamp(1rem, .95rem + .2vw, 1.1rem);
+  line-height: 1.8;
+  color: #2a3f15; 
+  opacity: .92;
+}
+
+.people{
+  display: grid;
+  gap: 22px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.person{
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 22px;
+  align-items: center;
+  padding: 18px;
+  background: #fffef8;
+  border: 1px solid rgba(51,73,30,.10);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+
+/* Контейнер с портрет – без рязане на глави */
+.person-media{
+  aspect-ratio: 3 / 4;              /* класически портретен формат */
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+.person-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;         /* леко нагоре, за да пази челото */
+}
+
+/* Текстова част */
+.person-name{
+  margin: 0;
+  font-size: clamp(1.2rem, 1rem + .8vw, 1.6rem);
+  color: #2a3f15;
+  font-weight: 800;
+}
+.person-role{
+  margin: .25rem 0 .75rem;
+  color: var(--brand, #3c5c2c);
+  font-weight: 700;
+}
+.person-bio{
+  margin: 0;
+  color: #17391f;
+  line-height: 1.7;
+}
+
+/* Цитат – ясна голяма кавичка, без вертикална черта */
+.person-quote{
+  margin: .9rem 0 0;
+  position: relative;
+  font-weight: 600;
+  color: #274723;
+  line-height: 1.55;
+  padding-left: 0;
+}
+.person-quote::before{
+  content: "“";
+  position: absolute;
+  left: -6px;
+  top: -18px;
+  font-size: 48px;
+  line-height: 1;
+  color: rgba(60,92,44,.25);
+  pointer-events: none;
+}
+
+/* затваряща кавичка (дясно-долу) */
+.person-quote{ padding-right: 12px; }  /* малко място за “)” */
+.person-quote::after{
+  content: "”";
+  position: absolute;
+  right: -6px;
+  bottom: -20px;
+  font-size: 48px;
+  line-height: 1;
+  color: rgba(60,92,44,.25);
+  pointer-events: none;
+}
+
+/* по-компактно на съвсем малки екрани */
+@media (max-width: 420px){
+  .person-quote::before,
+  .person-quote::after{ font-size: 38px; }
+}
+
+/* Размери на мобилен / таблет */
+@media (max-width: 1024px){
+  .person{ grid-template-columns: 260px 1fr; }
+}
+@media (max-width: 720px){
+  .person{
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+  .person-media{
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 420px){
+  .person-media{ max-width: 280px; }
+  .person-quote{ font-size: 1.02rem; }
+  .person-media img{ object-position: 50% 12%; }
+}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-container details{
+  max-width:800px; margin:1rem auto; border:1px solid #ccc;
+  border-radius:.5rem; background:#fff8e3; padding:1rem; transition:all .3s ease;
+}
+.faq-container summary{
+  font-weight:600; font-size:1.1rem; cursor:pointer; color:var(--ink); list-style:none;
+}
+.faq-container details[open]{ background:#fdf6d9; box-shadow:0 2px 6px rgba(0,0,0,.05); }
+.faq-container p{ margin-top:.5rem; line-height:1.6; color:#444; }
+
+/* =========================================================
+   Suitability (modern cards)
+   ========================================================= */
+.suitability{ --card-bg:#fffbe9; --card-b:1px solid rgba(51,73,30,.10); --shadow:0 6px 14px rgba(0,0,0,.06); --shadow-h:0 12px 24px rgba(0,0,0,.10); text-align:center; }
+.suit-title{ font-size:clamp(1.6rem, 1.2rem + 2.2vw, 2.4rem); line-height:1.2; color:var(--ink); margin-bottom:.75rem; }
+.suit-lead{ max-width:840px; margin:0 auto 1.2rem; font-size:clamp(1rem, .9rem + .4vw, 1.15rem); line-height:1.7; color:#2a3f15; opacity:.92; }
+.suitability-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:clamp(14px,2.2vw,22px); margin:1.2rem auto 0; max-width:1100px; }
+.suit-item{
+  background:var(--card-bg); border:var(--card-b); border-radius:16px;
+  padding:18px 18px 16px; text-align:left; box-shadow:var(--shadow);
+  transition:transform .25s var(--ease-out), box-shadow .25s var(--ease-out);
+}
+.suit-item:hover{ transform:translateY(-4px); box-shadow:var(--shadow-h); }
+.suit-icon{
+  width:46px; height:46px; border-radius:50%; display:grid; place-items:center;
+  font-size:24px; line-height:1; background:radial-gradient(70% 70% at 30% 30%, #fff 0, #f7f1d9 100%);
+  border:1px solid rgba(51,73,30,.12);
+  box-shadow:0 4px 10px rgba(90,125,42,.12), inset 0 -2px 5px rgba(0,0,0,.02);
+  margin-bottom:10px;
+}
+.suit-item h3{ color:var(--brand-700); font-size:1.06rem; margin-bottom:.35rem; }
+.suit-item p{ color:#2a3f15; opacity:.95; font-size:.98rem; line-height:1.55; }
+.suit-footnote{ margin:1.2rem auto 0; font-size:.95rem; color:#2a3f15; opacity:.8; }
+@media (min-width:1024px){ .suitability{ padding-top:3.2rem; padding-bottom:3.2rem; } .suitability-grid{ gap:20px; } }
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.custom-footer{ background-color:#f4f0de; padding:2rem 1rem; text-align:center; }
+.footer-container{ max-width:800px; margin:0 auto; }
+.footer-follow{ font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:1rem; }
+.footer-text{ font-size:.95rem; color:var(--ink); }
+
+.footer-icons{ display:flex; justify-content:center; align-items:center; gap:16px; margin-bottom:1.5rem; flex-wrap:wrap; }
+.footer-icons a{ display:inline-flex; justify-content:center; align-items:center; width:46px; height:46px; text-decoration:none; }
+@media (max-width:768px){ .footer-icons a{ width:40px; height:40px; } }
+.footer-icons a img{
+  width:74%; height:74%; object-fit:contain; display:block;
+  filter: invert(33%) sepia(13%) saturate(1090%) hue-rotate(55deg) brightness(90%) contrast(92%);
+  transform:scale(var(--bal,1));
+  transition: transform .2s ease, filter .2s ease;
+}
+.footer-icons img[alt="Instagram"]{ --bal:1.10; }
+.footer-icons img[alt="Facebook"] { --bal:1.08; }
+.footer-icons img[alt="LinkedIn"] { --bal:1.30; }
+.footer-icons img[alt="Email"]    { --bal:1.32; }
+.footer-icons a:hover img,
+.footer-icons a:focus img{
+  transform:translateY(-1px) scale(calc(var(--bal,1)*1.06));
+  filter: invert(36%) sepia(26%) saturate(900%) hue-rotate(45deg) brightness(88%) contrast(95%);
+}
+
+/* =========================================================
+   Back-to-top
+   ========================================================= */
+#scrollTopBtn{
+  position:fixed; bottom:2rem; right:2rem; display:none;
+  background-color:var(--brand); color:#fff; border:none; border-radius:50%;
+  font-size:1.5rem; width:48px; height:48px; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  transition:background-color .3s ease, transform .3s ease;
+  z-index:999;
+}
+#scrollTopBtn:hover{ background-color:var(--brand-700); transform:scale(1.05); }
+@media (max-width:768px){ #scrollTopBtn{ width:40px; height:40px; font-size:1.3rem; bottom:1.5rem; right:1.5rem; } }
+
+/* =========================================================
+   Icons (mask utility) & Feature cards grid
+   ========================================================= */
+.icon{
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: inline-block;
+  background-color: var(--icon-color);
+  -webkit-mask: var(--icon-url) no-repeat center / contain;
+          mask: var(--icon-url) no-repeat center / contain;
+  flex: 0 0 var(--icon-size);
+}
+
+.feature-card{
+  background:#fff;
+  border-radius:18px;
+  padding:clamp(22px, 2.4vw, 32px);
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+  /* ново: центриране и равномерно „пълнене“ */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:clamp(240px, 34vh, 320px);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.feature-card p,
+.feature-card .feature-text{
+  margin:0;
+  width:100%;
+  max-width:none;      /* маха всякакви скрити ограничения */
+  line-height:1.7;
+}
+
+.feature-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 42px rgba(0,0,0,.12); }
+
+.feature-head{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 2vw, 14px);
+  margin: 0;
+}
+
+.feature-title{
+  margin: 0;
+  font-weight: 700;
+  color: var(--brand);
+  font-size: clamp(18px, 1.4vw + 10px, 22px);
+}
+.feature-text{ margin:0; color: rgba(19,48,25,.82); line-height:1.7; }
+
+.feature-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* широки карти, без тесни колонки */
+  gap: clamp(16px, 2.2vw, 24px);
+}
+
+/* Ако H2 е вътре в .feature-grid → да заеме цял ред и да е център */
+.feature-grid > h2{
+  grid-column: 1 / -1;
+  text-align: center;
+  margin: 0 0 clamp(28px, 3.6vw, 48px);
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-size: clamp(26px, 1.6vw + 20px, 40px);
+  text-wrap: balance;
+}
+
+.feature-grid > h2::after{
+  content: "";
+  display: block;
+  width: clamp(64px, 8vw, 120px);
+  height: 4px;
+  margin: clamp(10px, 1.4vw, 14px) auto 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(90,125,42,0) 0%,
+    var(--brand) 18%,
+    var(--brand-700) 82%,
+    rgba(90,125,42,0) 100%
+  );
+  box-shadow: 0 6px 14px rgba(90,125,42,.12);
+}
+
+@media (min-width: 1200px){
+  .feature-grid{
+    grid-template-columns: repeat(4, minmax(260px, 1fr)); /* заключваме 4 на ред */
+    max-width: 1140px;    /* подравнява оптично с горната секция */
+    margin-inline: auto;  /* центрира грида */
+  }
+}
+
+.feature-grid{ --icon-size: clamp(50px, 4.4vw, 78px); }
+.feature-grid.no-titles .feature-title{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* === Подходяща ли е вашата локация? (cards) === */
+.use-cases{ padding:40px 0; }
+.use-cases .container{ max-width:1200px; margin:0 auto; padding:0 20px; }
+.use-cases, .use-cases *{ box-sizing:border-box; }
+.use-cases{ text-align:left; }
+.use-cases .icon{ font-size:28px; }
+@media (min-width:900px){
+    .use-cases .icon{ font-size:30px; }
+}
+
+.cases-grid{
+    display:grid;
+    gap:20px;
+    grid-template-columns:1fr;                 /* мобилно: 1 колона */
+}
+
+/* tablet: 2; desktop: 3; широки екрани: 4 (за по-едри карти) */
+@media (min-width:600px){ .cases-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:900px){ .cases-grid{ grid-template-columns:repeat(3,1fr); } }
+@media (min-width:1200px){ .cases-grid{ grid-template-columns:repeat(4,1fr); } }
+
+.case{
+    background:#fff;
+    border:1px solid rgba(60,92,44,.14);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 10px 24px rgba(60,92,44,.08);
+    transition:transform .18s ease, box-shadow .18s ease;
+    display:flex; flex-direction:column; gap:10px; align-items:flex-start;
+    min-height:180px;
+}
+.case:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(60,92,44,.12); }
+
+.use-cases .icon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:56px; height:56px; border-radius:14px;
+    background:#f4efe6; color:#3c5c2c;
+}
+
+.icon .ico-svg{ width:28px; height:28px; display:block; fill:#3c5c2c; }
+
+.case h3{ margin:6px 0 6px; font-size:20px; color:#3c5c2c; line-height:1.25; }
+@media (min-width:900px){ .case h3{ font-size:21px; } }
+
+.bullets{ margin:0; padding:0; list-style:none; }
+.bullets li{
+    position:relative; padding-left:16px; margin:6px 0;
+    color:#0c1f17; font-size:16px; line-height:1.5;
+}
+.bullets li::before{ content:"•"; position:absolute; left:0; top:0; color:#3c5c2c; font-size:18px; line-height:1; }
+
+.footnote{ margin:18px 0 0; text-align:center; font-size:13px; color:#6c7a73; }}
+
+/* =========================================================
+   Header & Navigation (Frosted at top, beige on scroll)
+   ========================================================= */
+#site-header{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:10px 18px;
+  background: transparent;
+  transition: box-shadow .2s ease;
+}
+
+/* Blur layer lives INSIDE the bar and behind content */
+#site-header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  /* slight veil to trigger backdrop-filter in Safari/Chrome */
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  /* top->bottom fade so edge to hero is soft */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,.85) 45%,
+    rgba(0,0,0,.35) 75%,
+    rgba(0,0,0,0) 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,.85) 45%,
+    rgba(0,0,0,.35) 75%,
+    rgba(0,0,0,0) 100%
+  );
+  transition: background .25s ease, opacity .25s ease,
+              backdrop-filter .25s ease, -webkit-backdrop-filter .25s ease;
+}
+
+#site-header > *{ position:relative; z-index:1; }
+
+#site-header.is-scrolled{
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+#site-header.is-scrolled::before{
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  -webkit-mask-image: none;
+          mask-image: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(253,246,217,0.95) 0%,
+    rgba(253,246,217,0.90) 60%,
+    rgba(253,246,217,0.86) 100%
+  );
+  opacity: 1;
+}
+
+/* Desktop menu */
 .desktop-menu{ display:flex; align-items:center; gap: clamp(12px,1.6vw,24px); margin-left:auto; }
 .desktop-menu a{
   position:relative;
