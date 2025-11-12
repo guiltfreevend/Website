@@ -474,6 +474,22 @@ body{
   }
 }
 
+/* Mobile LANDSCAPE: buttons side by side */
+@media (max-width: 1024px) and (min-aspect-ratio: 1/1) {
+  .hero-cta-wrap {
+    flex-direction: row !important; /* Side by side in landscape */
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 25vh; /* Adjust as needed for landscape */
+  }
+  
+  .hero .cta-pill,
+  .hero .cta-ghost {
+    min-width: 160px;
+    max-width: 200px;
+  }
+}
+
 /* When using hamburger (mobile/tablet): hide header bar completely, hero fills screen */
 @media (max-width:1024px), (max-aspect-ratio: 1/1){
   #site-header{ display:none !important; }
