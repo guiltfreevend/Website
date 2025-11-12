@@ -448,24 +448,24 @@ body{
   .hero .cta-pill{ margin:0 !important; }
 
    /* === CHANGE 3: Smaller buttons & mobile-friendly ghost button === */
-  .hero .cta-pill,
-  .hero .cta-ghost {
-    white-space: nowrap;   /* <-- PREVENT TEXT WRAP */
-    padding: 12px 28px;   /* <-- WIDER PADDING, LESS TALL */
-    font-size: 0.9rem;    /* <-- Slightly larger font */
-    font-weight: 700;
-    /* min-width: 160px; */ /* <-- REMOVED, nowrap handles width */
-    text-align: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,.15); /* <-- Lighter shadow */
-  }
+   .hero .cta-pill,
+   .hero .cta-ghost {
+    white-space: nowrap;
+    padding: 10px 32px !important;
+    font-size: 0.85rem !important;
+    font-weight: 700;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,.15);
+  }
 
-  .hero .cta-ghost {
-    color: var(--brand-700) !important; /* <-- DARK GREEN TEXT */
-    border-color: rgba(60, 92, 44, 0.7) !important; /* <-- DARKER BORDER */
-    background: rgba(255, 255, 255, 0.2) !important; /* <-- Faint white background */
-    -webkit-backdrop-filter: blur(1px);
-            backdrop-filter: blur(1px);
-  }
+   .hero .cta-ghost {
+    color: var(--brand-700) !important;
+    border: 1.5px solid rgba(60, 92, 44, 0.7) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+  }
 
   .hero .cta-ghost:hover {
     background: rgba(255, 255, 255, 0.4) !important; /* <-- Brighter white hover */
