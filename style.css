@@ -436,10 +436,11 @@ body{
     justify-content: center !important;
     gap: 0.8rem !important;
     width: 100% !important;
-    margin-top: 35vh !important;
+    margin-top: 30vh !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding-inline: 1rem !important;
+    padding-left: 3rem !important;  /* <-- This pushes the buttons RIGHT */
+    padding-right: 1rem !important; /* <-- This keeps the right-side gap */
   }
   .hero .cta-pill{ margin:0 !important; }
 
