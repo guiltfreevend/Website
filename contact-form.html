@@ -2,412 +2,340 @@
 
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Заяви машина – GuiltFreeVend</title>
-    <meta name="description" content="Заявете безплатна био вендинг машина за вашата локация. Без разходи, без ангажименти.">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" href="favicon.ico" sizes="any">
-
-```
-<!-- Google tag (gtag.js) – GuiltFreeVend -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Заяви машина – GuiltFreeVend</title>
+<meta name="description" content="Заявете безплатна био вендинг машина за вашата локация. Без разходи, без ангажименти.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="favicon.ico" sizes="any">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6X0Z7FYFD"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H6X0Z7FYFD', {
-        anonymize_ip: true,
-        transport_type: 'beacon'
-    });
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H6X0Z7FYFD', {
+anonymize_ip: true,
+transport_type: 'beacon'
+});
 </script>
-
 <style>
-    :root {
-        --primary-green: #446c34;
-        --dark-green: #2d4a22;
-        --accent-green: #6DAA24;
-        --light-green: #a8c088;
-        --bg-main: #f5f3e8;
-        --bg-card: #faf9f2;
-        --text-dark: #1f3318;
-        --text-mid: #4a5d42;
-        --gradient-start: #6DAA24;
-        --gradient-end: #446c34;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html, body {
-        height: 100%;
-    }
-
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: var(--bg-main);
-        color: var(--text-dark);
-        display: flex;
-        flex-direction: column;
-        line-height: 1.6;
-    }
-
-    main {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.25rem 1.5rem;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 680px;
-    }
-
-    .logo-container {
-        text-align: center;
-        margin-bottom: 0;
-    }
-
-    .logo {
-        height: clamp(200px, 36vw, 320px);
-        width: auto;
-        display: inline-block;
-    }
-
-    .form-wrapper {
-        background: var(--bg-card);
-        border-radius: 24px;
-        padding: clamp(2rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
-        box-shadow: 0 10px 40px rgba(68,108,52,.1);
-        border: 1px solid rgba(109,170,36,.15);
-        margin-top: -3rem;
-    }
-
-    .form-header {
-        text-align: center;
-        margin-bottom: 1.5rem;
-    }
-
-    .form-title {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        color: var(--primary-green);
-        font-weight: 800;
-        margin-bottom: 0.75rem;
-        line-height: 1.2;
-    }
-
-    .title-accent {
-        width: clamp(80px, 12vw, 140px);
-        height: 4px;
-        margin: 0 auto 1rem;
-        border-radius: 999px;
-        background: linear-gradient(
-            90deg,
-            rgba(109,170,36,0) 0%,
-            var(--gradient-start) 20%,
-            var(--gradient-end) 80%,
-            rgba(68,108,52,0) 100%
-        );
-        box-shadow: 0 2px 8px rgba(109,170,36,.2);
-    }
-
-    .form-subtitle {
-        font-size: clamp(1rem, 2vw, 1.15rem);
-        color: var(--text-mid);
-        line-height: 1.6;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-    }
-
-    @media (min-width: 600px) {
-        .form-row.two-col {
-            grid-template-columns: 1fr 1fr;
-        }
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    label {
-        font-weight: 600;
-        font-size: 0.95rem;
-        color: var(--primary-green);
-    }
-
-    input, textarea {
-        padding: 0.9rem 1.1rem;
-        border: 2px solid rgba(109,170,36,.25);
-        border-radius: 12px;
-        font-size: 1rem;
-        font-family: inherit;
-        background: white;
-        color: var(--text-dark);
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    input:focus, textarea:focus {
-        outline: none;
-        border-color: var(--accent-green);
-        box-shadow: 0 0 0 3px rgba(109,170,36,.12);
-    }
-
-    textarea {
-        min-height: 140px;
-        resize: vertical;
-    }
-
-    .consent-group {
-        display: grid;
-        grid-template-columns: 1.5em 1fr;
-        gap: 0.75rem;
-        align-items: start;
-        margin-top: 0.5rem;
-    }
-
-    .consent-group input[type="checkbox"] {
-        width: 1.5em;
-        height: 1.5em;
-        margin-top: 0.15rem;
-        cursor: pointer;
-        accent-color: var(--primary-green);
-    }
-
-    .consent-group label {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: var(--text-dark);
-        font-weight: 400;
-    }
-
-    .consent-group a {
-        color: var(--primary-green);
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-    }
-
-    .consent-group a:hover {
-        color: var(--dark-green);
-    }
-
-    .required {
-        color: #b00;
-        margin-left: 0.2rem;
-    }
-
-    @keyframes gradientMove {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    .submit-btn {
-        padding: 1rem 2rem;
-        background: linear-gradient(
-            -45deg, 
-            var(--gradient-start) 0%, 
-            var(--accent-green) 25%,
-            var(--gradient-end) 50%,
-            var(--gradient-start) 75%,
-            var(--accent-green) 100%
-        );
-        background-size: 300% 300%;
-        animation: gradientMove 4s ease infinite;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 6px 20px rgba(109,170,36,.35);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        margin-top: 0.5rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .submit-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,0.3),
-            transparent
-        );
-        transition: left 0.5s ease;
-    }
-
-    .submit-btn:hover::before {
-        left: 100%;
-    }
-
-    .submit-btn:hover {
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 8px 28px rgba(109,170,36,.45);
-    }
-
-    .submit-btn:active {
-        transform: translateY(0) scale(0.98);
-    }
-
-    footer {
-        padding: 1.5rem 2rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-        background: rgba(168,192,136,.06);
-        border-top: 1px solid rgba(109,170,36,.08);
-    }
-
-    .footer-text {
-        font-size: 0.9rem;
-        color: var(--text-mid);
-        order: 2;
-    }
-
-    .home-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.65rem 1.3rem;
-        background: linear-gradient(135deg, rgba(168,192,136,0.3) 0%, rgba(109,170,36,0.25) 100%);
-        color: var(--primary-green);
-        text-decoration: none;
-        border-radius: 999px;
-        font-weight: 700;
-        font-size: 0.9rem;
-        border: 1.5px solid rgba(109,170,36,0.35);
-        box-shadow: 0 2px 8px rgba(68,108,52,.12);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        order: 1;
-    }
-
-    .home-btn:hover {
-        background: linear-gradient(135deg, rgba(168,192,136,0.45) 0%, rgba(109,170,36,0.35) 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(68,108,52,.18);
-    }
-
-    @media (max-width: 600px) {
-        main {
-            padding: 0.25rem 1rem;
-        }
-
-        .form-wrapper {
-            padding: 2rem 1.5rem;
-            margin-top: -2.5rem;
-        }
-
-        footer {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .footer-text {
-            order: 2;
-        }
-
-        .home-btn {
-            order: 1;
-            width: 100%;
-            justify-content: center;
-        }
-    }
-
-    @media (min-width: 768px) {
-        footer {
-            padding: 2rem 3rem 2.5rem;
-        }
-    }
+:root {
+--primary-green: #446c34;
+--dark-green: #2d4a22;
+--accent-green: #6DAA24;
+--light-green: #a8c088;
+--bg-main: #f5f3e8;
+--bg-card: #faf9f2;
+--text-dark: #1f3318;
+--text-mid: #4a5d42;
+--gradient-start: #6DAA24;
+--gradient-end: #446c34;
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+html, body {
+height: 100%;
+}
+body {
+font-family: 'Segoe UI', sans-serif;
+background: var(--bg-main);
+color: var(--text-dark);
+display: flex;
+flex-direction: column;
+line-height: 1.6;
+}
+main {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 0.1rem 1.5rem;
+}
+.container {
+width: 100%;
+max-width: 680px;
+}
+.logo-container {
+text-align: center;
+margin-bottom: 0;
+}
+.logo {
+height: clamp(200px, 36vw, 320px);
+width: auto;
+display: inline-block;
+}
+.form-wrapper {
+background: var(--bg-card);
+border-radius: 24px;
+padding: clamp(2rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
+box-shadow: 0 10px 40px rgba(68,108,52,.1);
+border: 1px solid rgba(109,170,36,.15);
+margin-top: -3.5rem;
+}
+.form-header {
+text-align: center;
+margin-bottom: 1.5rem;
+}
+.form-title {
+font-size: clamp(1.8rem, 4vw, 2.5rem);
+color: var(--primary-green);
+font-weight: 800;
+margin-bottom: 0.75rem;
+line-height: 1.2;
+}
+.title-accent {
+width: clamp(80px, 12vw, 140px);
+height: 4px;
+margin: 0 auto 1rem;
+border-radius: 999px;
+background: linear-gradient(90deg, rgba(109,170,36,0) 0%, var(--gradient-start) 20%, var(--gradient-end) 80%, rgba(68,108,52,0) 100%);
+box-shadow: 0 2px 8px rgba(109,170,36,.2);
+}
+.form-subtitle {
+font-size: clamp(1rem, 2vw, 1.15rem);
+color: var(--text-mid);
+line-height: 1.6;
+}
+form {
+display: flex;
+flex-direction: column;
+gap: 1.25rem;
+}
+.form-row {
+display: grid;
+grid-template-columns: 1fr;
+gap: 1.25rem;
+}
+@media (min-width: 600px) {
+.form-row.two-col {
+grid-template-columns: 1fr 1fr;
+}
+}
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+label {
+font-weight: 600;
+font-size: 0.95rem;
+color: var(--primary-green);
+}
+input, textarea {
+padding: 0.9rem 1.1rem;
+border: 2px solid rgba(109,170,36,.25);
+border-radius: 12px;
+font-size: 1rem;
+font-family: inherit;
+background: white;
+color: var(--text-dark);
+transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input:focus, textarea:focus {
+outline: none;
+border-color: var(--accent-green);
+box-shadow: 0 0 0 3px rgba(109,170,36,.12);
+}
+textarea {
+min-height: 140px;
+resize: vertical;
+}
+.consent-group {
+display: grid;
+grid-template-columns: 1.5em 1fr;
+gap: 0.75rem;
+align-items: start;
+margin-top: 0.5rem;
+}
+.consent-group input[type="checkbox"] {
+width: 1.5em;
+height: 1.5em;
+margin-top: 0.15rem;
+cursor: pointer;
+accent-color: var(--primary-green);
+}
+.consent-group label {
+font-size: 0.9rem;
+line-height: 1.5;
+color: var(--text-dark);
+font-weight: 400;
+}
+.consent-group a {
+color: var(--primary-green);
+text-decoration: underline;
+text-underline-offset: 0.2em;
+}
+.consent-group a:hover {
+color: var(--dark-green);
+}
+.required {
+color: #b00;
+margin-left: 0.2rem;
+}
+@keyframes gradientMove {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+.submit-btn {
+padding: 1rem 2rem;
+background: linear-gradient(-45deg, var(--gradient-start) 0%, var(--accent-green) 25%, var(--gradient-end) 50%, var(--gradient-start) 75%, var(--accent-green) 100%);
+background-size: 300% 300%;
+animation: gradientMove 4s ease infinite;
+color: white;
+border: none;
+border-radius: 12px;
+font-size: 1.1rem;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 6px 20px rgba(109,170,36,.35);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+margin-top: 0.5rem;
+position: relative;
+overflow: hidden;
+}
+.submit-btn::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+transition: left 0.5s ease;
+}
+.submit-btn:hover::before {
+left: 100%;
+}
+.submit-btn:hover {
+transform: translateY(-2px) scale(1.02);
+box-shadow: 0 8px 28px rgba(109,170,36,.45);
+}
+.submit-btn:active {
+transform: translateY(0) scale(0.98);
+}
+footer {
+padding: 1.5rem 2rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+background: rgba(168,192,136,.06);
+border-top: 1px solid rgba(109,170,36,.08);
+}
+.footer-text {
+font-size: 0.9rem;
+color: var(--text-mid);
+order: 2;
+}
+.home-btn {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.65rem 1.3rem;
+background: linear-gradient(135deg, rgba(168,192,136,0.3) 0%, rgba(109,170,36,0.25) 100%);
+color: var(--primary-green);
+text-decoration: none;
+border-radius: 999px;
+font-weight: 700;
+font-size: 0.9rem;
+border: 1.5px solid rgba(109,170,36,0.35);
+box-shadow: 0 2px 8px rgba(68,108,52,.12);
+transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+order: 1;
+}
+.home-btn:hover {
+background: linear-gradient(135deg, rgba(168,192,136,0.45) 0%, rgba(109,170,36,0.35) 100%);
+transform: translateY(-1px);
+box-shadow: 0 4px 12px rgba(68,108,52,.18);
+}
+@media (max-width: 600px) {
+main {
+padding: 0.1rem 1rem;
+}
+.form-wrapper {
+padding: 2rem 1.5rem;
+margin-top: -3rem;
+}
+footer {
+flex-direction: column;
+text-align: center;
+}
+.footer-text {
+order: 2;
+}
+.home-btn {
+order: 1;
+width: 100%;
+justify-content: center;
+}
+}
+@media (min-width: 768px) {
+footer {
+padding: 2rem 3rem 2.5rem;
+}
+}
 </style>
-```
-
 </head>
 <body>
-    <main>
-        <div class="container">
-            <div class="logo-container">
-                <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" onerror="this.onerror=null; this.src='logotransperant.png';">
-            </div>
-            <div class="form-wrapper">
-                <div class="form-header">
-                    <h1 class="form-title">Заяви машина</h1>
-                    <div class="title-accent" aria-hidden="true"></div>
-                    <p class="form-subtitle">Попълнете формата и ще се свържем с вас в рамките на 24 часа</p>
-                </div>
-                <form action="https://formspree.io/f/xzzvgzjj" method="POST">
-                    <div class="form-row two-col">
-                        <div class="form-group">
-                            <label for="name">Вашето име <span class="required">*</span></label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Фирма</label>
-                            <input type="text" id="company" name="company">
-                        </div>
-                    </div>
-                    <div class="form-row two-col">
-                        <div class="form-group">
-                            <label for="email">Имейл <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Телефон</label>
-                            <input type="tel" id="phone" name="phone">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Вашето съобщение <span class="required">*</span></label>
-                        <textarea id="message" name="message" required placeholder="Разкажете ни за вашата локация..."></textarea>
-                    </div>
-                    <div class="consent-group">
-                        <input type="checkbox" id="gdpr-checkbox" required>
-                        <label for="gdpr-checkbox">
-                            Изпращайки тази форма, вие се съгласявате с нашата
-                            <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>
-                            <span class="required">*</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="submit-btn">Изпрати заявка</button>
-                </form>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <a href="/" class="home-btn">
-            <span>← Към сайта</span>
-        </a>
-        <p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
-    </footer>
+<main>
+<div class="container">
+<div class="logo-container">
+<img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" onerror="this.onerror=null; this.src='logotransperant.png';">
+</div>
+<div class="form-wrapper">
+<div class="form-header">
+<h1 class="form-title">Заяви машина</h1>
+<div class="title-accent" aria-hidden="true"></div>
+<p class="form-subtitle">Попълнете формата и ще се свържем с вас в рамките на 24 часа</p>
+</div>
+<form action="https://formspree.io/f/xzzvgzjj" method="POST">
+<div class="form-row two-col">
+<div class="form-group">
+<label for="name">Вашето име <span class="required">*</span></label>
+<input type="text" id="name" name="name" required>
+</div>
+<div class="form-group">
+<label for="company">Фирма</label>
+<input type="text" id="company" name="company">
+</div>
+</div>
+<div class="form-row two-col">
+<div class="form-group">
+<label for="email">Имейл <span class="required">*</span></label>
+<input type="email" id="email" name="email" required>
+</div>
+<div class="form-group">
+<label for="phone">Телефон</label>
+<input type="tel" id="phone" name="phone">
+</div>
+</div>
+<div class="form-group">
+<label for="message">Вашето съобщение <span class="required">*</span></label>
+<textarea id="message" name="message" required placeholder="Разкажете ни за вашата локация..."></textarea>
+</div>
+<div class="consent-group">
+<input type="checkbox" id="gdpr-checkbox" required>
+<label for="gdpr-checkbox">
+Изпращайки тази форма, вие се съгласявате с нашата
+<a href="privacy.html" target="_blank">Политика за защита на личните данни</a>
+<span class="required">*</span>
+</label>
+</div>
+<button type="submit" class="submit-btn">Изпрати заявка</button>
+</form>
+</div>
+</div>
+</main>
+<footer>
+<a href="/" class="home-btn">
+<span>← Към сайта</span>
+</a>
+<p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
+</footer>
 </body>
 </html>
