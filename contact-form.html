@@ -87,7 +87,7 @@
         }
 
         .logo {
-            height: clamp(120px, 16vw, 180px);
+            height: clamp(140px, 20vw, 220px);
             width: auto;
             display: inline-block;
         }
@@ -338,16 +338,16 @@
             }
 
             footer {
-                flex-direction: column-reverse; /* This puts button ABOVE text */
+                flex-direction: column;
                 text-align: center;
             }
 
             .footer-text {
-                order: 2; /* Text goes to bottom */
+                order: 2; /* Text goes SECOND (bottom) */
             }
 
             .home-btn {
-                order: 1; /* Button goes to top */
+                order: 1; /* Button goes FIRST (top) */
                 width: 100%;
                 justify-content: center;
             }
