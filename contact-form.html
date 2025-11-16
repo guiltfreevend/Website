@@ -58,20 +58,34 @@
             line-height: 1.6;
         }
 
-        /* Header */
+        /* Modern Header with soft separation */
         .header {
-            background: linear-gradient(
-                to bottom,
-                rgba(245,243,232,0.98) 0%,
-                rgba(245,243,232,0.95) 100%
-            );
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 0.2rem 2rem;
-            box-shadow: 0 2px 12px rgba(68,108,52,.08);
             position: sticky;
             top: 0;
             z-index: 100;
+            background: rgba(250, 249, 242, 0.88);
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(168, 192, 136, 0.18);
+            transition: all 0.3s ease;
+        }
+        
+        /* Soft gradient accent line at bottom */
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(109, 170, 36, 0.15) 20%,
+                rgba(109, 170, 36, 0.15) 80%,
+                transparent 100%
+            );
         }
 
         .header-inner {
@@ -84,7 +98,7 @@
         }
 
         .logo {
-            height: 150px;
+            height: 72px;
             width: auto;
             display: block;
         }
@@ -343,11 +357,11 @@
         /* Responsive adjustments */
         @media (max-width: 480px) {
             .header {
-                padding: 0.2rem 1.5rem;
+                padding: 0.75rem 1.5rem;
             }
 
             .logo {
-                height: 120px;
+                height: 60px;
             }
 
             .home-btn {
@@ -365,14 +379,22 @@
         }
 
         @media (min-width: 768px) {
+            .header {
+                padding: 1.1rem 2rem;
+            }
+            
             .logo {
-                height: 96px;
+                height: 80px;
             }
         }
 
         @media (min-width: 1024px) {
+            .header {
+                padding: 1.2rem 2rem;
+            }
+            
             .logo {
-                height: 110px;
+                height: 90px;
             }
         }
     </style>
