@@ -58,80 +58,13 @@
             line-height: 1.6;
         }
 
-        /* Modern Header with soft separation */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 249, 242, 0.88);
-            backdrop-filter: blur(16px) saturate(120%);
-            -webkit-backdrop-filter: blur(16px) saturate(120%);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(168, 192, 136, 0.18);
-            transition: all 0.3s ease;
-        }
-        
-        /* Soft gradient accent line at bottom */
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(109, 170, 36, 0.15) 20%,
-                rgba(109, 170, 36, 0.15) 80%,
-                transparent 100%
-            );
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .logo {
-            height: 72px;
-            width: auto;
-            display: block;
-        }
-
-        .home-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.7rem 1.4rem;
-            background: linear-gradient(135deg, rgba(168,192,136,0.3) 0%, rgba(109,170,36,0.25) 100%);
-            color: var(--primary-green);
-            text-decoration: none;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            border: 1.5px solid rgba(109,170,36,0.35);
-            box-shadow: 0 2px 8px rgba(68,108,52,.12);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        .home-btn:hover {
-            background: linear-gradient(135deg, rgba(168,192,136,0.45) 0%, rgba(109,170,36,0.35) 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(68,108,52,.18);
-        }
-
         /* Main Content */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3rem 1.5rem;
+            padding: 2.5rem 1.5rem;
         }
 
         .container {
@@ -142,9 +75,21 @@
         .form-wrapper {
             background: var(--bg-card);
             border-radius: 24px;
-            padding: clamp(2rem, 5vw, 3.5rem);
+            padding: clamp(2.5rem, 5vw, 4rem);
             box-shadow: 0 10px 40px rgba(68,108,52,.1);
             border: 1px solid rgba(109,170,36,.15);
+        }
+
+        /* Logo inside card */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: clamp(80px, 12vw, 120px);
+            width: auto;
+            display: inline-block;
         }
 
         .form-header {
@@ -341,81 +286,91 @@
             transform: translateY(0) scale(0.98);
         }
 
-        /* Footer */
+        /* Footer with back button */
         footer {
-            padding: 2rem 1.5rem;
-            text-align: center;
-            background: rgba(168,192,136,.08);
-            border-top: 1px solid rgba(109,170,36,.1);
+            padding: 1.5rem 2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(168,192,136,.06);
+            border-top: 1px solid rgba(109,170,36,.08);
         }
 
-        footer p {
+        .footer-text {
             font-size: 0.9rem;
             color: var(--text-mid);
+            order: 2;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.3rem;
+            background: linear-gradient(135deg, rgba(168,192,136,0.3) 0%, rgba(109,170,36,0.25) 100%);
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1.5px solid rgba(109,170,36,0.35);
+            box-shadow: 0 2px 8px rgba(68,108,52,.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            order: 1;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(135deg, rgba(168,192,136,0.45) 0%, rgba(109,170,36,0.35) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(68,108,52,.18);
         }
 
         /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .header {
-                padding: 0.75rem 1.5rem;
-            }
-
-            .logo {
-                height: 60px;
-            }
-
-            .home-btn {
-                padding: 0.6rem 1.1rem;
-                font-size: 0.9rem;
-            }
-
+        @media (max-width: 600px) {
             main {
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
             }
 
             .form-wrapper {
-                padding: 1.5rem;
+                padding: 2rem 1.5rem;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-text {
+                order: 1;
+            }
+
+            .home-btn {
+                order: 2;
+                width: 100%;
+                justify-content: center;
             }
         }
 
         @media (min-width: 768px) {
-            .header {
-                padding: 1.1rem 2rem;
-            }
-            
-            .logo {
-                height: 80px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .header {
-                padding: 1.2rem 2rem;
-            }
-            
-            .logo {
-                height: 90px;
+            footer {
+                padding: 2rem 3rem 2.5rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <a href="/">
-                <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" 
-                     onerror="this.onerror=null; this.src='logotransperant.png';">
-            </a>
-            <a href="/" class="home-btn">
-                <span>← Към сайта</span>
-            </a>
-        </div>
-    </header>
-
     <main>
         <div class="container">
             <div class="form-wrapper">
+                <!-- Logo at top of card -->
+                <div class="logo-container">
+                    <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" 
+                         onerror="this.onerror=null; this.src='logotransperant.png';">
+                </div>
+
                 <div class="form-header">
                     <h1 class="form-title">Заяви машина</h1>
                     <div class="title-accent" aria-hidden="true"></div>
@@ -470,7 +425,10 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
+        <a href="/" class="home-btn">
+            <span>← Към сайта</span>
+        </a>
+        <p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
     </footer>
 </body>
 </html>
