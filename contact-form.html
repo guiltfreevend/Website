@@ -72,24 +72,24 @@
             max-width: 680px;
         }
 
+        /* Logo OUTSIDE card - centered above */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: clamp(100px, 18vw, 160px);
+            width: auto;
+            display: inline-block;
+        }
+
         .form-wrapper {
             background: var(--bg-card);
             border-radius: 24px;
             padding: clamp(2rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
             box-shadow: 0 10px 40px rgba(68,108,52,.1);
             border: 1px solid rgba(109,170,36,.15);
-        }
-
-        /* Logo inside card */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .logo {
-            height: clamp(140px, 20vw, 220px);
-            width: auto;
-            display: inline-block;
         }
 
         .form-header {
@@ -364,13 +364,13 @@
 <body>
     <main>
         <div class="container">
-            <div class="form-wrapper">
-                <!-- Logo at top of card -->
-                <div class="logo-container">
-                    <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" 
-                         onerror="this.onerror=null; this.src='logotransperant.png';">
-                </div>
+            <!-- Logo OUTSIDE card - centered above -->
+            <div class="logo-container">
+                <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" 
+                     onerror="this.onerror=null; this.src='logotransperant.png';">
+            </div>
 
+            <div class="form-wrapper">
                 <div class="form-header">
                     <h1 class="form-title">Заяви машина</h1>
                     <div class="title-accent" aria-hidden="true"></div>
