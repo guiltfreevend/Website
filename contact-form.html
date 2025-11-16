@@ -24,19 +24,14 @@
 
 <style>
     :root {
-        /* Fresh, natural green-beige palette matching the new hero */
         --primary-green: #446c34;
         --dark-green: #2d4a22;
         --accent-green: #6DAA24;
         --light-green: #a8c088;
-        
-        /* Beige/neutral tones - less yellow, more natural */
         --bg-main: #f5f3e8;
         --bg-card: #faf9f2;
         --text-dark: #1f3318;
         --text-mid: #4a5d42;
-        
-        /* Gradient colors */
         --gradient-start: #6DAA24;
         --gradient-end: #446c34;
     }
@@ -60,13 +55,12 @@
         line-height: 1.6;
     }
 
-    /* Main Content */
     main {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0.5rem 1.5rem;
+        padding: 0.25rem 1.5rem;
     }
 
     .container {
@@ -74,10 +68,9 @@
         max-width: 680px;
     }
 
-    /* Logo OUTSIDE card - centered above */
     .logo-container {
         text-align: center;
-        margin-bottom: 0; /* No space below logo */
+        margin-bottom: 0;
     }
 
     .logo {
@@ -92,7 +85,7 @@
         padding: clamp(2rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
         box-shadow: 0 10px 40px rgba(68,108,52,.1);
         border: 1px solid rgba(109,170,36,.15);
-        margin-top: -2rem; /* PULLS CARD UP - eliminates gap! */
+        margin-top: -3rem;
     }
 
     .form-header {
@@ -108,7 +101,6 @@
         line-height: 1.2;
     }
 
-    /* Gradient accent line under title */
     .title-accent {
         width: clamp(80px, 12vw, 140px);
         height: 4px;
@@ -130,7 +122,6 @@
         line-height: 1.6;
     }
 
-    /* Form Styles */
     form {
         display: flex;
         flex-direction: column;
@@ -183,7 +174,6 @@
         resize: vertical;
     }
 
-    /* Consent checkbox */
     .consent-group {
         display: grid;
         grid-template-columns: 1.5em 1fr;
@@ -222,7 +212,6 @@
         margin-left: 0.2rem;
     }
 
-    /* Submit Button with animated gradient */
     @keyframes gradientMove {
         0% {
             background-position: 0% 50%;
@@ -289,7 +278,6 @@
         transform: translateY(0) scale(0.98);
     }
 
-    /* Footer with back button */
     footer {
         padding: 1.5rem 2rem 2rem;
         display: flex;
@@ -330,15 +318,14 @@
         box-shadow: 0 4px 12px rgba(68,108,52,.18);
     }
 
-    /* Responsive adjustments */
     @media (max-width: 600px) {
         main {
-            padding: 0.5rem 1rem;
+            padding: 0.25rem 1rem;
         }
 
         .form-wrapper {
             padding: 2rem 1.5rem;
-            margin-top: -1.5rem; /* Less aggressive pull on mobile */
+            margin-top: -2.5rem;
         }
 
         footer {
@@ -347,11 +334,11 @@
         }
 
         .footer-text {
-            order: 2; /* Text goes SECOND (bottom) */
+            order: 2;
         }
 
         .home-btn {
-            order: 1; /* Button goes FIRST (top) */
+            order: 1;
             width: 100%;
             justify-content: center;
         }
@@ -366,78 +353,61 @@
 ```
 
 </head>
-
 <body>
     <main>
         <div class="container">
-            <!-- Logo OUTSIDE card - centered above -->
             <div class="logo-container">
-                <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" 
-                     onerror="this.onerror=null; this.src='logotransperant.png';">
+                <img class="logo" src="logotransperant.svg" alt="GuiltFreeVend" onerror="this.onerror=null; this.src='logotransperant.png';">
             </div>
-
-```
-        <div class="form-wrapper">
-            <div class="form-header">
-                <h1 class="form-title">Заяви машина</h1>
-                <div class="title-accent" aria-hidden="true"></div>
-                <p class="form-subtitle">
-                    Попълнете формата и ще се свържем с вас в рамките на 24 часа
-                </p>
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h1 class="form-title">Заяви машина</h1>
+                    <div class="title-accent" aria-hidden="true"></div>
+                    <p class="form-subtitle">Попълнете формата и ще се свържем с вас в рамките на 24 часа</p>
+                </div>
+                <form action="https://formspree.io/f/xzzvgzjj" method="POST">
+                    <div class="form-row two-col">
+                        <div class="form-group">
+                            <label for="name">Вашето име <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Фирма</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                    </div>
+                    <div class="form-row two-col">
+                        <div class="form-group">
+                            <label for="email">Имейл <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Вашето съобщение <span class="required">*</span></label>
+                        <textarea id="message" name="message" required placeholder="Разкажете ни за вашата локация..."></textarea>
+                    </div>
+                    <div class="consent-group">
+                        <input type="checkbox" id="gdpr-checkbox" required>
+                        <label for="gdpr-checkbox">
+                            Изпращайки тази форма, вие се съгласявате с нашата
+                            <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>
+                            <span class="required">*</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">Изпрати заявка</button>
+                </form>
             </div>
-
-            <form action="https://formspree.io/f/xzzvgzjj" method="POST">
-                <div class="form-row two-col">
-                    <div class="form-group">
-                        <label for="name">Вашето име <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="company">Фирма</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-                </div>
-
-                <div class="form-row two-col">
-                    <div class="form-group">
-                        <label for="email">Имейл <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Телефон</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Вашето съобщение <span class="required">*</span></label>
-                    <textarea id="message" name="message" required placeholder="Разкажете ни за вашата локация..."></textarea>
-                </div>
-
-                <div class="consent-group">
-                    <input type="checkbox" id="gdpr-checkbox" required>
-                    <label for="gdpr-checkbox">
-                        Изпращайки тази форма, вие се съгласявате с нашата
-                        <a href="privacy.html" target="_blank">Политика за защита на личните данни</a>
-                        <span class="required">*</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="submit-btn">Изпрати заявка</button>
-            </form>
         </div>
-    </div>
-</main>
-
-<footer>
-    <a href="/" class="home-btn">
-        <span>← Към сайта</span>
-    </a>
-    <p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
-</footer>
-```
-
+    </main>
+    <footer>
+        <a href="/" class="home-btn">
+            <span>← Към сайта</span>
+        </a>
+        <p class="footer-text">&copy; 2025 GuiltFreeVend Ltd. Всички права запазени.</p>
+    </footer>
 </body>
 </html>
